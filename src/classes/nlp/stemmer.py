@@ -33,6 +33,12 @@ class Stemmer():
         
         self.step5b_suffixes = [('l','')]
     
+    def stem_words(self, tokens):
+        stem_sentence = []
+        for word in tokens:
+            stem_sentence.append(self.stem_word(word))
+        return stem_sentence
+    
     def stem_word(self, word):
         stem = self.step_1(word)
         stem = self.step_2(stem)
@@ -74,21 +80,22 @@ class Stemmer():
     
     #stem contains a vowel.
     def contains_vowel(self, word):
-        for letter in word:
-            if letter in self.vowels:
-                return True
-        return False
+        if(len(word) > 1):
+            for letter in word[1:-1]:
+                if letter in self.vowels:
+                    return True
+            return False
 
     #stem ends with a double consonant of any type.
     def end_with_double_consonant(self, word):
-        if word[-1] in self.consonants and word[-2] in self.consonants:
+        if len(word) >= 2 and word[-1] in self.consonants and word[-2] in self.consonants:
             return True
         return False
     
     #stem ends with cvc (consonant followed by vowel followed by consonant) 
     #where second consonant is not W, X or Y (see, weird y again!)
     def end_with_cvc(self, word):
-        if (word[-3] in self.consonants) and (word[-2] in self.vowels) and (word[-1] in self.consonants) and (word[-1] not in "wxy"):
+        if (len(word) >= 3 and word[-3] in self.consonants) and (word[-2] in self.vowels) and (word[-1] in self.consonants) and (word[-1] not in "wxy"):
             return True
         else:
             return False
@@ -108,17 +115,15 @@ class Stemmer():
         return word
     
     def step_1_b(self, word):
-        
-        if(self.determine_m(word) > 0 and word.endswith(self.step1b_suffixes[0][0])):
-            return self.step_1_2b(word[:-len(self.step1b_suffixes[0][0])] + self.step1b_suffixes[0][1])
-             
-        if(self.contains_vowel(word)):
+
+        if(word.endswith(self.step1b_suffixes[0][0]) and self.determine_m(word[:-len(self.step1b_suffixes[0][0])]) > 0):
+            return word[:-len(self.step1b_suffixes[0][0])] + self.step1b_suffixes[0][1]
             
-            if word.endswith(self.step1b_suffixes[1][0]):
-                 return self.step_1_2b(word[:-len(self.step1b_suffixes[1][0])] + self.step1b_suffixes[1][1])
+        if (word.endswith(self.step1b_suffixes[1][0]) and self.contains_vowel(word[:-len(self.step1b_suffixes[1][0])])):
+            return self.step_1_2b(word[:-len(self.step1b_suffixes[1][0])] + self.step1b_suffixes[1][1])
              
-            if word.endswith(self.step1b_suffixes[2][0]):
-                return self.step_1_2b(word[:-len(self.step1b_suffixes[2][0])] + self.step1b_suffixes[2][1])
+        if (word.endswith(self.step1b_suffixes[2][0]) and self.contains_vowel(word[:-len(self.step1b_suffixes[2][0])])):
+            return self.step_1_2b(word[:-len(self.step1b_suffixes[2][0])] + self.step1b_suffixes[2][1])
             
         return word
     
@@ -128,7 +133,7 @@ class Stemmer():
             if word.endswith(suffix[0]):
                 return word[:-len(suffix[0])] + suffix[1]
             
-        if(self.end_with_double_consonant(word) and not word.endswith('s') and not word.endswith('z') and not word.endswith('l')):
+        if(not word.endswith('s') and not word.endswith('z') and not word.endswith('l') and self.end_with_double_consonant(word)):
             return word[:-1]
         
         if(self.determine_m(word) == 1 and self.end_with_cvc(word)):
@@ -137,31 +142,27 @@ class Stemmer():
         return word
     
     def step_1_c(self, word):
-        if self.contains_vowel(word):
-            for suffix in self.step1c_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step1c_suffixes:
+            if (word.endswith(suffix[0]) and self.contains_vowel(word[:-len(suffix[0])])):
+                return word[:-len(suffix[0])] + suffix[1]
         return word
 
     def step_2(self, word):
-        if self.determine_m(word) > 0:
-            for suffix in self.step2_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step2_suffixes:
+            if (word.endswith(suffix[0]) and self.determine_m(word[:-len(suffix[0])]) > 0):
+                return word[:-len(suffix[0])] + suffix[1]
         return word
     
     def step_3(self, word):
-        if self.determine_m(word) > 0:
-            for suffix in self.step3_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step3_suffixes:
+            if (word.endswith(suffix[0]) and self.determine_m(word[:-len(suffix[0])]) > 0 ):
+                return word[:-len(suffix[0])] + suffix[1]
         return word
     
     def step_4(self, word):
-        if self.determine_m(word) > 1:
-            for suffix in self.step4_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step4_suffixes:
+            if (word.endswith(suffix[0]) and self.determine_m(word[:-len(suffix[0])]) > 1):
+                return word[:-len(suffix[0])] + suffix[1]
         return word
     
     def step_5(self, word):
@@ -170,31 +171,18 @@ class Stemmer():
         return stem
         
     def step_5_a(self, word):
-        if self.determine_m(word) > 1:
-            for suffix in self.step5a_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step5a_suffixes:
+            if self.determine_m(word[:-len(suffix[0])]) > 1 and word.endswith(suffix[0]):
+                return word[:-len(suffix[0])] + suffix[1]
                 
-        elif self.determine_m(word) == 1 and not self.end_with_cvc:
-            for suffix in self.step5a_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step5a_suffixes:
+            if (word.endswith(suffix[0]) and self.determine_m(word[:-len(suffix[0])]) == 1 and not self.end_with_cvc(word[:-len(suffix[0])])):
+                return word[:-len(suffix[0])] + suffix[1]
             
         return word
         
     def step_5_b(self, word):
-        if self.determine_m(word) > 1 and self.end_with_double_consonant(word):
-            for suffix in self.step5b_suffixes:
-                if word.endswith(suffix[0]):
-                    return word[:-len(suffix[0])] + suffix[1]
+        for suffix in self.step5b_suffixes:
+            if (word.endswith(suffix[0]) and self.determine_m(word) > 1 and self.end_with_double_consonant(word)):
+                return word[:-len(suffix[0])] + suffix[1]
         return word
-    
-stemmer = Stemmer()
-print(stemmer.divide_into_class("apparatus"))
-print(stemmer.determine_m("oaten"))
-print(stemmer.stem_word("caresses"))
-print(stemmer.stem_word("conflated"))
-print(stemmer.stem_word("filing"))
-print(stemmer.stem_word("sky"))
-print(stemmer.stem_word("controll"))
-print(stemmer.stem_word("activate"))

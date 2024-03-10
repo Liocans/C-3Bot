@@ -28,7 +28,7 @@ class Tokenizer:
         return tokens
 
     def remove_stop_words(self, tokens):
-        filtered_words = [word for word in tokens if word.lower() not in self.stop_words]
+        filtered_words = [word for word in tokens if word not in self.stop_words]
         return filtered_words
 
     def remove_punctuation(self, sentence):
