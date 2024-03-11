@@ -1,7 +1,7 @@
 import unittest
 import sys
 import os
-sys.path.append(os.path.abspath('classes/nlp'))
+sys.path.append(os.path.abspath('classes/nlp/preprocessing'))
 
 from stemmer import Stemmer
 
