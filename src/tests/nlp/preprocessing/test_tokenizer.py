@@ -1,11 +1,12 @@
 import unittest
 import sys
 import os
-sys.path.append(os.path.abspath('classes/nlp'))
+sys.path.append(os.path.abspath('classes/nlp/preprocessing'))
 
 from tokenizer import Tokenizer
 
 class TestTokenizer(unittest.TestCase):
+    
     def setUp(self):
         # Initialize the tokenizer
         self.tokenizer = Tokenizer()
