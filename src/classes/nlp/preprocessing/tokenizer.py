@@ -3,14 +3,16 @@ import string
 import os
 
 class Tokenizer:
-    def __init__(self, language='english'):
+    def __init__(self, language = "english", mode = ""):
         self.language = language
         self.stop_words = self.load_stop_words()
+        self.mode = mode
 
-    def tokenize_sentence(self, sentence):
+    def tokenize_and_filter_sentence(self, sentence):
         sentence = self.remove_punctuation(sentence)
         tokens = self.tokenize(sentence)
-        tokens = self.remove_stop_words(tokens)
+        if self.mode == "S":    
+            tokens = self.remove_stop_words(tokens)
         return tokens
 
     def load_stop_words(self):

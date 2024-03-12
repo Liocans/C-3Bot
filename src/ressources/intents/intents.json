@@ -5,7 +5,7 @@
 
                 "intent": "Greeting",
 
-                "text": [
+                "texts": [
 
                       "Hi",
 
@@ -38,7 +38,7 @@
 
                 "intent": "CourtesyGreeting",
 
-                "text": [
+                "texts": [
 
                       "How are you?",
 
@@ -81,7 +81,7 @@
 
                 "intent": "CurrentHumanQuery",
 
-                "text": [
+                "texts": [
 
                       "What is my name?",
 
@@ -117,7 +117,7 @@
 
                 "intent": "NameQuery",
 
-                "text": [
+                "texts": [
 
                       "What is your name?",
 
@@ -149,7 +149,7 @@
 
                 "intent": "RealNameQuery", 
 
-                "text": [
+                "texts": [
 
                       "What is your real name?",
 
@@ -181,7 +181,7 @@
 
                 "intent": "Thanks",
 
-                "text": [
+                "texts": [
 
                       "OK thank you",
 
@@ -214,7 +214,7 @@
 
                 "intent": "NotTalking2U",
 
-                "text": [
+                "texts": [
 
                       "I am not talking to you",
 
@@ -248,7 +248,7 @@
 
                 "intent": "UnderstandQuery",
 
-                "text": [
+                "texts": [
 
                       "Do you understand what I am saying",
 
@@ -280,7 +280,7 @@
 
                 "intent": "Shutup",
 
-                "text": [
+                "texts": [
 
                       "Be quiet",
 
@@ -313,7 +313,7 @@
 
                 "intent": "Swearing",
 
-                "text": [
+                "texts": [
 
                       "fuck off",
 
@@ -341,7 +341,7 @@
 
                 "intent": "GoodBye",
 
-                "text": [
+                "texts": [
 
                       "Bye",
 
@@ -369,7 +369,7 @@
 
                 "intent": "CourtesyGoodBye",
 
-                "text": [
+                "texts": [
 
                       "Thanks, bye",
 
@@ -400,7 +400,7 @@
 
                 "intent": "Clever",
 
-                "text": [
+                "texts": [
 
                       "You are very clever",
 
@@ -434,7 +434,7 @@
 
                 "intent": "Gossip",
 
-                "text": [
+                "texts": [
 
                       "I am bored gossip with me",
 
@@ -658,7 +658,7 @@
 
                 "intent": "Jokes",
 
-                "text": [
+                "texts": [
 
                       "Tell me a joke",
 
@@ -970,7 +970,7 @@
 
                 "intent": "SelfAware",
 
-                "text": [
+                "texts": [
 
                       "Can you prove you are self-aware",
 
