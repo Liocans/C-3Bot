@@ -3,7 +3,7 @@
 
           {
 
-                "intent": "Greeting",
+                "tag": "Greeting",
 
                 "texts": [
 
@@ -36,7 +36,7 @@
 
           {
 
-                "intent": "CourtesyGreeting",
+                "tag": "CourtesyGreeting",
 
                 "texts": [
 
@@ -79,7 +79,7 @@
 
         {
 
-                "intent": "CurrentHumanQuery",
+                "tag": "CurrentHumanQuery",
 
                 "texts": [
 
@@ -115,7 +115,7 @@
 
           {
 
-                "intent": "NameQuery",
+                "tag": "NameQuery",
 
                 "texts": [
 
@@ -147,7 +147,7 @@
 
           {
 
-                "intent": "RealNameQuery", 
+                "tag": "RealNameQuery", 
 
                 "texts": [
 
@@ -179,7 +179,7 @@
 
           {
 
-                "intent": "Thanks",
+                "tag": "Thanks",
 
                 "texts": [
 
@@ -212,7 +212,7 @@
 
           {
 
-                "intent": "NotTalking2U",
+                "tag": "NotTalking2U",
 
                 "texts": [
 
@@ -246,7 +246,7 @@
 
           {
 
-                "intent": "UnderstandQuery",
+                "tag": "UnderstandQuery",
 
                 "texts": [
 
@@ -278,7 +278,7 @@
 
           {
 
-                "intent": "Shutup",
+                "tag": "Shutup",
 
                 "texts": [
 
@@ -311,7 +311,7 @@
 
           {
 
-                "intent": "Swearing",
+                "tag": "Swearing",
 
                 "texts": [
 
@@ -339,7 +339,7 @@
 
           {
 
-                "intent": "GoodBye",
+                "tag": "GoodBye",
 
                 "texts": [
 
@@ -367,7 +367,7 @@
 
           {
 
-                "intent": "CourtesyGoodBye",
+                "tag": "CourtesyGoodBye",
 
                 "texts": [
 
@@ -398,7 +398,7 @@
 
           { 
 
-                "intent": "Clever",
+                "tag": "Clever",
 
                 "texts": [
 
@@ -432,7 +432,7 @@
 
           {
 
-                "intent": "Gossip",
+                "tag": "Gossip",
 
                 "texts": [
 
@@ -656,7 +656,7 @@
 
           {
 
-                "intent": "Jokes",
+                "tag": "Jokes",
 
                 "texts": [
 
@@ -968,7 +968,7 @@
 
           {
 
-                "intent": "SelfAware",
+                "tag": "SelfAware",
 
                 "texts": [
 

@@ -1,6 +1,6 @@
 #https://tartarus.org/martin/PorterStemmer/index.html
 
-class Stemmer():
+class Stemmer:
     
     def __init__(self, language = "english"):
         self.language = language

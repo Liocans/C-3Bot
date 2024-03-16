@@ -1,15 +1,12 @@
 import unittest
-import sys
-import os
-sys.path.append(os.path.abspath('classes/nlp/preprocessing'))
 
-from tokenizer import Tokenizer
+from classes.preprocessing.tokenizer import Tokenizer
 
 class TestTokenizer(unittest.TestCase):
-    
+
     def setUp(self):
         # Initialize the tokenizer
-        self.tokenizer = Tokenizer()
+        self.tokenizer = Tokenizer(mode="S")
 
     def test_remove_punctuation(self):
         # Test punctuation removal
@@ -36,7 +33,7 @@ class TestTokenizer(unittest.TestCase):
         # Test full tokenization process
         sentence = "Hello, world! How are you?"
         expected_tokens = ["hello", "world"]
-        tokens = self.tokenizer.tokenize_sentence(sentence)
+        tokens = self.tokenizer.tokenize_and_filter_sentence(sentence)
         self.assertEqual(tokens, expected_tokens)
         
 if __name__ == '__main__':

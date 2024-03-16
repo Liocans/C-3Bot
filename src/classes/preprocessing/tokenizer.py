@@ -3,7 +3,7 @@ import string
 import os
 
 class Tokenizer:
-    def __init__(self, language = "english", mode = ""):
+    def __init__(self, language="english", mode=""):
         self.language = language
         self.stop_words = self.load_stop_words()
         self.mode = mode
@@ -11,13 +11,13 @@ class Tokenizer:
     def tokenize_and_filter_sentence(self, sentence):
         sentence = self.remove_punctuation(sentence)
         tokens = self.tokenize(sentence)
-        if self.mode == "S":    
+        if self.mode == "S":
             tokens = self.remove_stop_words(tokens)
         return tokens
 
     def load_stop_words(self):
         stop_words = set()
-        filename = os.path.abspath(f'ressources/stop_words/{self.language}.txt')
+        filename = os.path.abspath(f'../../ressources/stop_words/{self.language}.txt')
 
         with open(filename, 'r', encoding='utf-8') as file:
             for line in file:

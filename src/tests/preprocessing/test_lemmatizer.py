@@ -1,9 +1,7 @@
 import unittest
-import sys
-import os
-sys.path.append(os.path.abspath('classes/nlp/preprocessing'))
 
-from lemmatizer import Lemmatizer
+from classes.preprocessing.lemmatizer import Lemmatizer
+
 
 class TestLemmatizer(unittest.TestCase):
     
