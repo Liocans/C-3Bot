@@ -4,8 +4,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-from classes.extractor.bag_of_words import BagOfWords
-from classes.modeling.neural_net import NeuralNet
+from NLP.extractor.bag_of_words import BagOfWords
+from NLP.modeling.neural_net import NeuralNet
 
 
 class ChatDataset(Dataset):
@@ -94,7 +94,7 @@ if __name__ == '__main__':
         "tags": dataset.bag_of_words.tags
     }
 
-    FILE = "../../ressources/model/data.pth"
+    FILE = "../../ressources/model/bow_lemmatizer.pth"
     torch.save(data, FILE)
 
     print(f'training complete. file saved to {FILE}')

@@ -1,5 +1,4 @@
-from user_interface import gui
-
+from user_interface.gui import ChatInterface
 
 if __name__ == '__main__':
-    gui.main()
+    ChatInterface()

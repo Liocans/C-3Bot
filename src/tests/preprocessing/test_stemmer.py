@@ -1,6 +1,6 @@
 import unittest
 
-from classes.preprocessing.stemmer import Stemmer
+from NLP.preprocessing.stemmer import Stemmer
 
 
 class TestStemmer(unittest.TestCase):

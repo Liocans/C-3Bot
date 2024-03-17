@@ -2,9 +2,9 @@ import os
 import json
 import numpy as np
 
-from classes.preprocessing.lemmatizer import Lemmatizer
-from classes.preprocessing.stemmer import Stemmer
-from classes.preprocessing.tokenizer import Tokenizer
+from NLP.preprocessing.lemmatizer import Lemmatizer
+from NLP.preprocessing.stemmer import Stemmer
+from NLP.preprocessing.tokenizer import Tokenizer
 
 
 class BagOfWords:
