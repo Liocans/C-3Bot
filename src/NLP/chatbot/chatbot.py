@@ -12,7 +12,6 @@ class ChatBot:
         self.model.eval()  # Set the model to evaluation mode
         filename = os.path.abspath(f'../../ressources/intents/intents.json')
         # Load intents data from JSON file
-        intents_data = None
         with open(filename, 'r', encoding='utf-8') as file:
             self.intents_data = json.load(file)
 
