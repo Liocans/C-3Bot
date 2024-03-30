@@ -6,6 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 
 from NLP.extractor.bag_of_words import BagOfWords
 from NLP.modeling.neural_net import NeuralNet
+from utilities.file_searcher import PathFinder
 
 
 class ChatDataset(Dataset):
@@ -94,7 +95,7 @@ if __name__ == '__main__':
         "tags": dataset.bag_of_words.tags
     }
 
-    FILE = "../../ressources/model/bow_lemmatizer.pth"
-    torch.save(data, FILE)
+    file_path = PathFinder().get_complet_path("ressources/model/bow_lemmatizer.pth")
+    torch.save(data, file_path)
 
-    print(f'training complete. file saved to {FILE}')
+    print(f'training complete. file saved to {file_path}')

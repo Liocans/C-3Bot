@@ -3,14 +3,17 @@ import torch
 import torch.nn as nn
 from NLP.extractor.bag_of_words import BagOfWords
 from NLP.modeling.neural_net import NeuralNet
-import os
 import json
+
+from utilities.file_searcher import PathFinder
+
+
 class ChatBot:
     def __init__(self, model_file):
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model, self.bag_of_words, self.all_words, self.tags = self.load_model(model_file)
-        self.model.eval()  # Set the model to evaluation mode
-        filename = os.path.abspath(f'../../ressources/intents/intents.json')
+        self.model.eval()
+        filename = PathFinder().get_complet_path('ressources/intents/intents.json')
         # Load intents data from JSON file
         with open(filename, 'r', encoding='utf-8') as file:
             self.intents_data = json.load(file)
@@ -51,7 +54,7 @@ class ChatBot:
         return "I do not understand..."
 
 if __name__ == "__main__":
-    FILE = "../../ressources/model/bow_lemmatizer.pth"
+    FILE = PathFinder().get_complet_path("ressources/model/bow_lemmatizer.pth")
     chatbot = ChatBot(FILE)
 
     print("Let's chat! type 'quit' to exit.")

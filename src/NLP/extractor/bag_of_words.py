@@ -5,6 +5,7 @@ import numpy as np
 from NLP.preprocessing.lemmatizer import Lemmatizer
 from NLP.preprocessing.stemmer import Stemmer
 from NLP.preprocessing.tokenizer import Tokenizer
+from utilities.file_searcher import PathFinder
 
 
 class BagOfWords:
@@ -21,7 +22,7 @@ class BagOfWords:
         self.load_corpus()
 
     def load_corpus(self):
-        filename = os.path.abspath(f'../../ressources/intents/intents.json')
+        filename = PathFinder().get_complet_path('ressources/intents/intents.json')
         # Load intents data from JSON file
         intents_data = None
         with open(filename, 'r', encoding='utf-8') as file:

@@ -1,0 +1,22 @@
+clas Student:
+    def __init__(self, name='', roll=0, marks=0.0:
+        self.name = name
+        self.roll = roll
+        self.marks = marks
+
+de main():
+    s = Student()
+
+    print("Enter information:")
+    s.name = input("Enter name: )
+
+    s.roll = int(input("Enter roll number: "))
+    s.marks = float(input("Enter marks: "))
+
+    print("\nDisplaying Information:")
+    print(f"Name: {s.name}")
+    print(f"Roll number: {s.roll}")
+    print(f"Marks: {s.marks:.1f}")
+
+if __name__ == '__main__':
+    main()

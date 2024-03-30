@@ -1,10 +1,16 @@
+import os
+from pathlib import Path
+import re
+
 from tree_sitter import Language, Parser
+
+from utilities.file_searcher import PathFinder
 
 AVAILABLE_LANGUAGE = ["python","java","c"]
 
-OUTPUT_PATH = "../ressources/tree-sitter/build/my-languages.so"
+OUTPUT_PATH = PathFinder().get_complet_path("ressources/tree-sitter/build/my-languages.so")
 
-REPO_PATH = "../ressources/tree-sitter/vendor/tree-sitter-"
+REPO_PATH = PathFinder().get_complet_path("ressources/tree-sitter/vendor/tree-sitter-")
 
 Language.build_library(
     # Store the library in the `build` directory
@@ -34,7 +40,9 @@ class LanguageParser:
             node = todo.pop()
             for child in node.children:
                 if(child.type == "ERROR"):
-                    errors.add(child.start_point[0]+1)
+                    errors.add((child.start_point[0]+1, child.start_point[1]+1))
                 elif(child.is_missing):
-                    missings.add((child.start_point[0]+1, child.type))
+                    missings.add((child.start_point[0]+1, child.start_point[1]+1, child.type))
                 todo.append(child)
+
+        return errors, missings
