@@ -48,8 +48,3 @@ class BagOfWords:
         if (mode == "C"):
             self.train_x_y.append((tokens, tag))
         return self.lemmatizer.lemmatize(tokens) if self.mode == "L" else self.stemmer.stem_words(tokens)
-
-
-if __name__ == '__main__':
-    bow = BagOfWords()
-    print(bow.generate_bow("How are you doing"))

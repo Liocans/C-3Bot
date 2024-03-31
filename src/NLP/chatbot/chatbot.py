@@ -33,8 +33,8 @@ class ChatBot:
 
         return model, bag_of_words, all_words, tags
 
-    def get_response(self, sentence):
-        sentence = self.bag_of_words.tokenizer.tokenize(sentence)
+    def get_response(self, sentence) -> str:
+        sentence = self.bag_of_words.tokenizer.tokenize_and_filter_sentence(sentence)
         X = self.bag_of_words.generate_bow(sentence)
         X = X.reshape(1, X.shape[0])
         X = torch.from_numpy(X).to(dtype=torch.float).to(self.device)
@@ -52,16 +52,3 @@ class ChatBot:
                 if tag == intent["tag"]:
                     return np.random.choice(intent['responses'])
         return "I do not understand..."
-
-if __name__ == "__main__":
-    FILE = PathFinder().get_complet_path("ressources/model/bow_lemmatizer.pth")
-    chatbot = ChatBot(FILE)
-
-    print("Let's chat! type 'quit' to exit.")
-    while True:
-        sentence = input("You: ")
-        if sentence == "quit":
-            break
-
-        response = chatbot.get_response(sentence)
-        print("Bot:", response)
