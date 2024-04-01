@@ -2,7 +2,6 @@ import unittest
 
 from NLP.preprocessing.lemmatizer import Lemmatizer
 
-
 class TestLemmatizer(unittest.TestCase):
     
     def setUp(self):

@@ -10,9 +10,9 @@ nltk.download('wordnet', quiet=True)
 class Lemmatizer:
 
     def __init__(self):
-        self.lemmatizer = WordNetLemmatizer()
+        self.__lemmatizer = WordNetLemmatizer()
 
-    def get_wordnet_pos(self, tag):
+    def __get_wordnet_pos(self, tag):
         if tag.startswith('J'):
             return wordnet.ADJ
         elif tag.startswith('V'):
@@ -26,5 +26,5 @@ class Lemmatizer:
 
     def lemmatize(self, tokens):
         pos_tags = pos_tag(tokens)
-        lemmatized_words = [self.lemmatizer.lemmatize(word, self.get_wordnet_pos(tag)) for word, tag in pos_tags]
+        lemmatized_words = [self.__lemmatizer.lemmatize(word, self.__get_wordnet_pos(tag)) for word, tag in pos_tags]
         return lemmatized_words

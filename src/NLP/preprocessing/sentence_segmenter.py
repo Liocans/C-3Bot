@@ -2,8 +2,9 @@ import re
 
 
 class SentenceSegmenter:
-    def __init__(self):
-        self.pattern = re.compile(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s')
 
-    def segment_sentences(self, text):
-        return self.pattern.split(text)
+    __pattern = re.compile(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s')
+
+    @staticmethod
+    def segment_sentences(text):
+        return SentenceSegmenter.__pattern.split(text)

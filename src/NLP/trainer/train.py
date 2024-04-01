@@ -1,18 +1,19 @@
+import json
+
 import numpy as np
 
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-from NLP.extractor.bag_of_words import BagOfWords
 from NLP.modeling.neural_net import NeuralNet
 from utilities.file_searcher import PathFinder
 
 
 class ChatDataset(Dataset):
 
-    def __init__(self, num_epochs=1000, batch_size=8, learning_rate=0.001, hidden_size=8):
-        self.bag_of_words = BagOfWords()
+    def __init__(self, extractor, num_epochs=1000, batch_size=8, learning_rate=0.001, hidden_size=8):
+        self.extractor = extractor
         self.num_epochs = num_epochs
         self.batch_size = batch_size
         self.learning_rate = learning_rate
@@ -22,22 +23,26 @@ class ChatDataset(Dataset):
         self.y_train = []
         self.input_size = 0
         self.output_size = 0
-        self.create_train_set()
+        self.__create_train_set()
 
-    def create_train_set(self):
-        for (sentence, tag) in self.bag_of_words.train_x_y:
-            # X: bag of words for each pattern_sentence
-            bag = self.bag_of_words.generate_bow(sentence)
-            self.x_train.append(bag)
-            # y: PyTorch CrossEntropyLoss needs only class labels, not one-hot
-            label = self.bag_of_words.tags.index(tag)
-            self.y_train.append(label)
+    def __create_train_set(self):
+        filename = PathFinder().get_complet_path('ressources/intents/intents.json')
+        with open(filename, 'r', encoding='utf-8') as file:
+            intents_data = json.load(file)
+
+        for intent in intents_data["intents"]:
+            for text in intent["texts"]:
+                bag = self.extractor.extract_features(text)
+                self.x_train.append(bag)
+                # y: PyTorch CrossEntropyLoss needs only class labels, not one-hot
+                label = self.extractor.tags.index(intent)
+                self.y_train.append(label)
 
         self.x_train = np.array(self.x_train)
         self.y_train = np.array(self.y_train)
 
         self.input_size = len(self.x_train[0])
-        self.output_size = len(self.bag_of_words.tags)
+        self.output_size = len(self.extractor.tags)
         self.n_samples = len(self.x_train)
 
     # support indexing such that dataset[i] can be used to get i-th sample
@@ -91,8 +96,8 @@ if __name__ == '__main__':
         "input_size": dataset.input_size,
         "hidden_size": dataset.hidden_size,
         "output_size": dataset.output_size,
-        "all_words": dataset.bag_of_words.vocab,
-        "tags": dataset.bag_of_words.tags
+        "all_words": dataset.extractor.vocab,
+        "tags": dataset.extractor.tags
     }
 
     file_path = PathFinder().get_complet_path("ressources/model/bow_lemmatizer.pth")
