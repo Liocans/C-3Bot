@@ -1,10 +1,11 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from NLP.extractor.bag_of_words import BagOfWords
+from NLP.features_extractor.bag_of_words import BagOfWords
 from NLP.modeling.neural_net import NeuralNet
 import json
 
+from NLP.preprocessing.text_preprocessor import TextPreprocessor
 from utilities.file_searcher import PathFinder
 
 
@@ -29,13 +30,12 @@ class ChatBot:
         model = NeuralNet(input_size, hidden_size, output_size).to(self.device)
         model.load_state_dict(data["model_state"])
 
-        bag_of_words = BagOfWords()  # Make sure this matches your actual implementation
+        bag_of_words = BagOfWords(prepocessor=TextPreprocessor())  # Make sure this matches your actual implementation
 
         return model, bag_of_words, all_words, tags
 
     def get_response(self, sentence) -> str:
-        sentence = self.bag_of_words.tokenizer.tokenize_and_filter_sentence(sentence)
-        X = self.bag_of_words.generate_bow(sentence)
+        X = self.bag_of_words.extract_features(sentence)
         X = X.reshape(1, X.shape[0])
         X = torch.from_numpy(X).to(dtype=torch.float).to(self.device)
 

@@ -6,7 +6,9 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
+from NLP.features_extractor.bag_of_words import BagOfWords
 from NLP.modeling.neural_net import NeuralNet
+from NLP.preprocessing.text_preprocessor import TextPreprocessor
 from utilities.file_searcher import PathFinder
 
 
@@ -35,7 +37,7 @@ class ChatDataset(Dataset):
                 bag = self.extractor.extract_features(text)
                 self.x_train.append(bag)
                 # y: PyTorch CrossEntropyLoss needs only class labels, not one-hot
-                label = self.extractor.tags.index(intent)
+                label = self.extractor.tags.index(intent["tag"])
                 self.y_train.append(label)
 
         self.x_train = np.array(self.x_train)
@@ -55,7 +57,7 @@ class ChatDataset(Dataset):
 
 if __name__ == '__main__':
 
-    dataset = ChatDataset()
+    dataset = ChatDataset(extractor=BagOfWords(prepocessor=TextPreprocessor()))
     train_loader = DataLoader(dataset=dataset,
                               batch_size=dataset.batch_size,
                               shuffle=True,

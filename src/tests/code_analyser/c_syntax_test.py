@@ -1,14 +1,14 @@
-import os
 import unittest
 
-from parser.language_parser import LanguageParser
+from code_analyser.abstract_syntax_tree import AbstractSyntaxTree
+from code_analyser.syntax_analyser import SyntaxAnalyser
 from utilities.file_searcher import PathFinder
 
 
 class TestCParser(unittest.TestCase):
 
     def setUp(self):
-        self.language_parser = LanguageParser()
+        self.language_parser = AbstractSyntaxTree()
 
     def test_missings(self):
         filename = PathFinder().get_complet_path('ressources/c_files/code_with_missings.txt')
@@ -17,21 +17,24 @@ class TestCParser(unittest.TestCase):
          (20, 12), (14, 11), (22, 12), (18, 36), (22, 24), (9, 12), (24, 12), (10, 25), (9, 33), (16, 11)},
         {(10, 28, '"'), (25, 2, ';')})
         with open(filename, "r") as file:
-            actual_output = self.language_parser.find_syntax_problem(file.read(), "c")
+            syntax_tree = self.language_parser.parse(file.read(), "c")
+            actual_output = SyntaxAnalyser.find_syntax_problem(syntax_tree)
         self.assertEqual(expected_output , actual_output)
 
     def test_errors(self):
         filename = PathFinder().get_complet_path('ressources/c_files/code_with_errors.txt')
         expected_output = ({(11, 19), (10, 11)}, {(10, 27, '"')})
         with open(filename, "r") as file:
-            actual_output = self.language_parser.find_syntax_problem(file.read(), "c")
+            syntax_tree = self.language_parser.parse(file.read(), "c")
+            actual_output = SyntaxAnalyser.find_syntax_problem(syntax_tree)
         self.assertEqual(expected_output, actual_output)
 
     def test_no_errors(self):
         filename = PathFinder().get_complet_path('ressources/c_files/code_without_errors.txt')
         expected_output = (set(), set())
         with open(filename, "r") as file:
-            actual_output = self.language_parser.find_syntax_problem(file.read(), "c")
+            syntax_tree = self.language_parser.parse(file.read(), "c")
+            actual_output = SyntaxAnalyser.find_syntax_problem(syntax_tree)
         self.assertEqual(expected_output, actual_output)
 
 if __name__ == '__main__':
