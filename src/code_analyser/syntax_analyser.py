@@ -9,7 +9,7 @@ class SyntaxAnalyser:
         missings = set()
         todo = [syntax_tree.root_node]
         while todo:
-            node = todo.pop()
+            node = todo.pop(0)
             for child in node.children:
                 if (child.type == "ERROR"):
                     errors.add((child.start_point[0] + 1, child.start_point[1] + 1))
@@ -20,7 +20,7 @@ class SyntaxAnalyser:
         return errors, missings
 
     @staticmethod
-    def describe_problems(syntax_tree: Tree) -> str|list:
+    def describe_problems(syntax_tree: Tree) -> str | list:
         errors, missings = SyntaxAnalyser.find_syntax_problem(syntax_tree=syntax_tree)
         descriptions = []
 

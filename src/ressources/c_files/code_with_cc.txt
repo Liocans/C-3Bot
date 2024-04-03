@@ -6,6 +6,7 @@ struct student {
 } s;
 
 int main() {
+    char hello[50];
     printf("Enter information:\n");
     printf("Enter name: ");
     fgets(s.name, sizeof(s.name), stdin);

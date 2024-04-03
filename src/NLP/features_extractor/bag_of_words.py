@@ -13,7 +13,7 @@ class BagOfWords:
         self.tags = []
         self.__load_corpus()
 
-    def extract_features(self, sentence: str) -> list:
+    def extract_features(self, sentence: str):
         bow_representation = np.zeros(len(self.vocab))
         for word in self.prepocessor.preprocess_text(text=sentence):
             if word in self.vocab:
