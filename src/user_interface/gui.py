@@ -31,7 +31,7 @@ class ChatInterface:
     def run(self, **kwargs):
         self.app.run(**kwargs)
 
-    def get_response(self):
+    def get_response(self) -> str:
         return self.chatbot.get_response(request.form["msg"])
 
     def index(self):

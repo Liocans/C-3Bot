@@ -12,7 +12,7 @@ class Lemmatizer:
     def __init__(self):
         self.__lemmatizer = WordNetLemmatizer()
 
-    def __get_wordnet_pos(self, tag):
+    def __get_wordnet_pos(self, tag: str) -> str:
         if tag.startswith('J'):
             return wordnet.ADJ
         elif tag.startswith('V'):
@@ -24,7 +24,7 @@ class Lemmatizer:
         else:
             return wordnet.NOUN
 
-    def lemmatize(self, tokens):
+    def lemmatize(self, tokens: list) -> list:
         pos_tags = pos_tag(tokens)
         lemmatized_words = [self.__lemmatizer.lemmatize(word, self.__get_wordnet_pos(tag)) for word, tag in pos_tags]
         return lemmatized_words

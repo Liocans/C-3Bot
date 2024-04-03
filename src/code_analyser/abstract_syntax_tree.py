@@ -1,12 +1,12 @@
-from tree_sitter import Language, Parser
+from tree_sitter import Language, Parser, Tree
 
 from utilities.file_searcher import PathFinder
 
 AVAILABLE_LANGUAGE = ["python", "java", "c"]
 
-OUTPUT_PATH = PathFinder().get_complet_path("ressources/tree-sitter/build/my-languages.so")
+OUTPUT_PATH = PathFinder().get_complet_path(path_to_file="ressources/tree-sitter/build/my-languages.so")
 
-REPO_PATH = PathFinder().get_complet_path("ressources/tree-sitter/vendor/tree-sitter-")
+REPO_PATH = PathFinder().get_complet_path(path_to_file="ressources/tree-sitter/vendor/tree-sitter-")
 
 
 class AbstractSyntaxTree:
@@ -15,9 +15,9 @@ class AbstractSyntaxTree:
         self.__parser = Parser()
         self.__languages = {}
         for language in AVAILABLE_LANGUAGE:
-            self.__languages[language] = Language(OUTPUT_PATH, language)
+            self.__languages[language] = Language(path_or_ptr=OUTPUT_PATH, name=language)
 
-    def parse(self, source_code, language):
+    def parse(self, source_code: str, language: str) -> Tree:
         self.__parser.set_language(self.__languages[language])
         tree = self.__parser.parse(bytes(source_code, "utf-8"))
         return tree

@@ -14,7 +14,7 @@ class CodeAnalyser:
         descriptions = []
         tree = self.syntax_tree.parse(text, language)
         if (mode == "both" or mode == "S"):
-            descriptions.extend(self.syntax_analyser.find_syntax_problem(tree))
+            descriptions.extend(self.syntax_analyser.describe_problems(tree))
 
         if (mode == "both" or mode == "C"):
-            descriptions.extend(self.clean_analyser.find_clean_code_problems(tree))
+            descriptions.extend(self.clean_analyser.describe_clean_code_problems(tree))

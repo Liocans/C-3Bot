@@ -6,20 +6,20 @@ from utilities.file_searcher import PathFinder
 
 
 class Tokenizer:
-    def __init__(self, exclude_stopwords=True):
+    def __init__(self, exclude_stopwords: bool = True):
         self.__stop_words = self.__load_stop_words()
         self.__exclude_stopwords = exclude_stopwords
 
     def tokenize_and_filter_sentence(self, sentence: str) -> list:
-        sentence = self.__remove_punctuation(sentence)
-        tokens = self.__tokenize(sentence)
+        sentence = self.__remove_punctuation(sentence=sentence)
+        tokens = self.__tokenize(sentence=sentence)
         if (not self.__exclude_stopwords):
-            tokens = self.__remove_stop_words(tokens)
+            tokens = self.__remove_stop_words(tokens=tokens)
         return tokens
 
     def __load_stop_words(self) -> set:
         stop_words = set()
-        file_path = PathFinder().get_complet_path("ressources/stop_words/english.txt")
+        file_path = PathFinder().get_complet_path(path_to_file="ressources/stop_words/english.txt")
 
         with open(file_path, 'r', encoding='utf-8') as file:
             for line in file:

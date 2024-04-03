@@ -1,7 +1,10 @@
+from tree_sitter import Tree
+
+
 class SyntaxAnalyser:
 
     @staticmethod
-    def find_syntax_problem(syntax_tree):
+    def find_syntax_problem(syntax_tree: Tree):
         errors = set()
         missings = set()
         todo = [syntax_tree.root_node]
@@ -17,8 +20,8 @@ class SyntaxAnalyser:
         return errors, missings
 
     @staticmethod
-    def describe_problems(syntax_tree):
-        errors, missings = SyntaxAnalyser.find_syntax_problem(syntax_tree)
+    def describe_problems(syntax_tree: Tree) -> str|list:
+        errors, missings = SyntaxAnalyser.find_syntax_problem(syntax_tree=syntax_tree)
         descriptions = []
 
         for error in sorted(errors):
