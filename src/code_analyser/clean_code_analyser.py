@@ -9,22 +9,28 @@ class CleanCodeAnalyser:
     def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list:
         descriptions = []
         todo = [syntax_tree.root_node]
-        print(syntax_tree.root_node.children)
         while todo:
             node = todo.pop(0)
-            for child in node.children:
+            for child in node.named_children:
+
                 if (child.type == "function_declarator"):
-                    description = CleanCodeAnalyser.__function_namming_convention(node=child.child_by_field_name("declarator"), language=language)
-                    if description != "":
-                        descriptions.append(description)
-                    print(descriptions)
-                if(child.type == "identifier"):
+                    new_descriptions = []
+                    new_descriptions.append(
+                        CleanCodeAnalyser.__function_namming_convention(node=child.child_by_field_name("declarator"),
+                                                                        language=language))
+                    new_descriptions.append(CleanCodeAnalyser.__function_length(node=child.parent))
+                    new_descriptions.append(
+                        CleanCodeAnalyser.__function_parameter_count(node=child.child_by_field_name("parameters")))
+                    for description in new_descriptions:
+                        if description != "":
+                            descriptions.append(description)
+
+                if (child.type == "field_declaration" or child.type == "declaration" or child.type == "assignment_expression"):
+                    print(child.type, child.text, child.children_by_field_name("declarator"))
                     description = CleanCodeAnalyser.__namming_length(node=child)
                     if description != "":
                         descriptions.append(description)
-                    print(descriptions)
                 todo.append(child)
-
 
         return descriptions
 
@@ -73,7 +79,6 @@ class CleanCodeAnalyser:
     @staticmethod
     def __namming_length(node: Node) -> str:
         identifier = node.text.decode('utf-8')  # Assuming node.text contains the identifier's name
-        print(identifier)
         if len(identifier) < 3:
             return f'Name too short at line {node.start_point[0] + 1} it should be should be at least 3 characters.'
         return ""
@@ -84,15 +89,15 @@ class CleanCodeAnalyser:
         # Assuming 'node' is a function node and it has a way to calculate its line span
         start_line = node.start_point[0]  # Assuming this gives the starting line number
         end_line = node.end_point[0]  # Assuming this gives the ending line number
-        line_count = end_line - start_line + 1
+        line_count = end_line - start_line
         if line_count > 20:
-            return f"Function too long from line {start_line} to line {end_line}, try to keep the function length at 20 lines"
+            return f"Function too long from line {start_line+1} at line {end_line+1}, try to keep the function length at 20 lines"
         return ""
 
     # MAX 3 arguments
     @staticmethod
     def __function_parameter_count(node: Node) -> str:
-        parameters = node.parameters  # This will depend on your AST structure
-        if len(parameters) > 3:
-            return f"Too many parameters for the function line {node.start_point[0] + 1} try to only have 3 parameters if possible"
+        number_of_parameters = len(node.named_children)  # This will depend on your AST structure
+        if number_of_parameters > 3:
+            return f"Too many parameters for the function at line {node.start_point[0] + 1} try to only have 3 parameters if possible"
         return ""
