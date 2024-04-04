@@ -5,10 +5,12 @@ struct student {
     float marks;
 } s;
 
-MAX_STUDENTS = 50;
+int MAX_STUDENTS = 50;
+int number_students;
+number_students = 40;
 
 int main(size, lenght) {
-    char schools_name = "UMONS"
+    char schools_name = "UMONS";
     bool is_good_student;
     printf("Enter information:\n");
     printf("Enter name: ");

@@ -33,7 +33,7 @@ class ChatDataset(Dataset):
             intents_data = json.load(file)
 
         for intent in intents_data["intents"]:
-            for text in intent["texts"]:
+            for text in intent["user_inputs"]:
                 bag = self.extractor.extract_features(text)
                 self.x_train.append(bag)
                 # y: PyTorch CrossEntropyLoss needs only class labels, not one-hot

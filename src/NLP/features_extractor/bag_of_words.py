@@ -28,7 +28,7 @@ class BagOfWords:
 
         for intent in intents_data["intents"]:
             self.tags.append(intent["tag"])
-            for text in intent["texts"]:
+            for text in intent["user_inputs"]:
                 for word in self.prepocessor.preprocess_text(text=text):
                     if word not in self.vocab:
                         self.vocab.append(word)
