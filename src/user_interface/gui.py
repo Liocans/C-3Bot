@@ -19,6 +19,9 @@ class ChatInterface:
 
     def create_endpoints(self):
         self.add_endpoint('/', 'index', self.index)
+        self.add_endpoint('/intents', 'intents', self.intents)
+        self.add_endpoint('/model', 'model', self.model)
+        self.add_endpoint('/test', 'test', self.test)
         self.add_endpoint('/get', 'get_response', self.get_response, ['GET','POST'])
 
     def configs(self, **configs):
@@ -31,8 +34,17 @@ class ChatInterface:
     def run(self, **kwargs):
         self.app.run(**kwargs)
 
-    def get_response(self) -> str:
+    def get_response(self) -> list:
         return self.chatbot.get_response(request.form["msg"])
 
     def index(self):
         return render_template('chat.html')
+
+    def intents(self):
+        return render_template('intents.html')
+
+    def model(self):
+        return render_template('model.html')
+
+    def test(self):
+        return render_template('test.html')

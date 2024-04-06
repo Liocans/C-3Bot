@@ -18,7 +18,7 @@
 						type: "POST",
 						url: "/get",
 					}).done(function(data) {
-						const botHtmlStart = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src="https://i.ibb.co/fSNP7Rz/icons8-chatgpt-512.png" class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer">';
+						const botHtmlStart = '<div class="d-flex justify-content-start mb-4"> <div class="img_cont_msg"> <img src='+window.static_logo+' class="rounded-circle user_img_msg"> </div> <div class="msg_cotainer">';
 						const botHtmlEnd = '<span class="msg_time">' + str_time + '</span></div></div>';
 
 						// Append the starting HTML
@@ -28,20 +28,30 @@
 						var $lastMsgContainer = $("#messageFormeight").children().last().find(".msg_cotainer");
 
 						// Function to simulate typing effect
-						function typeMessage(message, index) {
-							if (index < message.length) {
-								$lastMsgContainer.append(message[index]);
-								setTimeout(function() {
-									typeMessage(message, index + 1);
-								}, 30); // Adjust typing speed here
-							} else {
-								// Append the time after the message is complete
-								$lastMsgContainer.append(botHtmlEnd);
-							}
-						}
+                        function typeMessage(message) {
+                            return new Promise((resolve) => {
+                                function typeChar(index) {
+                                    if (index < message.length) {
+                                        $lastMsgContainer.append(message[index]);
+                                        setTimeout(() => typeChar(index + 1), 40); // Adjust typing speed here
+                                    } else {
+                                        $lastMsgContainer.append(" ");
+                                        resolve(); // Resolve the promise once the message is fully typed
+                                    }
+                                }
+                                typeChar(0);
+                            });
+                        }
 
-						// Start typing the message
-						typeMessage(data, 0);
+                        async function typeAllMessages(data) {
+                            for (const item of data) {
+                                await typeMessage(item); // Wait for each message to be typed out before continuing
+                            }
+                            $lastMsgContainer.append(botHtmlEnd);
+                        }
+
+                        typeAllMessages(data);
+
 					});
 				});
 			});
