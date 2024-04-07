@@ -1,0 +1,32 @@
+{
+    "models": [
+        {
+            "name": "X",
+            "parameters": {
+                "modeling": "X",
+                "preprocessing": "X",
+                "extractor": "X",
+                "stopword": true,
+                "epochs": 100,
+                "batch_size": 8,
+                "learning_rate": 0.001,
+                "hidden_size": 8
+            },
+            "status": "Incomplete"
+        },
+        {
+            "name": "blabla",
+            "parameters": {
+                "modeling": "NeuralNet",
+                "preprocessing": "Stemmer",
+                "extractor": "BagOfWords",
+                "stopword": true,
+                "num_epochs": 100,
+                "batch_size": 8,
+                "learning_rate": 0.001,
+                "hidden_size": 8
+            },
+            "status": "Complete"
+        }
+    ]
+}

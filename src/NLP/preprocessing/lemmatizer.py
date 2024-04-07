@@ -24,7 +24,7 @@ class Lemmatizer:
         else:
             return wordnet.NOUN
 
-    def lemmatize(self, tokens: list) -> list:
+    def preprocess_text(self, tokens: list) -> list:
         pos_tags = pos_tag(tokens)
         lemmatized_words = [self.__lemmatizer.lemmatize(word, self.__get_wordnet_pos(tag)) for word, tag in pos_tags]
         return lemmatized_words

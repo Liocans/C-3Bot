@@ -32,7 +32,7 @@ class Stemmer:
 
         self.__step5b_suffixes = [("l", "")]
 
-    def stem_words(self, tokens: list) -> list:
+    def preprocess_text(self, tokens: list) -> list:
         stem_sentence = []
         for word in tokens:
             stem_sentence.append(self.__stem_word(word=word))

@@ -5,7 +5,7 @@
 
                 "tag": "Greeting",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Hi",
 
@@ -40,7 +40,7 @@
 
                 "tag": "CourtesyGreeting",
 
-                "user_inputs": [
+                "patterns": [
 
                       "How are you?",
 
@@ -77,14 +77,14 @@
                 ],
                 "function": ""
 
-                
+
         },
 
         {
 
                 "tag": "CurrentHumanQuery",
 
-                "user_inputs": [
+                "patterns": [
 
                       "What is my name?",
 
@@ -122,7 +122,7 @@
 
                 "tag": "NameQuery",
 
-                "user_inputs": [
+                "patterns": [
 
                       "What is your name?",
 
@@ -154,9 +154,9 @@
 
           {
 
-                "tag": "RealNameQuery", 
+                "tag": "RealNameQuery",
 
-                "user_inputs": [
+                "patterns": [
 
                       "What is your real name?",
 
@@ -178,7 +178,7 @@
 
                       "My name is C-3Bot",
 
-                      "My real name is C-3Bot" 
+                      "My real name is C-3Bot"
 
                 ],
 
@@ -190,7 +190,7 @@
 
                 "tag": "Thanks",
 
-                "user_inputs": [
+                "patterns": [
 
                       "OK thank you",
 
@@ -225,7 +225,7 @@
 
                 "tag": "NotTalking2U",
 
-                "user_inputs": [
+                "patterns": [
 
                       "I am not talking to you",
 
@@ -261,7 +261,7 @@
 
                 "tag": "UnderstandQuery",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Do you understand what I am saying",
 
@@ -295,7 +295,7 @@
 
                 "tag": "Shutup",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Be quiet",
 
@@ -330,7 +330,7 @@
 
                 "tag": "Swearing",
 
-                "user_inputs": [
+                "patterns": [
 
                       "fuck off",
 
@@ -360,7 +360,7 @@
 
                 "tag": "GoodBye",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Bye",
 
@@ -390,7 +390,7 @@
 
                 "tag": "CourtesyGoodBye",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Thanks, bye",
 
@@ -419,11 +419,11 @@
                 "function": ""
           },
 
-          { 
+          {
 
                 "tag": "Clever",
 
-                "user_inputs": [
+                "patterns": [
 
                       "You are very clever",
 
@@ -459,7 +459,7 @@
 
                 "tag": "Jokes",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Tell me a joke",
 
@@ -772,7 +772,7 @@
 
                 "tag": "SelfAware",
 
-                "user_inputs": [
+                "patterns": [
 
                       "Can you prove you are self-aware",
 

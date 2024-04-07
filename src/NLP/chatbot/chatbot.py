@@ -1,12 +1,13 @@
 import numpy as np
 import torch
 import torch.nn as nn
+
 from NLP.features_extractor.bag_of_words import BagOfWords
 from NLP.modeling.neural_net import NeuralNet
 import json
 
 from NLP.preprocessing.sentence_segmenter import segment_sentences
-from NLP.preprocessing.text_preprocessor import TextPreprocessor
+from NLP.preprocessing.preprocessor import Preprocessor
 from utilities.file_searcher import PathFinder
 
 
@@ -20,9 +21,9 @@ class ChatBot:
 
 
     def __load_intents(self):
-        filename = PathFinder().get_complet_path('ressources/intents/intents.json')
+        file_path = PathFinder().get_complet_path('ressources/json_files/intents.json')
         # Load intents data from JSON file
-        with open(filename, 'r', encoding='utf-8') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
             for intent in data.get('intents'):
                 self.intents_data[intent['tag']] = {
@@ -41,7 +42,7 @@ class ChatBot:
         model = NeuralNet(input_size, hidden_size, output_size).to(self.device)
         model.load_state_dict(data["model_state"])
 
-        bag_of_words = BagOfWords(prepocessor=TextPreprocessor())  # Make sure this matches your actual implementation
+        bag_of_words = BagOfWords(prepocessor=Preprocessor())  # Make sure this matches your actual implementation
 
         return model, bag_of_words, all_words, tags
 

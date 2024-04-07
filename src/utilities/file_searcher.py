@@ -43,4 +43,4 @@ class PathFinder:
             str: The complete path combining the basic path with the specified file path.
         """
 
-        return PathFinder.get_basic_path() + "/" + path_to_file
+        return PathFinder.get_basic_path() + "\\" + path_to_file

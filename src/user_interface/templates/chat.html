@@ -12,15 +12,17 @@
 		<script src="{{ url_for('static', filename='javascript/showing_chat_log.js')}}"></script>
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}"/>
 	</head>
-
+	<script>
+		window.static_logo = "{{ url_for('static', filename='image/Logo.png')}}";
+	</script>
 	<body>
 		<div class="container-fluid h-100">
 			<div class="row h-100">
 				<div class="col-md-1 vertical-line d-flex flex-column justify-content-center">
 					<a href="/" class="btn menu_button my-1">Chatbot</a>
 					<a href="/intents" class="btn menu_button my-1">Intents</a> <!-- Adjust the href attribute as needed -->
-					<a href="/model" class="btn menu_button my-1">Model</a>
-					<a href="/test" class="btn menu_button my-1">Test</a>
+					<a href="/model" class="btn menu_button my-1">Model Training</a>
+					<a href="/test" class="btn menu_button my-1">Model Testing</a>
 				</div>
 				<div class="col-md-11 chat">
 					<div class="card">
@@ -51,9 +53,4 @@
 			</div>
         </div>
     </body>
-
-	<script>
-		window.static_logo = "{{ url_for('static', filename='image/Logo.png')}}";
-	</script>
-
 </html>

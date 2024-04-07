@@ -21,6 +21,8 @@ body,html{
 	height: 100%;
 	border-radius: 15px !important;
 	background-color: rgba(0,0,0,0.4) !important;
+	overflow: hidden;
+	max-height:65rem;
 }
 
 .contacts_body{
@@ -168,18 +170,6 @@ body,html{
 	color: rgba(255,255,255,0.6);
 }
 
-.video_cam{
-	margin-left: 50px;
-	margin-top: 5px;
-}
-
-.video_cam span{
-	color: white;
-	font-size: 20px;
-	cursor: pointer;
-	margin-right: 20px;
-}
-
 .msg_cotainer{
 	margin-top: auto;
 	margin-bottom: auto;
@@ -208,8 +198,6 @@ body,html{
 	font-size: 10px;
 }
 
-.message
-
 .msg_time_send{
 	position: absolute;
 	right:0;
@@ -228,15 +216,28 @@ body,html{
     border-bottom: 1px solid white; /* Add a white line at the bottom */
     padding-bottom: 0.5em; /* Add some space between the text and the underline to not look cramped */
 }
-
-
-@media(max-width: 576px){
-	.contacts_card{
-	margin-bottom: 15px !important;
-}
-
 .intent_table{
     background-color = rgba(119,119,119,0);
 }
 
+.header{
+    position:sticky;
+    top: 0 ;
 }
+.intent_table tr{
+    padding:0.8rem;
+}
+
+label {
+    color:white;
+    padding-right:1rem;
+}
+
+.my_margin{
+    margin-top:1.9rem;
+}
+
+@media(max-width: 576px){
+	.contacts_card{
+	margin-bottom: 15px !important;
+}}
