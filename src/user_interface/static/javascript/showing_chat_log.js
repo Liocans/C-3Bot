@@ -5,16 +5,16 @@ $(document).ready(function() {
         const hour = date.getHours();
         const minute = date.getMinutes();
         const str_time = hour + ":" + minute;
-        var rawText = $("#text").val();
+        var rawText = $("#message_text").val();
 
         var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + rawText + '<span class="msg_time">' + str_time + '</span></div> <div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"> </div></div>';
-        $("#text").val("");
+        $("#message_text").val("");
         $("#messageFormeight").append(userHtml);
 
         $.ajax({
             data: {
                 msg: rawText,
-            },
+            }, 
             type: "POST",
             url: "/get_response",
         }).done(function(data) {

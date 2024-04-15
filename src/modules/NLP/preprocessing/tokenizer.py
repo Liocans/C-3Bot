@@ -2,7 +2,7 @@ import re
 import string
 import os
 
-from utilities.file_searcher import PathFinder
+from utilities.path_finder import PathFinder
 
 
 class Tokenizer:

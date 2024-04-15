@@ -64,10 +64,13 @@ body,html{
 
 .type_msg{
 	background-color: rgba(0,0,0,0.3) !important;
-	border:0 !important;
+	border: 0 !important;
 	color:white !important;
-	height: 60px !important;
-	overflow-y: auto;
+    overflow-y: auto;
+    min-height: 4rem;
+    max-height: 16rem;
+    height:auto;
+    resize:none;
 }
 
 .type_msg:focus{
@@ -241,3 +244,16 @@ label {
 	.contacts_card{
 	margin-bottom: 15px !important;
 }}
+
+.custom-align {
+    display: flex;
+    align-items: center;
+    height: 100%;  /* Adjust the height as needed */
+}
+
+.code_btn {
+  background-color: rgba(0,0,0,0.3) !important;
+  border: 0 !important;
+  color: white !important;
+  cursor: pointer;
+}

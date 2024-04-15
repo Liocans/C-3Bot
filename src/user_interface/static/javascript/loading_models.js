@@ -17,7 +17,6 @@ $(document).ready(function() {
                 }
                 newRow.append($("<td class='w-10'>"+  parameter +"</td>"))
             });
-            newRow.append($("<td class='w-10'>"+  model.status +"</td>"))
             // Append the new row to the table
             $(".intent_table tbody").append(newRow);
         });

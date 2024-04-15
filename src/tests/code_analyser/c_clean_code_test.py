@@ -1,8 +1,8 @@
 import unittest
 
-from code_analyser.abstract_syntax_tree import AbstractSyntaxTree
-from code_analyser.clean_code_analyser import describe_clean_code_problems
-from utilities.file_searcher import PathFinder
+from modules.code_analyser.abstract_syntax_tree import AbstractSyntaxTree
+from modules.code_analyser.clean_code_analyser import describe_clean_code_problems
+from utilities.path_finder import PathFinder
 
 
 class MyTestCase(unittest.TestCase):

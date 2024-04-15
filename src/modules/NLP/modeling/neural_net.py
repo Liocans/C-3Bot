@@ -1,9 +1,8 @@
-import torch
 import torch.nn as nn
 
 
 class NeuralNet(nn.Module):
-    def __init__(self, input_size, hidden_size, num_classes):
+    def __init__(self, input_size=None, hidden_size=None, num_classes=None):
         super(NeuralNet, self).__init__()
         self.l1 = nn.Linear(input_size, hidden_size)
         self.l2 = nn.Linear(hidden_size, hidden_size)
@@ -18,3 +17,7 @@ class NeuralNet(nn.Module):
         out = self.l3(out)
         # no activation and no softmax at the end
         return out
+
+    @property
+    def modeling_name(self) -> str:
+        return "NeuralNet"

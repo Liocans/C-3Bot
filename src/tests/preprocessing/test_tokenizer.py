@@ -1,6 +1,6 @@
 import unittest
 
-from NLP.preprocessing.tokenizer import Tokenizer
+from modules.NLP.preprocessing.tokenizer import Tokenizer
 
 class TestTokenizer(unittest.TestCase):
 

@@ -1,8 +1,8 @@
 import unittest
 
-from code_analyser.abstract_syntax_tree import AbstractSyntaxTree
-from code_analyser.syntax_analyser import find_syntax_problem
-from utilities.file_searcher import PathFinder
+from modules.code_analyser.abstract_syntax_tree import AbstractSyntaxTree
+from modules.code_analyser.syntax_analyser import find_syntax_problem
+from utilities.path_finder import PathFinder
 
 
 class TestPythonParser(unittest.TestCase):

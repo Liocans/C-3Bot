@@ -1,10 +1,12 @@
-from NLP.preprocessing.lemmatizer import Lemmatizer
-from NLP.preprocessing.stemmer import Stemmer
-from NLP.preprocessing.tokenizer import Tokenizer
+from modules.NLP.preprocessing.lemmatizer import Lemmatizer
+from modules.NLP.preprocessing.stemmer import Stemmer
+from modules.NLP.preprocessing.tokenizer import Tokenizer
 
 
 class Preprocessor:
     def __init__(self, preprocessor_name="Lemmatizer", remove_stopwords: bool = False):
+        self.__preprocessor_name = preprocessor_name
+        self.__remove_stopwords = remove_stopwords
         self.__preprocessor = self.__select_preprocessor(preprocessor_name=preprocessor_name)
         self.__tokinizer = Tokenizer(exclude_stopwords=remove_stopwords)
 
@@ -17,3 +19,11 @@ class Preprocessor:
             return Stemmer()
         elif preprocessor_name == "Lemmatizer":
             return Lemmatizer()
+
+    @property
+    def preprocessor_name(self) -> str:
+        return self.__preprocessor_name
+
+    @property
+    def remove_stopwords(self) -> bool:
+        return self.__remove_stopwords

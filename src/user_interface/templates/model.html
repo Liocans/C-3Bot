@@ -31,20 +31,20 @@
 								<div class="form-row">
 									<div class="col">
 										<label for="modeling">Modeling</label>
-										<select class="form-control" name="modeling" id="modeling">
+										<select class="form-control" name="modeling" id="modeling" required>
 											<option value="NeuralNet" selected>NeuralNet</option>
 										</select>
 									</div>
 									<div class="col">
 										<label for="preprocessor">Preprocessing</label>
-										<select class="form-control" name="preprocessor" id="preprocessor">
+										<select class="form-control" name="preprocessor" id="preprocessor" required>
 											<option value="Stemmer" selected>Stemmer</option>
 											<option value="Lemmatizer">Lemmatizer</option>
 										</select>
 									</div>
 									<div class="col">
 										<label for="features_extractor">Features Extractor</label>
-										<select class="form-control" name="features_extractor" id="features_extractor">
+										<select class="form-control" name="features_extractor" id="features_extractor" required>
 											<option value="BagOfWords" selected>Bag of Words</option>
 											<option value="TFIDF">TF-IDF</option>
 										</select>
@@ -52,10 +52,10 @@
 									<div class="col">
 										<div class="w-100 btn-group btn-group-toggle my_margin" data-toggle="buttons">
 											<label class="btn btn-secondary active w-50">
-												<input type="radio" name="stopwords" id="withoutstopwords" autocomplete="off" value = "True" checked>Without Stop Words
+												<input type="radio" name="stopwords" id="withoutstopwords" autocomplete="off" value = "False" checked>Without Stop Words
 											</label>
 											<label class="btn btn-secondary w-50">
-												<input type="radio" name="stopwords" id="withstopwords" autocomplete="off" value = "False"> With Stop Words
+												<input type="radio" name="stopwords" id="withstopwords" autocomplete="off" value = "True"> With Stop Words
 											</label>
 										</div>
 									</div>
@@ -64,26 +64,26 @@
 								<div class="form-row mt-2">
 									<div class="col">
 										<label for="num_epochs">Number of Epochs</label>
-										<input type="number" class="form-control" placeholder="Number of Epochs" name="num_epochs" id="num_epochs" value="100">
+										<input type="number" class="form-control" placeholder="Number of Epochs" name="num_epochs" id="num_epochs" value="100" required>
 									</div>
 									<div class="col">
 										<label for="batch_size">Batch Size</label>
-										<input type="number" class="form-control" placeholder="Batch Size" name="batch_size" id="batch_size" value="8">
+										<input type="number" class="form-control" placeholder="Batch Size" name="batch_size" id="batch_size" value="8" required>
 									</div>
 									<div class="col">
 										<label for="learning_rate">Learning Rate</label>
-										<input type="text" class="form-control" placeholder="Learning Rate" name="learning_rate" id="learning_rate" value="0.001">
+										<input type="text" class="form-control" placeholder="Learning Rate" name="learning_rate" id="learning_rate" value="0.001" required>
 									</div>
 									<div class="col">
 										<label for="hidden_size">Hidden Size</label>
-										<input type="number" class="form-control" placeholder="Hidden Size" name="hidden_size" id="hidden_size" value="8">
+										<input type="number" class="form-control" placeholder="Hidden Size" name="hidden_size" id="hidden_size" value="8" required>
 									</div>
 								</div>
 								<!-- Model name -->
 								<div class="form-row align-items-center">
 									<div class="col">
 										<label for="model_name">Model Name</label>
-										<input type="text" class="form-control" placeholder="Model Name" name="model_name" id="model_name">
+										<input type="text" class="form-control" placeholder="Model Name" name="model_name" id="model_name" required>
 									</div>
 									<div class="col-auto">
 										<button type="submit" class="form-control btn btn-secondary my_margin">Submit</button>
@@ -104,7 +104,6 @@
 									<th>Batch Size</th>
 									<th>Learning Rate</th>
 									<th>Hidden Size</th>
-									<th>Status</th>
                                 </tr>
                               </thead>
                               <tbody>

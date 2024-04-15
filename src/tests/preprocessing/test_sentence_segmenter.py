@@ -1,6 +1,6 @@
 import unittest
 
-from NLP.preprocessing.sentence_segmenter import segment_sentences
+from modules.NLP.preprocessing.sentence_segmenter import segment_sentences
 
 class TestSentenceSegmenter(unittest.TestCase):
     def setUp(self):

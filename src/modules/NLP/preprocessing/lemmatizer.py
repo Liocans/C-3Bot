@@ -28,3 +28,11 @@ class Lemmatizer:
         pos_tags = pos_tag(tokens)
         lemmatized_words = [self.__lemmatizer.lemmatize(word, self.__get_wordnet_pos(tag)) for word, tag in pos_tags]
         return lemmatized_words
+
+    @property
+    def preprocessor_name(self) -> str:
+        return "Lemmatizer"
+
+    @property
+    def remove_stopwords(self) -> bool:
+        return self.__remove_stopwords

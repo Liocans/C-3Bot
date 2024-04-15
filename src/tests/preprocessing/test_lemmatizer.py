@@ -1,6 +1,6 @@
 import unittest
 
-from NLP.preprocessing.lemmatizer import Lemmatizer
+from modules.NLP.preprocessing.lemmatizer import Lemmatizer
 
 class TestLemmatizer(unittest.TestCase):
     """

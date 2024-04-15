@@ -10,6 +10,10 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="{{ url_for('static', filename='javascript/showing_chat_log.js')}}"></script>
+		<script src="{{ url_for('static', filename='javascript/populate_select.js')}}"></script>
+		<script src="{{ url_for('static', filename='javascript/load_model.js')}}"></script>
+		<script src="{{ url_for('static', filename='javascript/textarea_expand.js')}}"></script>
+		<script src="{{ url_for('static', filename='javascript/code_toggle.js')}}"></script>
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}"/>
 	</head>
 	<script>
@@ -27,7 +31,8 @@
 				<div class="col-md-11 chat">
 					<div class="card">
 						<div class="card-header msg_head">
-							<div class="d-flex bd-highlight">
+							<nav class="navbar navbar-expand-lg">
+							  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 								<div class="img_cont">
 									<img src="{{ url_for('static', filename='image/Logo.png')}}" class="rounded-circle user_img">
 									<span class="online_icon"></span>
@@ -36,13 +41,23 @@
 									<span>C-3Bot</span>
 									<p>Ask me anything!</p>
 								</div>
-							</div>
+								<div class="ml-auto my-2 my-lg-0">
+									<div>
+										<select class="form-control" name="model" id="model">
+										</select>
+									</div>
+								</div>
+							  </div>
+							</nav>
 						</div>
 						<div id="messageFormeight" class="card-body msg_card_body">
 						</div>
 						<div class="card-footer">
 							<form id="messageArea" class="input-group">
-                                <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type_msg" required/>
+								<textarea id="message_text" rows="2" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type_msg" required></textarea>
+								<div class="input-group-append">
+									<button type="button" id="code_toggle" class="input-group-text code_btn "><i class="fas fa-code"></i></button>
+								</div>
 								<div class="input-group-append">
 									<button type="submit" id="send" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
 								</div>

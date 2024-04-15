@@ -6,19 +6,20 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-from NLP.features_extractor.bag_of_words import BagOfWords
-from NLP.modeling.neural_net import NeuralNet
-from NLP.preprocessing.preprocessor import Preprocessor
-from utilities.file_searcher import PathFinder
-from utilities.json_utilities import add_model
+from modules.NLP.features_extractor.extractor import Extractor
+from modules.NLP.modeling.modeling import Modeling
+from modules.NLP.preprocessing.preprocessor import Preprocessor
+from utilities.path_finder import PathFinder
 
 
 class ChatBotTrainer(Dataset):
 
-    def __init__(self, extractor, modeling, model_name, num_epochs=1000, batch_size=8, learning_rate=0.001,
-                 hidden_size=8, model_canvas=None):
-        self.__extractor = extractor
-        self.__modeling = modeling
+    def __init__(self, extractor_name="BagOfWords", preprocessor_name="Lemmatizer", stopwords=False,
+                 modeling_name="NeuralNet", model_name="bow_lemmatizer", num_epochs=1000, batch_size=8,
+                 learning_rate=0.001, hidden_size=8):
+
+        self.__extractor = Extractor(preprocessor=Preprocessor(preprocessor_name, stopwords), extractor_name=extractor_name)
+        self.__modeling_name = modeling_name
         self.__num_epochs = num_epochs
         self.__model_name = model_name
         self.__batch_size = batch_size
@@ -33,7 +34,6 @@ class ChatBotTrainer(Dataset):
         self.__input_size = len(self.__x_train[0])
         self.__output_size = len(self.__extractor.tags)
         self.__n_samples = len(self.__x_train)
-        self.__model_canvas = model_canvas
 
     def start_training(self):
         train_loader = DataLoader(dataset=self,
@@ -43,7 +43,8 @@ class ChatBotTrainer(Dataset):
 
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-        model = NeuralNet(self.__input_size, self.__hidden_size, self.__output_size).to(device)
+        model = Modeling().select_model(model_name=self.__modeling_name, input_size=self.__input_size,
+                                        hidden_size=self.__hidden_size, num_classes=self.__output_size, device=device)
 
         # Loss and optimizer
         criterion = nn.CrossEntropyLoss()
@@ -77,14 +78,20 @@ class ChatBotTrainer(Dataset):
             "hidden_size": self.__hidden_size,
             "output_size": self.__output_size,
             "all_words": self.__extractor.vocab,
-            "tags": self.__extractor.tags
+            "tags": self.__extractor.tags,
+            "extractor": self.__extractor.extractor_name,
+            "preprocessor": self.__extractor.preprocessor.preprocessor_name,
+            "remove_stopwords": self.__extractor.preprocessor.remove_stopwords,
+            "modeling_name": self.__modeling_name,
+            "num_epochs": self.__num_epochs,
+            "batch_size": self.__batch_size,
+            "learning_rate": self.__learning_rate,
         }
 
-        file_path = PathFinder.get_complet_path(f"ressources/model/{self.__model_name}.pth")
+        file_path = PathFinder.get_complet_path(f"ressources/models/{self.__model_name}.pth")
         torch.save(data, file_path)
 
         print(f'training complete. file saved to {file_path}')
-        add_model(new_model_data=self.__model_canvas)
 
     def __create_train_set(self):
         file_path = PathFinder.get_complet_path('ressources/json_files/intents.json')

@@ -1,24 +1,26 @@
 import numpy as np
 import torch
-import torch.nn as nn
 
-from NLP.features_extractor.bag_of_words import BagOfWords
-from NLP.modeling.neural_net import NeuralNet
+from modules.NLP.features_extractor.extractor import Extractor
+from modules.NLP.modeling.modeling import Modeling
 import json
 
-from NLP.preprocessing.sentence_segmenter import segment_sentences
-from NLP.preprocessing.preprocessor import Preprocessor
-from utilities.file_searcher import PathFinder
+from modules.NLP.preprocessing.sentence_segmenter import segment_sentences
+from modules.NLP.preprocessing.preprocessor import Preprocessor
+from utilities.path_finder import PathFinder
 
 
 class ChatBot:
     def __init__(self, model_file):
+        self.tags = None
+        self.all_words = None
+        self.extractor = None
+        self.model = None
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.model, self.bag_of_words, self.all_words, self.tags = self.load_model(model_file)
+        self.load_model(model_file)
         self.model.eval()
         self.intents_data = dict()
         self.__load_intents()
-
 
     def __load_intents(self):
         file_path = PathFinder().get_complet_path('ressources/json_files/intents.json')
@@ -33,24 +35,23 @@ class ChatBot:
 
     def load_model(self, model_file):
         data = torch.load(model_file, map_location=self.device)
-        input_size = data["input_size"]
-        hidden_size = data["hidden_size"]
-        output_size = data["output_size"]
-        all_words = data["all_words"]
-        tags = data["tags"]
 
-        model = NeuralNet(input_size, hidden_size, output_size).to(self.device)
-        model.load_state_dict(data["model_state"])
+        self.model = Modeling().select_model(model_name=data["modeling_name"], input_size=data["input_size"],
+                                        hidden_size=data["hidden_size"], num_classes=data["output_size"],
+                                        device=self.device)
 
-        bag_of_words = BagOfWords(prepocessor=Preprocessor())  # Make sure this matches your actual implementation
+        self.model.load_state_dict(data["model_state"])
 
-        return model, bag_of_words, all_words, tags
+        self.extractor = Extractor(preprocessor=Preprocessor(preprocessor_name=data["preprocessor"], remove_stopwords=data["remove_stopwords"]),
+                              extractor_name=data["extractor"])  # Make sure this matches your actual implementation
+
+        self.all_words, self.tags = data["all_words"], data["tags"]
 
     def get_response(self, input: str) -> list:
         treated_intents = set()
         ouputs = []
         for sentence in segment_sentences(input)["user_input"]:
-            X = self.bag_of_words.extract_features(sentence)
+            X = self.extractor.extract_features(sentence)
             X = X.reshape(1, X.shape[0])
             X = torch.from_numpy(X).to(dtype=torch.float).to(self.device)
 
@@ -69,15 +70,3 @@ class ChatBot:
                     ouputs.append("I do not understand...")
 
         return ouputs
-
-if __name__ == '__main__':
-    path_to_model = PathFinder().get_complet_path('ressources/model/bow_lemmatizer.pth')
-    chatbot = ChatBot(model_file=path_to_model)
-
-    print("Let's chat! type 'quit' to exit.")
-    while True:
-        sentence = input("You: ")
-        if sentence == "quit":
-            break
-        response = chatbot.get_response(sentence)
-        print("Bot:", response)

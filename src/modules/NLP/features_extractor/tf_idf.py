@@ -2,13 +2,13 @@ import json
 import numpy as np
 import math
 from collections import defaultdict
-from NLP.preprocessing.preprocessor import Preprocessor
-from utilities.file_searcher import PathFinder
+from modules.NLP.preprocessing.preprocessor import Preprocessor
+from utilities.path_finder import PathFinder
 
 
 class TFIDF:
-    def __init__(self, prepocessor: Preprocessor):
-        self.__prepocessor = prepocessor
+    def __init__(self, preprocessor: Preprocessor):
+        self.__preprocessor = preprocessor
         self.__vocab = []
         self.__tags = []
         self.__docs = []  # Store preprocessed documents
@@ -18,7 +18,7 @@ class TFIDF:
 
     def extract_features(self, sentence):
         # Preprocess the sentence
-        preprocessed_sentence = self.__prepocessor.preprocess_text(sentence)
+        preprocessed_sentence = self.__preprocessor.preprocess_text(sentence)
         # Calculate TF-IDF for each word in the sentence
         tf_idf_vector = np.zeros(len(self.__vocab))
         for word in preprocessed_sentence:
@@ -36,7 +36,7 @@ class TFIDF:
         for intent in intents_data["intents"]:
             self.__tags.append(intent["tag"])
             for text in intent["texts"]:
-                preprocessed_text = self.__prepocessor.preprocess_text(text)
+                preprocessed_text = self.__preprocessor.preprocess_text(text)
                 self.__docs.append(preprocessed_text)
                 for word in preprocessed_text:
                     if word not in self.__vocab:
@@ -55,3 +55,11 @@ class TFIDF:
     @property
     def tags(self) -> list:
         return self.__tags
+
+    @property
+    def extractor_name(self) -> str:
+        return "TFIDF"
+
+    @property
+    def preprocessor(self) -> Preprocessor:
+        return self.__preprocessor

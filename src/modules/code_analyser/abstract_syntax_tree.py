@@ -1,6 +1,6 @@
 from tree_sitter import Language, Parser, Tree
 
-from utilities.file_searcher import PathFinder
+from utilities.path_finder import PathFinder
 
 AVAILABLE_LANGUAGE = ["python", "java", "c"]
 
