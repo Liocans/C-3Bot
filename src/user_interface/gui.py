@@ -4,9 +4,8 @@ import threading
 
 import torch
 from flask import Flask, render_template, request, jsonify
+
 from modules.NLP.chatbot.chatbot import ChatBot
-from modules.NLP.features_extractor.extractor import Extractor
-from modules.NLP.preprocessing.preprocessor import Preprocessor
 from modules.NLP.trainer.chat_bot_trainer import ChatBotTrainer
 from utilities.path_finder import PathFinder
 
@@ -46,7 +45,6 @@ class ChatInterface:
         self.app.run(debug=True, **kwargs)
 
     def get_response(self) -> list:
-        print(request.form["msg"])
         return self.chatbot.get_response(request.form["msg"])
 
     def get_intents(self) -> str:

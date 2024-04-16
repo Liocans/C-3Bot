@@ -4,6 +4,7 @@ def segment_sentences(user_input: str) -> dict:
     pattern = re.compile(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s')
     segmented_sentences = __extract_language_and_code(user_input=user_input)
     segmented_sentences["user_input"] = pattern.split(string=segmented_sentences["user_input"])
+    segmented_sentences["user_input"] = [segment for segment in segmented_sentences["user_input"] if segment != '']
     return segmented_sentences
 
 def __extract_language_and_code(user_input: str) -> dict:
@@ -17,6 +18,7 @@ def __extract_language_and_code(user_input: str) -> dict:
         start, end = match.span()
         # Extract text before and after the code block
         user_input = user_input[:start].strip()
+
     return {
         'language': language,
         'code': code,

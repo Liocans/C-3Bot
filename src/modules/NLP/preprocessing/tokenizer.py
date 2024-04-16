@@ -1,6 +1,5 @@
 import re
 import string
-import os
 
 from utilities.path_finder import PathFinder
 

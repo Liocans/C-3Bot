@@ -1,13 +1,15 @@
+import json
+
 import numpy as np
 import torch
+import importlib
 
 from modules.NLP.features_extractor.extractor import Extractor
 from modules.NLP.modeling.modeling import Modeling
-import json
-
-from modules.NLP.preprocessing.sentence_segmenter import segment_sentences
 from modules.NLP.preprocessing.preprocessor import Preprocessor
+from modules.NLP.preprocessing.sentence_segmenter import segment_sentences
 from utilities.path_finder import PathFinder
+
 
 
 class ChatBot:
@@ -30,7 +32,10 @@ class ChatBot:
             for intent in data.get('intents'):
                 self.intents_data[intent['tag']] = {
                     'responses': intent['responses'],
-                    'function': intent['function']
+                    'function': intent['function'],
+                    'module': intent["module"],
+                    "class": intent["class"],
+                    "parameters": intent["parameters"]
                 }
 
     def load_model(self, model_file):
@@ -49,8 +54,9 @@ class ChatBot:
 
     def get_response(self, input: str) -> list:
         treated_intents = set()
-        ouputs = []
-        for sentence in segment_sentences(input)["user_input"]:
+        outputs = []
+        treated_user_input = segment_sentences(input)
+        for sentence in treated_user_input["user_input"]:
             X = self.extractor.extract_features(sentence)
             X = X.reshape(1, X.shape[0])
             X = torch.from_numpy(X).to(dtype=torch.float).to(self.device)
@@ -63,10 +69,31 @@ class ChatBot:
                 probabilities = torch.softmax(output, dim=1)
                 prob = probabilities[0][predicted.item()]
 
-                if prob.item() > 0.75:
+                print(prob)
+                if prob.item() > 0.7:
                     treated_intents.add(tag)
-                    ouputs.append(np.random.choice(self.intents_data[tag]['responses']))
-                else:
-                    ouputs.append("I do not understand...")
+                    outputs.append(np.random.choice(self.intents_data[tag]['responses']))
+                    if(self.intents_data[tag]['class'] != ""):
+                        module = importlib.import_module(self.intents_data[tag]['module'])
+                        class_instance = getattr(module, self.intents_data[tag]['class'])()
+                        function_to_call = getattr(class_instance, self.intents_data[tag]['function'])
 
-        return ouputs
+                        for item in self.intents_data[tag]['parameters']['dynamic']:
+                            self.intents_data[tag]['parameters']['static'][item] = treated_user_input[item]
+
+                        param = list(self.intents_data[tag]['parameters']['static'].values())
+                        # Call the function with parameters unpacked from the list
+                        outputs.append(function_to_call(*param))
+                    elif (self.intents_data[tag]['function'] != ""):
+                        module = importlib.import_module(self.intents_data[tag]['module'])
+                        function_to_call = getattr(module, self.intents_data[tag]['function'])
+
+                        for item in self.intents_data[tag]['parameters']['dynamic']:
+                            self.intents_data[tag]['parameters']['static'][item] = treated_user_input[item]
+                        param = list(self.intents_data[tag]['parameters']['static'].values())
+                        # Call the function with parameters unpacked from the list
+                        outputs.append(function_to_call(*param))
+                else:
+                    outputs.append("Sorry, I do not understand your request...")
+        print(outputs)
+        return outputs

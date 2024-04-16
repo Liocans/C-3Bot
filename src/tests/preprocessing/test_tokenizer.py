@@ -2,6 +2,7 @@ import unittest
 
 from modules.NLP.preprocessing.tokenizer import Tokenizer
 
+
 class TestTokenizer(unittest.TestCase):
 
     def setUp(self):

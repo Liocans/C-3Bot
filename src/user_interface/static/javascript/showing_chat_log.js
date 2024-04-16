@@ -6,10 +6,27 @@ $(document).ready(function() {
         const minute = date.getMinutes();
         const str_time = hour + ":" + minute;
         var rawText = $("#message_text").val();
+        var htmlText = rawText
+        // Temporarily replace code blocks with placeholders
+        const codeBlocks = [];
+        const placeholder = "%%%CODE_BLOCK%%%";
+        htmlText = htmlText.replace(/```(.*?)```/gs, function(match, p1) {
+            codeBlocks.push(p1);
+            return placeholder;
+        });
 
-        var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + rawText + '<span class="msg_time">' + str_time + '</span></div> <div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"> </div></div>';
+        // Replace newlines in the rest of the text with HTML line breaks
+        htmlText = htmlText.replace(/\n/g, '<br>');
+        // Reinsert code blocks with proper HTML formatting
+        htmlText = htmlText.replace(new RegExp(placeholder, 'g'), function() {
+            const code = codeBlocks.shift(); // Get the first element from the codeBlocks array
+            return '<pre><code>' + code.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code></pre>'; // Properly escape code
+        });
+
+        var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + htmlText + '<span class="msg_time">' + str_time + '</span></div> <div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"> </div></div>';
         $("#message_text").val("");
         $("#messageFormeight").append(userHtml);
+        document.getElementById('message_text').dispatchEvent(new Event("input"));
 
         $.ajax({
             data: {
@@ -35,7 +52,7 @@ $(document).ready(function() {
                             $lastMsgContainer.append(message[index]);
                             setTimeout(() => typeChar(index + 1), 40); // Adjust typing speed here
                         } else {
-                            $lastMsgContainer.append(" ");
+                            $lastMsgContainer.append("</br>");
                             resolve(); // Resolve the promise once the message is fully typed
                         }
                     }
@@ -51,7 +68,6 @@ $(document).ready(function() {
             }
 
             typeAllMessages(data);
-
         });
     });
 });

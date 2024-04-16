@@ -2,6 +2,7 @@ import unittest
 
 from modules.NLP.preprocessing.lemmatizer import Lemmatizer
 
+
 class TestLemmatizer(unittest.TestCase):
     """
     A test suite for testing the Lemmatizer class functionality.

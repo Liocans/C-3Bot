@@ -1,7 +1,9 @@
 import json
-import numpy as np
 import math
 from collections import defaultdict
+
+import numpy as np
+
 from modules.NLP.preprocessing.preprocessor import Preprocessor
 from utilities.path_finder import PathFinder
 

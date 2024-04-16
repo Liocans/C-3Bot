@@ -1,10 +1,10 @@
 import re
 
-from tree_sitter import Node, Tree
+from tree_sitter import Tree, Node
 
 
-def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list:
-    descriptions = []
+def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list | str:
+    descriptions = set()
     todo = [syntax_tree.root_node]
     while todo:
         node = todo.pop(0)
@@ -18,7 +18,7 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list:
                     __function_parameter_count(node=child.child_by_field_name("parameters"))]
                 for new_description in new_descriptions:
                     if new_description != "":
-                        descriptions.append(new_description)
+                        descriptions.add(new_description)
 
             if (child.type in ["identifier", "field_identifier"]):
                 if (child.parent.type not in ["call_expression", "function_declarator", "field_expression",
@@ -28,14 +28,14 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list:
                         __namming_length(node=child)]
                     for new_description in new_descriptions:
                         if new_description != "":
-                            descriptions.append(new_description)
+                            descriptions.add(new_description)
 
             if (child.type == "class_declaration"):
                 new_descriptions = [__class_namming_convention(node=child.child_by_field_name("name")),
                                     __namming_length(node=child.child_by_field_name("name"))]
                 for new_description in new_descriptions:
                     if new_description != "":
-                        descriptions.append(new_description)
+                        descriptions.add(new_description)
 
             if (child.type == "struct_specifier"):
                 new_descriptions = [
@@ -43,11 +43,12 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list:
                     __namming_length(node=child.child_by_field_name("name"))]
                 for new_description in new_descriptions:
                     if new_description != "":
-                        descriptions.append(new_description)
-
+                        descriptions.add(new_description)
             todo.append(child)
 
-    return descriptions
+    if descriptions == set():
+        return "I have not recommendation to do for the clean code"
+    return ["Here is all the recommendation for the clean code", descriptions]
 
 
 # check if the name is too short to be understandable bigger or equal of 3

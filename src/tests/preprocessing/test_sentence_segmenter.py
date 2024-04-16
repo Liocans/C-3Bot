@@ -1,6 +1,8 @@
 import unittest
 
 from modules.NLP.preprocessing.sentence_segmenter import segment_sentences
+from utilities.path_finder import PathFinder
+
 
 class TestSentenceSegmenter(unittest.TestCase):
     def setUp(self):
@@ -41,6 +43,20 @@ class TestSentenceSegmenter(unittest.TestCase):
         expected_output = [""]
         actual_output = segment_sentences(user_input=input)
         self.assertEqual(actual_output, expected_output)
+
+    def test_with_code(self):
+        expected_output = "python"
+        filename = PathFinder().get_complet_path(path_to_file='ressources/dialog_files/dialog_with_code.txt')
+        with open(filename, "r") as file:
+            actual_output = segment_sentences(user_input=file.read())
+            self.assertEqual(actual_output.get("language"), expected_output)
+
+    def test_with_code_without_language(self):
+        expected_output = ""
+        filename = PathFinder().get_complet_path(path_to_file='ressources/dialog_files/dialog_with_code_without_language.txt')
+        with open(filename, "r") as file:
+            actual_output = segment_sentences(user_input=file.read())
+            self.assertEqual(actual_output.get("language"), expected_output)
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,5 @@
 import json
+
 import numpy as np
 
 from modules.NLP.preprocessing.preprocessor import Preprocessor

@@ -1,7 +1,6 @@
 import json
 
 import numpy as np
-
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
@@ -16,7 +15,7 @@ class ChatBotTrainer(Dataset):
 
     def __init__(self, extractor_name="BagOfWords", preprocessor_name="Lemmatizer", stopwords=False,
                  modeling_name="NeuralNet", model_name="bow_lemmatizer", num_epochs=1000, batch_size=8,
-                 learning_rate=0.001, hidden_size=8):
+                 learning_rate=0.0001, hidden_size=8):
 
         self.__extractor = Extractor(preprocessor=Preprocessor(preprocessor_name, stopwords), extractor_name=extractor_name)
         self.__modeling_name = modeling_name
