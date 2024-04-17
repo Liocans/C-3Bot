@@ -48,7 +48,7 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list | str
 
     if descriptions == set():
         return "I have not recommendation to do for the clean code"
-    return ["Here is all the recommendation for the clean code", descriptions]
+    return ["Here is all the recommendation for the clean code", list(descriptions)]
 
 
 # check if the name is too short to be understandable bigger or equal of 3

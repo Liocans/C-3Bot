@@ -24,5 +24,5 @@ def find_syntax_problem(syntax_tree: Tree, describe_problem=False):
         if descriptions == set():
             return "I didn't detect syntax errors in your code"
         else:
-            return ["Here is all the syntax problem i detected", descriptions]
+            return ["Here is all the syntax problem i detected", list(descriptions)]
     return errors, missings

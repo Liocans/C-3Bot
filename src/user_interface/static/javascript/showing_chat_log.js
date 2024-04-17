@@ -52,7 +52,6 @@ $(document).ready(function() {
                             $lastMsgContainer.append(message[index]);
                             setTimeout(() => typeChar(index + 1), 40); // Adjust typing speed here
                         } else {
-                            $lastMsgContainer.append("</br>");
                             resolve(); // Resolve the promise once the message is fully typed
                         }
                     }
@@ -62,8 +61,21 @@ $(document).ready(function() {
 
             async function typeAllMessages(data) {
                 for (const item of data) {
-                    await typeMessage(item); // Wait for each message to be typed out before continuing
+                    if(!Array.isArray(item)){
+                        await typeMessage(item); // Wait for each message to be typed out before continuing
+                    }else{
+                        $lastMsgContainer.append("</br>");
+                        await typeMessage(item[0]);
+                        $lastMsgContainer.append("<ul>");
+                        for(const item_error of item[1]){
+                            $lastMsgContainer.append("<li>");
+                            await typeMessage(item_error);
+                            $lastMsgContainer.append("</li>");
+                        }
+                        $lastMsgContainer.append("</ul></br>");
+                    }
                 }
+                console.log($lastMsgContainer);
                 $lastMsgContainer.append(botHtmlEnd);
             }
 

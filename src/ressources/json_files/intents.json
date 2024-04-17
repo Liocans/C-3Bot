@@ -348,6 +348,7 @@
     {
       "tag": "SyntaxCorrection",
       "patterns": [
+        "Can you help me with the syntax?",
         "Can you check this code for syntax errors?",
         "I need help with syntax errors in my code.",
         "Please correct the syntax in this snippet.",
@@ -387,6 +388,7 @@
     {
       "tag": "CleanCodeAdvice",
       "patterns": [
+        "Can you help me with the clean code?",
         "How can I make this code cleaner?",
         "Any tips to improve the readability of my code?",
         "Help me clean up my code.",
@@ -431,6 +433,7 @@
     {
       "tag": "SyntaxAndCleanCode",
       "patterns": [
+        "Can you help me with the clean code and the syntax?",
         "Can you fix syntax errors and suggest cleanliness improvements?",
         "I need syntax correction and tips for cleaner code.",
         "Help me correct syntax and make this code cleaner.",

@@ -69,7 +69,6 @@ class ChatBot:
                 probabilities = torch.softmax(output, dim=1)
                 prob = probabilities[0][predicted.item()]
 
-                print(prob)
                 if prob.item() > 0.7:
                     treated_intents.add(tag)
                     outputs.append(np.random.choice(self.intents_data[tag]['responses']))
