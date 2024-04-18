@@ -3,7 +3,7 @@ import os
 import threading
 
 import torch
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 
 from modules.NLP.chatbot.chatbot import ChatBot
 from modules.NLP.trainer.chat_bot_trainer import ChatBotTrainer
@@ -11,18 +11,41 @@ from utilities.path_finder import PathFinder
 
 
 class ChatInterface:
+    """
+    A Flask web application interface for managing a chatbot system. This class encapsulates setup,
+    configuration, and routing logic to handle chat-related functionalities, including interactions,
+    training, and model management, while providing a web interface.
 
-    def __init__(self, **configs):
+    Attributes:
+        __chatbot (ChatBot): An instance of the ChatBot class to handle chat functionalities.
+        __app (Flask): An instance of the Flask web framework configured for serving the chatbot interface.
+
+    Note:
+        The double underscore prefix in method names signifies private methods which should not be accessed
+        outside of the class context.
+    """
+
+    def __init__(self, **configs: dict):
+        """
+        Initializes the ChatInterface, sets up the Flask application, and loads necessary resources.
+
+        Parameters:
+            **configs (dict): A dictionary of configuration options for the Flask application.
+        """
         template = PathFinder().get_complet_path('user_interface/templates/')
         static = PathFinder().get_complet_path('user_interface/static/')
-        FILE = PathFinder().get_complet_path("ressources/models/bow_lemmatizer.pth")
-        self.chatbot = ChatBot(FILE)
-        self.app = Flask(__name__, template_folder=template, static_folder=static)
+        file = PathFinder().get_complet_path("ressources/models/bow_lemmatizer.pth")
+        self.__chatbot = ChatBot(file)
+        self.__app = Flask(__name__, template_folder=template, static_folder=static)
         self.__configs(**configs)
         self.__create_endpoints()
         self.__run()
 
-    def __create_endpoints(self):
+    def __create_endpoints(self) -> None:
+        """
+        Sets up and registers the URL endpoints for the Flask application, associating endpoints with their
+        respective handling functions.
+        """
         self.__add_endpoint('/', 'index', self.__index)
         self.__add_endpoint('/intents', 'intents', self.__intents)
         self.__add_endpoint('/model', 'model', self.__model)
@@ -31,35 +54,80 @@ class ChatInterface:
         self.__add_endpoint('/get_intents', 'get_intents', self.__get_intents)
         self.__add_endpoint('/get_models', 'get_models', self.__get_models)
         self.__add_endpoint('/train_model', 'train_model', self.__train_model, ['GET', 'POST'])
-        self.__add_endpoint("/get_models_filenames", "get_models_filenames", self.__get_models_filenames, ['GET', 'POST'])
+        self.__add_endpoint("/get_models_filenames", "get_models_filenames", self.__get_models_filenames,
+                            ['GET', 'POST'])
         self.__add_endpoint("/load_model", "load_model", self.__load_model, ['GET', 'POST'])
 
-    def __configs(self, **configs):
+    def __configs(self, **configs: dict) -> None:
+        """
+        Configures Flask application settings from provided keyword arguments, setting them in the application's
+        configuration.
+
+        Parameters:
+            **configs (dict): A dictionary of configuration options where the keys are configuration names
+                              and the values are settings.
+        """
         for config, value in configs:
-            self.app.config[config.upper()] = value
+            self.__app.config[config.upper()] = value
 
-    def __add_endpoint(self, endpoint=None, endpoint_name=None, handler=None, methods=['GET'], *args, **kwargs):
-        self.app.add_url_rule(endpoint, endpoint_name, handler, methods=methods, *args, **kwargs)
+    def __add_endpoint(self, endpoint: str = None, endpoint_name: str = None, handler: callable = None,
+                       methods: list = ['GET'], *args, **kwargs) -> None:
+        """
+        Adds a specific endpoint to the Flask application.
 
-    def __run(self, **kwargs):
-        self.app.run(debug=True, **kwargs)
+        Parameters:
+            endpoint (str): The URL path for the endpoint.
+            endpoint_name (str): The name of the endpoint.
+            handler (callable): The function to handle requests at the endpoint.
+            methods (list, optional): HTTP methods that the endpoint should respond to (e.g., ['GET', 'POST']).
+            *args: Additional positional arguments passed to Flask's add_url_rule.
+            **kwargs: Additional keyword arguments passed to Flask's add_url_rule.
+        """
+        self.__app.add_url_rule(endpoint, endpoint_name, handler, methods=methods, *args, **kwargs)
+
+    def __run(self, **kwargs: dict) -> None:
+        """
+        Starts the Flask application.
+
+        Parameters:
+            **kwargs (dict): Keyword arguments for Flask's run method, such as `debug` and `port`.
+        """
+        self.__app.run(debug=True, **kwargs)
 
     def __get_response(self) -> list:
-        return self.chatbot.get_response(request.form["msg"])
+        """
+        Processes a chat message through the chatbot and returns a response.
+
+        Returns:
+            list: A list containing responses from the chatbot based on the input message.
+        """
+        return self.__chatbot.get_response(request.form["msg"])
 
     def __get_intents(self) -> str:
+        """
+        Retrieves and returns the chatbot intents from a JSON file.
+
+        Returns:
+            str: JSON formatted string containing intents.
+        """
         file_path = PathFinder.get_complet_path("ressources/json_files/intents.json")
         with open(file_path, 'r', encoding='utf-8') as file:
             data = file.read()
         return data
 
     def __get_models(self) -> str:
-        json_data = {'models':[]}
+        """
+        Gathers and returns information about all trained models available in the specified directory.
+
+        Returns:
+            str: JSON formatted string listing all models and their parameters.
+        """
+        json_data = {'models': []}
         path = PathFinder.get_complet_path("ressources/models/")
         # Traverse the directory and find all .pth files
         for file in os.listdir(path):
             if file.endswith(".pth"):
-                data = torch.load(path+file)
+                data = torch.load(path + file)
                 model_item = {
                     'name': file.removesuffix(".pth"),
                     'parameters': {
@@ -78,29 +146,49 @@ class ChatInterface:
         # Convert the Python dictionary to a JSON string
         return json.dumps(json_data, indent=4)
 
-    def __get_models_filenames(self):
+    def __get_models_filenames(self) -> Response:
+        """
+        Retrieves filenames of all trained models available in the models directory.
+
+        Returns:
+            Response: A Flask JSON response containing a list of model filenames.
+        """
         directory = PathFinder.get_complet_path("ressources/models/")  # Change this to your directory path
         files = os.listdir(directory)
         files = [file.removesuffix(".pth") for file in files]
         return jsonify(files)
 
-    def __load_model(self):
-        self.chatbot.load_model(model_file=PathFinder.get_complet_path("ressources/models/"+request.form["filename"]+".pth"))
+    def __load_model(self) -> str:
+        """
+        Loads a specified model into the chatbot based on the model filename provided in the request.
+
+        Returns:
+            str: Simple text response to confirm the model was loaded.
+        """
+        self.__chatbot.load_model(
+            model_file=PathFinder.get_complet_path("ressources/models/" + request.form["filename"] + ".pth"))
         return 'ok'
 
-    def __train_model(self):
+    def __train_model(self) -> tuple:
+        """
+        Starts a new thread to train a model with specified parameters from the form data provided in the request.
+
+        Returns:
+            Tuple[str, int]: A response message indicating that training has started, with a HTTP status code.
+        """
         form = json.loads(request.form["data_forms"])
         data = {}
         for dictio in form:
             data[dictio["name"]] = dictio["value"]
 
         # Create a Thread to run the training in the background
-        training_thread = threading.Thread(target=self.__training, args=(data["features_extractor"], data["preprocessor"],
-                                                                         data["stopwords"] == "True", data["modeling"],
-                                                                         data["model_name"], int(data["num_epochs"]),
-                                                                         int(data["batch_size"]),
-                                                                         float(data["learning_rate"]),
-                                                                         int(data["hidden_size"])))
+        training_thread = threading.Thread(target=self.__training,
+                                           args=(data["features_extractor"], data["preprocessor"],
+                                                 data["stopwords"] == "True", data["modeling"],
+                                                 data["model_name"], int(data["num_epochs"]),
+                                                 int(data["batch_size"]),
+                                                 float(data["learning_rate"]),
+                                                 int(data["hidden_size"])))
 
         # Start the background thread
         training_thread.start()
@@ -108,20 +196,58 @@ class ChatInterface:
         # Optionally, return a response immediately to indicate training has started
         return "Training started in the background", 202
 
-    def __training(self, extractor_name, preprocessor_name, stopwords, modeling_name, model_name, num_epochs, batch_size,
-                   learning_rate, hidden_size):
+    def __training(self, extractor_name: str, preprocessor_name: str, stopwords: bool, modeling_name: str,
+                   model_name: str, num_epochs: int, batch_size: int, learning_rate: float, hidden_size: int) -> None:
+        """
+        Function to run the training process for a chatbot model on a separate thread.
+
+        Parameters:
+            extractor_name (str): Name of the feature extractor.
+            preprocessor_name (str): Name of the data preprocessor.
+            stopwords (bool): Whether to remove stopwords.
+            modeling_name (str): Name of the model architecture.
+            model_name (str): Desired name for the trained model.
+            num_epochs (int): Number of training epochs.
+            batch_size (int): Training batch size.
+            learning_rate (float): Learning rate for the training.
+            hidden_size (int): Size of the hidden layers in the model.
+        """
         ChatBotTrainer(extractor_name=extractor_name, preprocessor_name=preprocessor_name, stopwords=stopwords,
                        modeling_name=modeling_name, model_name=model_name, num_epochs=num_epochs, batch_size=batch_size,
                        learning_rate=learning_rate, hidden_size=hidden_size).start_training()
 
-    def __index(self):
+    def __index(self) -> str:
+        """
+        Returns the main chat interface page template.
+
+        Returns:
+            Rendered template: Flask rendered template for the chat interface.
+        """
         return render_template('chat.html')
 
-    def __intents(self):
+    def __intents(self) -> str:
+        """
+        Returns the intents management page template.
+
+        Returns:
+            Rendered template: Flask rendered template for managing intents.
+        """
         return render_template('intents.html')
 
-    def __model(self):
+    def __model(self) -> str:
+        """
+        Returns the model management page template.
+
+        Returns:
+            Rendered template: Flask rendered template for model management.
+        """
         return render_template('model.html')
 
-    def __test(self):
+    def __test(self) -> str:
+        """
+        Returns the testing interface page template.
+
+        Returns:
+            Rendered template: Flask rendered template for testing the chatbot.
+        """
         return render_template('test.html')

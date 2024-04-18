@@ -17,6 +17,9 @@ class CodeAnalyser:
     """
 
     def __init__(self):
+        """
+        Initializes the CodeAnalyser class by creating an instance of AbstractSyntaxTree.
+        """
         self.syntax_tree = AbstractSyntaxTree()
 
     def analyse(self, code: str, language: str, mode: str = "both") -> str | list[str]:

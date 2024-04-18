@@ -22,6 +22,9 @@ class AbstractSyntaxTree:
     """
 
     def __init__(self):
+        """
+        Initializes the AbstractSyntaxTree class by setting up the tree-sitter library with required languages.
+        """
         self.__initialize_library()
         self.__parser = Parser()
         self.__languages = {}

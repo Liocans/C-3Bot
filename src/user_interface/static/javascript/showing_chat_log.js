@@ -10,8 +10,8 @@ $(document).ready(function() {
         // Temporarily replace code blocks with placeholders
         const codeBlocks = [];
         const placeholder = "%%%CODE_BLOCK%%%";
-        htmlText = htmlText.replace(/```(.*?)```/gs, function(match, p1) {
-            codeBlocks.push(p1);
+        htmlText = htmlText.replace(/```(.*?)\n(.*?)```/gs, function(match, p1, p2) {
+            codeBlocks.push(p2);
             return placeholder;
         });
 
@@ -20,7 +20,13 @@ $(document).ready(function() {
         // Reinsert code blocks with proper HTML formatting
         htmlText = htmlText.replace(new RegExp(placeholder, 'g'), function() {
             const code = codeBlocks.shift(); // Get the first element from the codeBlocks array
-            return '<pre><code>' + code.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code></pre>'; // Properly escape code
+            const lines = code.split('\n'); // Split the code into individual lines
+            let formattedCode = ''; // Initialize a variable to store the formatted code
+            // Wrap each line in <code> tags and append it to the formattedCode variable
+            lines.forEach(line => {
+                formattedCode += '<code>' + line.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</code><br>';
+            });
+            return '<pre>' + formattedCode + '</pre>'; // Wrap the entire code block in <pre> tags
         });
 
         var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + htmlText + '<span class="msg_time">' + str_time + '</span></div> <div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"> </div></div>';
@@ -61,23 +67,24 @@ $(document).ready(function() {
 
             async function typeAllMessages(data) {
                 for (const item of data) {
-                    if(!Array.isArray(item)){
+                    if (!Array.isArray(item)) {
                         await typeMessage(item); // Wait for each message to be typed out before continuing
-                    }else{
-                        $lastMsgContainer.append("</br>");
+                    } else {
+                        $lastMsgContainer.append("<br>");
                         await typeMessage(item[0]);
-                        $lastMsgContainer.append("<ul>");
-                        for(const item_error of item[1]){
-                            $lastMsgContainer.append("<li>");
-                            await typeMessage(item_error);
-                            $lastMsgContainer.append("</li>");
+                        let listHtml = "<ul>";
+                        for (const item_error of item[1]) {
+                            listHtml += "<li>";
+                            listHtml += item_error;
+                            listHtml += "</li>";
                         }
-                        $lastMsgContainer.append("</ul></br>");
+                        listHtml += "</ul><br>";
+                        $lastMsgContainer.append(listHtml);
                     }
                 }
-                console.log($lastMsgContainer);
                 $lastMsgContainer.append(botHtmlEnd);
             }
+
 
             typeAllMessages(data);
         });

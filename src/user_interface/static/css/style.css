@@ -268,4 +268,16 @@ pre {
   border-radius:5px;
 }
 
+pre::before {
+  counter-reset: listing;
+}
+pre code {
+  counter-increment: listing;
+}
+
+pre code::before {
+  content: counter(listing) ". ";
+  margin-right: 2rem;
+}
+
 
