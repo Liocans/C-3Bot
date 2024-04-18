@@ -11,9 +11,28 @@ last =   '└── '
 
 
 def tree(dir_path: Path, prefix: str=''):
-    """A recursive generator, given a directory Path object
-    will yield a visual tree structure line by line
-    with each line prefixed by the same characters
+    """
+    Generate a visual tree structure for the contents of a directory, excluding certain directories.
+
+    The function recursively traverses through the directory structure starting from `dir_path`,
+    yielding each directory and file in a visual format with branches and nodes. It excludes
+    directories specifically named 'ressources', '.venv', and '.idea' from recursion.
+
+    Parameters:
+        dir_path (Path): The directory path from which to start generating the tree.
+        prefix (str, optional): A string prefix used to represent the tree structure visually.
+                                This gets extended as the function recurses deeper into the directory structure.
+
+    Yields:
+        str: A line in the visual representation of the directory tree.
+
+    Example:
+        ```
+        # Assuming the use within a script or interactive session:
+        base_path = Path("/path/to/directory")
+        for line in tree(base_path):
+            print(line)
+        ```
     """
     contents = list(dir_path.iterdir())
     # contents each get pointers that are ├── with a final └── :
