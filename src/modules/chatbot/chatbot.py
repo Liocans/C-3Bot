@@ -18,7 +18,6 @@ class ChatBot:
 
     Attributes:
         __tags (list): A list of possible tags or categories the bot can recognize.
-        __all_words (list): A list of all words the model knows and can recognize.
         __extractor (Extractor): The feature extraction mechanism used to convert text input into a format suitable for the model.
         __model (Modeling): The neural network model that predicts the category of the input.
         __device (torch.device): The computation device (CPU or GPU) on which the model is loaded.
@@ -33,7 +32,6 @@ class ChatBot:
             model_file (str): The path to the pre-trained model file.
         """
         self.__tags = None
-        self.__all_words = None
         self.__extractor = None
         self.__model = None
         self.__intents_data = dict()
@@ -79,7 +77,40 @@ class ChatBot:
                                      extractor_name=data[
                                          "extractor"])  # Make sure this matches your actual implementation
 
-        self.__all_words, self.__tags = data["all_words"], data["tags"]
+        self.__tags = data["tags"]
+
+
+    def predict_tag(self, sentence):
+        """
+        Determines the tag of a given sentence using a deep learning model.
+
+        This function is specifically added to facilitate testing the comprehension and response capabilities
+        of chatbots during their testing phase. It transforms the input sentence into numerical features
+        via a feature extractor, reshapes these features to be compatible with the model, and then feeds
+        the data to the model to obtain an intent prediction.
+
+        Args:
+            sentence (str): The sentence for which the intent needs to be determined.
+
+        Returns:
+            str: The predicted intent for the given sentence, corresponding to one of the pre-trained
+                 labels of the model.
+
+        Note:
+            This function is part of the testing tools and is not intended for use in production
+            applications.
+        """
+        X = self.__extractor.extract_features(sentence)
+        X = X.reshape(1, X.shape[0])
+        X = torch.from_numpy(X).to(dtype=torch.float).to(self.__device)
+
+        output = self.__model(X)
+        _, predicted = torch.max(output, dim=1)
+
+        probabilities = torch.softmax(output, dim=1)
+        prob = probabilities[0][predicted.item()]
+
+        return self.__tags[predicted.item()] if prob.item() > 0.7 else ""
 
     def get_response(self, user_input: str) -> list:
         """
@@ -91,7 +122,7 @@ class ChatBot:
         Returns:
             list: A list of responses from the chatbot.
         """
-        treated_intents = set()
+        treated_tags = []
         outputs = []
         treated_user_input = segment_sentences(user_input)
         for sentence in treated_user_input["user_input"]:
@@ -102,32 +133,32 @@ class ChatBot:
             output = self.__model(X)
             _, predicted = torch.max(output, dim=1)
 
-            tag = self.__tags[predicted.item()]
-            if tag not in treated_intents:
+            predicted_tag = self.__tags[predicted.item()]
+            if predicted_tag not in treated_tags:
                 probabilities = torch.softmax(output, dim=1)
                 prob = probabilities[0][predicted.item()]
 
                 if prob.item() > 0.7:
-                    treated_intents.add(tag)
-                    outputs.append(np.random.choice(self.__intents_data[tag]['responses']))
-                    if (self.__intents_data[tag]['class'] != ""):
-                        module = importlib.import_module(self.__intents_data[tag]['module'])
-                        class_instance = getattr(module, self.__intents_data[tag]['class'])()
-                        function_to_call = getattr(class_instance, self.__intents_data[tag]['function'])
+                    treated_tags.append(predicted_tag)
+                    outputs.append(np.random.choice(self.__intents_data[predicted_tag]['responses']))
+                    if (self.__intents_data[predicted_tag]['class'] != ""):
+                        module = importlib.import_module(self.__intents_data[predicted_tag]['module'])
+                        class_instance = getattr(module, self.__intents_data[predicted_tag]['class'])()
+                        function_to_call = getattr(class_instance, self.__intents_data[predicted_tag]['function'])
 
-                        for item in self.__intents_data[tag]['parameters']['dynamic']:
-                            self.__intents_data[tag]['parameters']['static'][item] = treated_user_input[item]
+                        for item in self.__intents_data[predicted_tag]['parameters']['dynamic']:
+                            self.__intents_data[predicted_tag]['parameters']['static'][item] = treated_user_input[item]
 
-                        param = list(self.__intents_data[tag]['parameters']['static'].values())
+                        param = list(self.__intents_data[predicted_tag]['parameters']['static'].values())
                         # Call the function with parameters unpacked from the list
                         outputs.append(function_to_call(*param))
-                    elif (self.__intents_data[tag]['function'] != ""):
-                        module = importlib.import_module(self.__intents_data[tag]['module'])
-                        function_to_call = getattr(module, self.__intents_data[tag]['function'])
+                    elif (self.__intents_data[predicted_tag]['function'] != ""):
+                        module = importlib.import_module(self.__intents_data[predicted_tag]['module'])
+                        function_to_call = getattr(module, self.__intents_data[predicted_tag]['function'])
 
-                        for item in self.__intents_data[tag]['parameters']['dynamic']:
-                            self.__intents_data[tag]['parameters']['static'][item] = treated_user_input[item]
-                        param = list(self.__intents_data[tag]['parameters']['static'].values())
+                        for item in self.__intents_data[predicted_tag]['parameters']['dynamic']:
+                            self.__intents_data[predicted_tag]['parameters']['static'][item] = treated_user_input[item]
+                        param = list(self.__intents_data[predicted_tag]['parameters']['static'].values())
                         # Call the function with parameters unpacked from the list
                         outputs.append(function_to_call(*param))
                 else:

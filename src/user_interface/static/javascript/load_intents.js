@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "/get_intents", // Assume this endpoint now returns JSON string directly
+        url: "/load_intents", // Assume this endpoint now returns JSON string directly
     }).done(function(jsonString) {
         // Parse the JSON string received from the server
         var data = JSON.parse(jsonString);

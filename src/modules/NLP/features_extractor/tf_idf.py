@@ -31,13 +31,13 @@ class TFIDF:
         return tf_idf_vector
 
     def __load_corpus(self):
-        file_path = PathFinder.get_complet_path('resources/intents/intents.json')
+        file_path = PathFinder.get_complet_path('ressources/json_files/intents.json')
         with open(file_path, 'r', encoding='utf-8') as file:
             intents_data = json.load(file)
 
         for intent in intents_data["intents"]:
             self.__tags.append(intent["tag"])
-            for text in intent["texts"]:
+            for text in intent["patterns"]:
                 preprocessed_text = self.__preprocessor.preprocess_text(text)
                 self.__docs.append(preprocessed_text)
                 for word in preprocessed_text:

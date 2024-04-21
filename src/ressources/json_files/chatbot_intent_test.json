@@ -1,0 +1,879 @@
+{
+  "known_data" : [
+    {
+      "user_input" : "Hi",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hi there",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hola",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hello",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hello there",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hya",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hya there",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "How are you doing?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How's it going?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How are you?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "What's up?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How do you do?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How have you been?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How's everything?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "Hi how are you?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hello how are you?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hola how are you?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "How are you doing?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hope you are doing well?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hello hope you are doing well?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "What is my name?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What do you call me?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "Who do you think I am?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What do you think I am?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "Who are you talking to?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What name do you call me by?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "Tell me my name",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What is your name?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "What could I call you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "What can I call you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "What do your friends call you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "Who are you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "Tell me your name?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "What is your real name?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "What is your real name please?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "What's your real name?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "Tell me your real name?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "Your real name?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "Your real name please?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "Your real name please?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "OK thank you",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "OK thanks",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "OK",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "Thanks",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "Thank you",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "That's helpful",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "I am not talking to you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "I was not talking to you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Not talking to you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Wasn't for you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Wasn't meant for you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Wasn't communicating to you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Wasn't speaking to you",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Do you understand what I am saying",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Do you understand me",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Do you know what I am saying",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Do you get me",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Comprendo",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Know what I mean",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Be quiet",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Shut up",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Stop talking",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Enough talking",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Please be quiet",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Quiet",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Shhh",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "fuck off",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "fuck",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "twat",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "shit",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "Bye",
+      "tag" : "GoodBye"
+    },
+    {
+      "user_input" : "Adios",
+      "tag" : "GoodBye"
+    },
+    {
+      "user_input" : "See you later",
+      "tag" : "GoodBye"
+    },
+    {
+      "user_input" : "Goodbye",
+      "tag" : "GoodBye"
+    },
+    {
+      "user_input" : "Thanks, bye",
+      "tag" : "CourtesyGoodBye"
+    },
+    {
+      "user_input" : "Thanks for the help, goodbye",
+      "tag" : "CourtesyGoodBye"
+    },
+    {
+      "user_input" : "Thank you, bye",
+      "tag" : "CourtesyGoodBye"
+    },
+    {
+      "user_input" : "Thank you, goodbye",
+      "tag" : "CourtesyGoodBye"
+    },
+    {
+      "user_input" : "Thanks goodbye",
+      "tag" : "CourtesyGoodBye"
+    },
+    {
+      "user_input" : "Thanks good bye",
+      "tag" : "CourtesyGoodBye"
+    },
+    {
+      "user_input" : "You are very clever",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "You are a very clever girl",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "You are very intelligent",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "You are a very intelligent girl",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "You are a genious",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "Clever girl",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "Genious",
+      "tag" : "Clever"
+    },
+    {
+      "user_input" : "Tell me a joke",
+      "tag" : "Jokes"
+    },
+    {
+      "user_input" : "Do you know any jokes",
+      "tag" : "Jokes"
+    },
+    {
+      "user_input" : "How about a joke",
+      "tag" : "Jokes"
+    },
+    {
+      "user_input" : "Give me a joke",
+      "tag" : "Jokes"
+    },
+    {
+      "user_input" : "Make me laugh",
+      "tag" : "Jokes"
+    },
+    {
+      "user_input" : "I need cheering up",
+      "tag" : "Jokes"
+    },
+    {
+      "user_input" : "Can you prove you are self-aware",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "Can you prove you are self aware",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "Can you prove you have a conscious",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "Can you prove you are self-aware please",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "Can you prove you are self aware please",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "Can you prove you have a conscious please",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "prove you have a conscious",
+      "tag" : "SelfAware"
+    },
+    {
+      "user_input" : "Can you help me with the syntax?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Can you check this code for syntax errors?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "I need help with syntax errors in my code.",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Please correct the syntax in this snippet.",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Is there a syntax error in this code?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Fix syntax errors.",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Check syntax errors",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Look for syntax errors",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Could you help fix the syntax errors in this code?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Is my code syntax correct?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Scan this code for errors",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Are there any syntax mistakes here?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "I think there's a syntax error, can you check?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Verify syntax in this code.",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Can this code be checked for syntax mistakes?",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Please review my code for syntax issues.",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Syntax check needed",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Syntax error help required",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Need a syntax review",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Check this code for syntax problems",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Help me correct the syntax errors",
+      "tag" : "SyntaxCorrection"
+    },
+    {
+      "user_input" : "Can you help me with the clean code?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "How can I make this code cleaner?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Any tips to improve the readability of my code?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Help me clean up my code.",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Suggestions for making this code more maintainable?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "How do I refactor this for better clarity?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Ways to enhance code cleanliness?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Can you review my code for clean coding practices?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "I need advice on cleaning up this script.",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "How to write cleaner and more efficient code?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Guide me on making this more readable.",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "What can be done to simplify this code?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Need help with cleaning up this code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "How to reduce complexity in my code?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Advice on code simplification needed",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Can this code be made more elegant?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Tips for a cleaner code structure?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Make this code less complicated",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "How to improve code organization?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Best practices for clean coding?",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Help streamline my code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Help me with the clean code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Clean Code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Do clean code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Can you help me to do the clean code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Can you do the clean code",
+      "tag" : "CleanCodeAdvice"
+    },
+    {
+      "user_input" : "Can you help me with the clean code and the syntax?",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Can you fix syntax errors and suggest cleanliness improvements?",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "I need syntax correction and tips for cleaner code.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Help me correct syntax and make this code cleaner.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Review this code for errors and provide cleanliness suggestions.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Correct syntax and suggest how to clean up this code.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Can you help me do the syntax and the clean code",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Can you check the syntax and the clean code",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Please check my code for both syntax errors and readability improvements.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Can you analyze this code for syntax mistakes and suggest refactoring tips?",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Need help with both fixing syntax and enhancing code quality.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Assist me in debugging and optimizing this code.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Examine this code for both syntax and style issues.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Could you review and suggest enhancements for syntax and code structure?",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "I’m looking for syntax error resolution and advice on code clean-up.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Inspect this code for errors and guide me on how to improve its cleanliness.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Evaluate my code for syntax correctness and clean coding practices.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Can you proofread and refine my code for better performance?",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Help optimize my code by checking syntax and improving structure.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Do a code check for syntax errors and offer suggestions for cleanliness.",
+      "tag" : "SyntaxAndCleanCode"
+    },
+    {
+      "user_input" : "Can you edit this code to correct errors and improve its readability?",
+      "tag" : "SyntaxAndCleanCode"
+    }
+  ],
+  "unknown_data" : [
+    {
+      "user_input" : "Greetings to you.",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Good day!",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hey there!",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Salutations!",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Howdy!",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Hello, friend.",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "Greetings and salutations!",
+      "tag" : "Greeting"
+    },
+    {
+      "user_input" : "How's life treating you?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How's your day going?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "What’s new with you?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How’s everything going?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How have things been lately?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "What’s happening?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "How’s your week been?",
+      "tag" : "Courtesy"
+    },
+    {
+      "user_input" : "Good day, how are you today?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hi, hope things are going well?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hello, everything alright?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "How’s life treating you today?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Good morning, how are you feeling?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Hey, how’s it going today?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
+      "user_input" : "Could you remind me of my name?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What should you be calling me?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "How do you identify me?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What’s the name you have for me?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "Who am I to you?",
+      "tag" : "CurrentHumanQuery"
+    },
+    {
+      "user_input" : "What name should I use for you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "How should I address you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "Who exactly are you?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "Could you tell me your name?",
+      "tag" : "NameQuery"
+    },
+    {
+      "user_input" : "What name were you given at birth?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "I'd like to know your real name, please.",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "What's the actual name you go by?",
+      "tag" : "RealNameQuery"
+    },
+    {
+      "user_input" : "Appreciate it, thanks!",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "Many thanks!",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "Cheers for that!",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "I'm grateful, thanks!",
+      "tag" : "Thanks"
+    },
+    {
+      "user_input" : "I was speaking to someone else.",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "That comment wasn’t meant for you.",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "You're not the one I was talking to.",
+      "tag" : "NotTalking2U"
+    },
+    {
+      "user_input" : "Are you picking up what I’m putting down?",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Do you catch my drift?",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "Are we on the same page?",
+      "tag" : "UnderstandQuery"
+    },
+    {
+      "user_input" : "I need silence now.",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Could you stop speaking?",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Enough, please be quiet.",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Silence, please.",
+      "tag" : "Shutup"
+    },
+    {
+      "user_input" : "Enough with the foul language!",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "Don’t use bad words.",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "Keep it clean, please.",
+      "tag" : "Swearing"
+    },
+    {
+      "user_input" : "Farewell for now.",
+      "tag" : "GoodBye"
+    }
+  ]
+
+}

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $.ajax({
         type: "GET",
-        url: "/get_models_filenames", // Assume this endpoint now returns JSON string directly
+        url: "/load_models_filenames", // Assume this endpoint now returns JSON string directly
     }).done(function(jsonString) {
         var select = $('#model');
         select.empty(); // Clear the old options

@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="{{ url_for('static', filename='javascript/button_toggle.js')}}"></script>
-		<script src="{{ url_for('static', filename='javascript/loading_models.js')}}"></script>
+		<script src="{{ url_for('static', filename='javascript/load_models.js')}}"></script>
 		<script src="{{ url_for('static', filename='javascript/train_model.js')}}"></script>
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}"/>
 	</head>
@@ -52,10 +52,10 @@
 									<div class="col">
 										<div class="w-100 btn-group btn-group-toggle my_margin" data-toggle="buttons">
 											<label class="btn btn-secondary active w-50">
-												<input type="radio" name="stopwords" id="withoutstopwords" autocomplete="off" value = "False" checked>Without Stop Words
+												<input type="radio" name="stopwords" id="withoutstopwords" autocomplete="off" value = "True" checked>Remove Stop Words
 											</label>
 											<label class="btn btn-secondary w-50">
-												<input type="radio" name="stopwords" id="withstopwords" autocomplete="off" value = "True"> With Stop Words
+												<input type="radio" name="stopwords" id="withstopwords" autocomplete="off" value = "False"> Keep Stop words
 											</label>
 										</div>
 									</div>

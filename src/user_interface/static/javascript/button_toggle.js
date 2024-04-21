@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     // Example usage:
     // To select "Without Stop Words", you would now use "True" as the value to check.
-    checkRadioButton('stopwords', 'False');
+    checkRadioButton('stopwords', 'True');
 
     // Similarly, to select "With Stop Words", you would use "False".
     // checkRadioButton('stopwords', 'False');

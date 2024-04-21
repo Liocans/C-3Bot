@@ -5,8 +5,9 @@ import threading
 import torch
 from flask import Flask, render_template, request, jsonify, Response
 
-from modules.NLP.chatbot.chatbot import ChatBot
+from modules.chatbot.chatbot import ChatBot
 from modules.NLP.trainer.chat_bot_trainer import ChatBotTrainer
+from modules.chatbot.chatbot_test import test_chatbot
 from utilities.path_finder import PathFinder
 
 
@@ -51,12 +52,14 @@ class ChatInterface:
         self.__add_endpoint('/model', 'model', self.__model)
         self.__add_endpoint('/test', 'test', self.__test)
         self.__add_endpoint('/get_response', 'get_response', self.__get_response, ['GET', 'POST'])
-        self.__add_endpoint('/get_intents', 'get_intents', self.__get_intents)
-        self.__add_endpoint('/get_models', 'get_models', self.__get_models)
+        self.__add_endpoint('/load_intents', 'load_intents', self.__load_intents)
+        self.__add_endpoint('/load_models', 'load_models', self.__load_models)
         self.__add_endpoint('/train_model', 'train_model', self.__train_model, ['GET', 'POST'])
-        self.__add_endpoint("/get_models_filenames", "get_models_filenames", self.__get_models_filenames,
+        self.__add_endpoint("/load_models_filenames", "load_models_filenames", self.__load_models_filenames,
                             ['GET', 'POST'])
-        self.__add_endpoint("/load_model", "load_model", self.__load_model, ['GET', 'POST'])
+        self.__add_endpoint("/change_chatbot_model", "change_chatbot_model", self.__change_chatbot_model, ['GET', 'POST'])
+        self.__add_endpoint("/load_tests", "load_tests", self.__load_tests, ['GET', 'POST'])
+        self.__add_endpoint("/test_chatbot", "__test_chatbot", self.__test_chatbot, ['GET', 'POST'])
 
     def __configs(self, **configs: dict) -> None:
         """
@@ -103,7 +106,7 @@ class ChatInterface:
         """
         return self.__chatbot.get_response(request.form["msg"])
 
-    def __get_intents(self) -> str:
+    def __load_intents(self) -> str:
         """
         Retrieves and returns the chatbot intents from a JSON file.
 
@@ -115,7 +118,7 @@ class ChatInterface:
             data = file.read()
         return data
 
-    def __get_models(self) -> str:
+    def __load_models(self) -> str:
         """
         Gathers and returns information about all trained models available in the specified directory.
 
@@ -134,7 +137,7 @@ class ChatInterface:
                         'modeling': data["modeling_name"],
                         'preprocessing': data["preprocessor"],
                         'extractor': data["extractor"],
-                        'stopword': data["remove_stopwords"],  # or False
+                        'stopword': data["remove_stopwords"],
                         'epochs': data["num_epochs"],
                         'batch_size': data["batch_size"],
                         'learning_rate': data["learning_rate"],
@@ -146,7 +149,7 @@ class ChatInterface:
         # Convert the Python dictionary to a JSON string
         return json.dumps(json_data, indent=4)
 
-    def __get_models_filenames(self) -> Response:
+    def __load_models_filenames(self) -> Response:
         """
         Retrieves filenames of all trained models available in the models directory.
 
@@ -158,7 +161,19 @@ class ChatInterface:
         files = [file.removesuffix(".pth") for file in files]
         return jsonify(files)
 
-    def __load_model(self) -> str:
+    def __load_tests(self) -> str:
+        """
+        Retrieves and returns the chatbot tests from a JSON file.
+
+        Returns:
+            str: JSON formatted string containing tests.
+        """
+        file_path = PathFinder.get_complet_path("ressources/json_files/chatbot_test_result.json")
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = file.read()
+        return data
+
+    def __change_chatbot_model(self) -> str:
         """
         Loads a specified model into the chatbot based on the model filename provided in the request.
 
@@ -168,6 +183,15 @@ class ChatInterface:
         self.__chatbot.load_model(
             model_file=PathFinder.get_complet_path("ressources/models/" + request.form["filename"] + ".pth"))
         return 'ok'
+
+    def __test_chatbot(self):
+        # Create a Thread to run the training in the background
+        training_thread = threading.Thread(target=test_chatbot,
+                                           args=(request.form["filename"],))
+
+        # Start the background thread
+        training_thread.start()
+        return "Testing started in the background", 202
 
     def __train_model(self) -> tuple:
         """

@@ -1,4 +1,4 @@
-from modules.NLP.chatbot.chatbot import ChatBot
+from modules.chatbot.chatbot import ChatBot
 from utilities.path_finder import PathFinder
 
 if __name__ == '__main__':

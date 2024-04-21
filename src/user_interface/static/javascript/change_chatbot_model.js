@@ -3,7 +3,7 @@ $(document).ready(function() {
         var selectedFile = $(this).val(); // Get the selected file name
         $.ajax({
             type: "POST",
-            url: "/load_model",
+            url: "/change_chatbot_model",
             data: {
                 filename: selectedFile
             },
