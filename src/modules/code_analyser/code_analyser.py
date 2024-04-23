@@ -44,14 +44,14 @@ class CodeAnalyser:
                 if (isinstance(output, str)):
                     descriptions.append(output)
                 else:
-                    descriptions.extend(output)
+                    descriptions.append(output)
 
             if (mode == "both" or mode == "C"):
                 output = describe_clean_code_problems(tree, language)
                 if (isinstance(output, str)):
                     descriptions.append(output)
                 else:
-                    descriptions.extend(output)
+                    descriptions.append(output)
 
         else:
             return ("I'm really sorry but i don't know the language you gave me, i can only help you on java, "
