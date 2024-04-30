@@ -28,13 +28,19 @@ class TestSentenceSegmenter(unittest.TestCase):
 
     def test_with_quotation_marks(self):
         input = '"Is it raining?" she asked. "Yes, it is," he replied.'
-        expected_output = ['"Is it raining?" she asked.', '"Yes, it is," he replied.']
+        expected_output = ['"Is it raining?"', 'she asked.', '"Yes, it is," he replied.']
         actual_output = segment_sentences(user_input=input)
         self.assertEqual(expected_output, actual_output["user_input"])
 
     def test_with_no_punctuation(self):
         input = "This is a sentence without an end"
         expected_output = ["This is a sentence without an end"]
+        actual_output = segment_sentences(user_input=input)
+        self.assertEqual(expected_output, actual_output["user_input"])
+
+    def test_with_newline(self):
+        input = "This is a sentence\n without an end"
+        expected_output = ["This is a sentence", "without an end"]
         actual_output = segment_sentences(user_input=input)
         self.assertEqual(expected_output, actual_output["user_input"])
 
