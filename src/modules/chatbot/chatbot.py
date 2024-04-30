@@ -160,7 +160,7 @@ class ChatBot:
                             self.__intents_data[predicted_tag]['parameters']['static'][item] = treated_user_input[item]
                         param = list(self.__intents_data[predicted_tag]['parameters']['static'].values())
                         # Call the function with parameters unpacked from the list
-                        outputs.append(function_to_call(*param))
+                        outputs.extend(function_to_call(*param))
                 else:
                     outputs.append("Sorry, I do not understand your request...")
 

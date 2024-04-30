@@ -70,16 +70,19 @@ $(document).ready(function() {
                     if (!Array.isArray(item)) {
                         await typeMessage(item); // Wait for each message to be typed out before continuing
                     } else {
-                        $lastMsgContainer.append("<br>");
-                        await typeMessage(item[0]);
-                        let listHtml = "<ul>";
-                        for (const item_error of item[1]) {
-                            listHtml += "<li>";
-                            listHtml += item_error;
-                            listHtml += "</li>";
+                        for(const item_help of item){
+                            console.log(item_help);
+                            $lastMsgContainer.append("<br>");
+                            await typeMessage(item_help[0]);
+                            let listHtml = "<ul>";
+                            for (const item_error of item_help[1]) {
+                                listHtml += "<li>";
+                                listHtml += item_error;
+                                listHtml += "</li>";
+                            }
+                            listHtml += "</ul><br>";
+                            $lastMsgContainer.append(listHtml);
                         }
-                        listHtml += "</ul><br>";
-                        $lastMsgContainer.append(listHtml);
                     }
                 }
                 $lastMsgContainer.append(botHtmlEnd);

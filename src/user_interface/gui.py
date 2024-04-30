@@ -6,7 +6,7 @@ import torch
 from flask import Flask, render_template, request, jsonify, Response
 
 from modules.chatbot.chatbot import ChatBot
-from modules.NLP.trainer.chat_bot_trainer import ChatBotTrainer
+from modules.chatbot.trainer.chat_bot_trainer import ChatBotTrainer
 from modules.chatbot.chatbot_test import test_chatbot
 from utilities.path_finder import PathFinder
 
