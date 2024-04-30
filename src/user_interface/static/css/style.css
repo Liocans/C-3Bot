@@ -216,7 +216,7 @@ body,html{
 
 .menu_button {
     color: white; /* Set text color to white */
-    font-size: 1vw; /* Adapt text size to the viewport width */
+    font-size: 1.5em; /* Adapt text size to the viewport width */
     border-bottom: 1px solid white; /* Add a white line at the bottom */
     padding-bottom: 0.5em; /* Add some space between the text and the underline to not look cramped */
 }
