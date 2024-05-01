@@ -182,6 +182,7 @@ body,html{
 	background-color: rgb(82, 172, 255);
 	padding: 10px;
 	position: relative;
+	font-size:1.2em;
 }
 
 .msg_cotainer_send{
@@ -192,6 +193,7 @@ body,html{
 	background-color: #58cc71;
 	padding: 10px;
 	position: relative;
+	font-size:1.2em;
 }
 
 .msg_time{
