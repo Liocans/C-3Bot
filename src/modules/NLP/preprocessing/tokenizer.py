@@ -12,17 +12,17 @@ class Tokenizer:
     stopwords, and removing punctuation from the input sentence.
     """
 
-    def __init__(self, exclude_stopwords: bool = True):
+    def __init__(self, remove_stopwords: bool = True):
         """
         Initializes the Tokenizer instance.
 
         Parameters:
-            exclude_stopwords (bool): If True, stopwords will be excluded from the tokenized output.
+            remove_stopwords (bool): If True, stopwords will be remove from the tokenized output.
                                       Defaults to True.
         """
 
         self.__stop_words = self.__load_stop_words()
-        self.__exclude_stopwords = exclude_stopwords
+        self.__remove_stopwords = remove_stopwords
 
     def tokenize_and_filter_sentence(self, sentence: str) -> list:
         """
@@ -40,7 +40,7 @@ class Tokenizer:
 
         sentence = self.__remove_punctuation(sentence=sentence)
         tokens = self.__tokenize(sentence=sentence)
-        if (not self.__exclude_stopwords):
+        if(self.__remove_stopwords):
             tokens = self.__remove_stop_words(tokens=tokens)
         return tokens
 

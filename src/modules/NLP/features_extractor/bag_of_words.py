@@ -17,7 +17,7 @@ class BagOfWords:
         __vocab (list): A list of unique words that forms the vocabulary of the corpus.
         __tags (list): A list of tags or categories associated with different intents or purposes in the corpus.
     """
-    def __init__(self, preprocessor: Preprocessor):
+    def __init__(self, preprocessor: Preprocessor, vocab: list):
         """
         Initializes the BagOfWords class with a specified preprocessor.
 
@@ -25,11 +25,9 @@ class BagOfWords:
             preprocessor (Preprocessor): The preprocessor instance to use for text preprocessing.
         """
         self.__preprocessor = preprocessor
-        self.__vocab = []
-        self.__tags = []
-        self.__load_corpus()
+        self.__vocab = vocab
 
-    def extract_features(self, sentence: str) -> np.ndarray:
+    def extract_features(self, sentence: str) -> list:
         """
         Converts a sentence into a bag-of-words vector using the class's vocabulary.
 
@@ -39,47 +37,12 @@ class BagOfWords:
         Returns:
             np.ndarray: A numpy array representing the sentence as a vector of word frequencies.
         """
-        bow_representation = np.zeros(len(self.__vocab))
+        bow_representation = np.zeros(len(self.__vocab)).tolist()
         for word in self.__preprocessor.preprocess_text(text=sentence):
             if word in self.__vocab:
                 index = self.__vocab.index(word)
                 bow_representation[index] += 1
         return bow_representation
-
-    def __load_corpus(self) -> None:
-        """
-        Loads the training data from a JSON file and builds the vocabulary and tags list based on the
-        preprocessed text of the training data.
-        """
-        file_path = PathFinder().get_complet_path(path_to_file='ressources/json_files/intents.json')
-        with open(file_path, 'r', encoding='utf-8') as file:
-            intents_data = json.load(file)
-
-        for intent in intents_data["intents"]:
-            self.__tags.append(intent["tag"])
-            for text in intent["patterns"]:
-                for word in self.__preprocessor.preprocess_text(text=text):
-                    if word not in self.__vocab:
-                        self.__vocab.append(word)
-    @property
-    def vocab(self) -> list:
-        """
-        Retrieves the vocabulary of the corpus.
-
-        Returns:
-            list: A list of unique words that make up the vocabulary.
-        """
-        return self.__vocab
-
-    @property
-    def tags(self) -> list:
-        """
-        Retrieves the tags or categories associated with the corpus.
-
-        Returns:
-            list: A list of tags associated with different intents or purposes.
-        """
-        return self.__tags
 
     @property
     def extractor_name(self) -> str:

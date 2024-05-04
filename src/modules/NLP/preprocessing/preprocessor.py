@@ -32,7 +32,7 @@ class Preprocessor:
         self.__preprocessor_name = preprocessor_name
         self.__remove_stopwords = remove_stopwords
         self.__preprocessor = self.__select_preprocessor(preprocessor_name=preprocessor_name)
-        self.__tokinizer = Tokenizer(exclude_stopwords=remove_stopwords)
+        self.__tokinizer = Tokenizer(remove_stopwords=remove_stopwords)
 
     def preprocess_text(self, text: str) -> list:
         """

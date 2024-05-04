@@ -8,7 +8,7 @@ class TestTokenizer(unittest.TestCase):
     def setUp(self):
         # Initialize the tokenizer_without_stopwords
         self.tokenizer_without_stopwords = Tokenizer()
-        self.tokenizer_with_stopwords = Tokenizer(exclude_stopwords=False)
+        self.tokenizer_with_stopwords = Tokenizer(remove_stopwords=False)
 
     def test_remove_punctuation(self):
         # Test punctuation removal
@@ -34,14 +34,14 @@ class TestTokenizer(unittest.TestCase):
     def test_tokenize_sentence_without_stop_words(self):
         # Test full tokenization process
         input = "Hello, world! How are you?"
-        expected_output = ['hello', 'world', 'how', 'are', 'you']
+        expected_output = ['hello', 'world', 'how', 'you']
         actual_output = self.tokenizer_without_stopwords.tokenize_and_filter_sentence(sentence=input)
         self.assertEqual(expected_output, actual_output)
 
     def test_tokenize_sentence_with_stop_words(self):
         # Test full tokenization process
         input = "Hello, world! How are you?"
-        expected_output = ['hello', 'world', 'how', 'you']
+        expected_output = ['hello', 'world', 'how', 'are', 'you']
         actual_output = self.tokenizer_with_stopwords.tokenize_and_filter_sentence(sentence=input)
         self.assertEqual(expected_output, actual_output)
 
