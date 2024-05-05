@@ -57,6 +57,10 @@
       "tag" : "Courtesy"
     },
     {
+      "user_input" : "Hope you are doing well?",
+      "tag" : "CourtesyGreeting"
+    },
+    {
       "user_input" : "Hi how are you?",
       "tag" : "CourtesyGreeting"
     },
@@ -66,14 +70,6 @@
     },
     {
       "user_input" : "Hola how are you?",
-      "tag" : "CourtesyGreeting"
-    },
-    {
-      "user_input" : "How are you doing?",
-      "tag" : "CourtesyGreeting"
-    },
-    {
-      "user_input" : "Hope you are doing well?",
       "tag" : "CourtesyGreeting"
     },
     {
@@ -870,10 +866,101 @@
       "user_input" : "Keep it clean, please.",
       "tag" : "Swearing"
     },
+     {
+        "user_input": "Farewell",
+        "tag": "GoodBye"
+    },
     {
-      "user_input" : "Farewell for now.",
-      "tag" : "GoodBye"
+        "user_input": "I'm off, goodbye",
+        "tag": "GoodBye"
+    },
+    {
+        "user_input": "Catch you later",
+        "tag": "GoodBye"
+    },
+    {
+        "user_input": "Appreciate the assistance, goodbye",
+        "tag": "CourtesyGoodBye"
+    },
+    {
+        "user_input": "Thanks a lot, see you",
+        "tag": "CourtesyGoodBye"
+    },
+    {
+        "user_input": "Grateful for your help, bye",
+        "tag": "CourtesyGoodBye"
+    },
+    {
+        "user_input": "You seem quite smart",
+        "tag": "Clever"
+    },
+    {
+        "user_input": "Impressive intelligence",
+        "tag": "Clever"
+    },
+    {
+        "user_input": "Smart response!",
+        "tag": "Clever"
+    },
+    {
+        "user_input": "Can you crack a joke?",
+        "tag": "Jokes"
+    },
+    {
+        "user_input": "I could use a laugh, tell a joke",
+        "tag": "Jokes"
+    },
+    {
+        "user_input": "Feeling down, cheer me up with a joke",
+        "tag": "Jokes"
+    },
+    {
+        "user_input": "Are you conscious?",
+        "tag": "SelfAware"
+    },
+    {
+        "user_input": "Do you think therefore you are?",
+        "tag": "SelfAware"
+    },
+    {
+        "user_input": "Can you think independently?",
+        "tag": "SelfAware"
+    },
+        {
+        "user_input": "Please help with code syntax checking.",
+        "tag": "SyntaxCorrection"
+    },
+    {
+        "user_input": "Could you verify if my script has syntax errors?",
+        "tag": "SyntaxCorrection"
+    },
+    {
+        "user_input": "Examine this snippet for syntax accuracy.",
+        "tag": "SyntaxCorrection"
+    },
+    {
+        "user_input": "How do I make my code tidier?",
+        "tag": "CleanCodeAdvice"
+    },
+    {
+        "user_input": "Can you assist in refining my programming for better maintainability?",
+        "tag": "CleanCodeAdvice"
+    },
+    {
+        "user_input": "What steps can I take to ensure my code follows clean coding standards?",
+        "tag": "CleanCodeAdvice"
+    },
+    {
+        "user_input": "Could you check and clean my code for better readability and syntax?",
+        "tag": "SyntaxAndCleanCode"
+    },
+    {
+        "user_input": "I need a code review focusing on syntax improvements and clean code advice.",
+        "tag": "SyntaxAndCleanCode"
+    },
+    {
+        "user_input": "Please analyze the syntax and suggest how I can clean up my script.",
+        "tag": "SyntaxAndCleanCode"
     }
   ]
-
 }

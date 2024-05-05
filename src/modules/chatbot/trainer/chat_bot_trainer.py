@@ -15,10 +15,14 @@ class ChatBotTrainer(Dataset):
 
     def __init__(self, extractor_name="BagOfWords", preprocessor_name="Lemmatizer", stopwords=False,
                  modeling_name="NeuralNet", model_name="bow_lemmatizer", num_epochs=1000, batch_size=8,
-                 learning_rate=0.0005, hidden_size=8):
+                 learning_rate=0.0005, hidden_size=8, vector_size=None, window=None):
 
-        self.__extractor = Extractor(preprocessor=Preprocessor(preprocessor_name, stopwords), extractor_name=extractor_name)
+        self.__extractor = Extractor(preprocessor=Preprocessor(preprocessor_name, stopwords), extractor_name=extractor_name,
+                                     vector_size=vector_size, window=window)
+
         self.__modeling_name = modeling_name
+        self.__vector_size = vector_size
+        self.__window = window
         self.__num_epochs = num_epochs
         self.__model_name = model_name
         self.__batch_size = batch_size
@@ -76,8 +80,9 @@ class ChatBotTrainer(Dataset):
             "input_size": self.__input_size,
             "hidden_size": self.__hidden_size,
             "output_size": self.__output_size,
-            "all_words": self.__extractor.vocab,
+            "vocab": self.__extractor.vocab,
             "tags": self.__extractor.tags,
+            "docs": self.__extractor.docs,
             "extractor": self.__extractor.extractor_name,
             "preprocessor": self.__extractor.preprocessor.preprocessor_name,
             "remove_stopwords": self.__extractor.preprocessor.remove_stopwords,
@@ -85,6 +90,8 @@ class ChatBotTrainer(Dataset):
             "num_epochs": self.__num_epochs,
             "batch_size": self.__batch_size,
             "learning_rate": self.__learning_rate,
+            "vector_size": self.__vector_size,
+            "window": self.__window,
         }
 
         file_path = PathFinder.get_complet_path(f"ressources/models/{self.__model_name}.pth")

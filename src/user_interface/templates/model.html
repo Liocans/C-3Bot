@@ -33,6 +33,7 @@
 										<label for="modeling">Modeling</label>
 										<select class="form-control" name="modeling" id="modeling" required>
 											<option value="NeuralNet" selected>NeuralNet</option>
+											<option value="EnhancedNeuralNet">EnhancedNeuralNet</option>
 										</select>
 									</div>
 									<div class="col">
@@ -47,6 +48,8 @@
 										<select class="form-control" name="features_extractor" id="features_extractor" required>
 											<option value="BagOfWords" selected>Bag of Words</option>
 											<option value="TFIDF">TF-IDF</option>
+											<option value="Word2Vec_CBOW">Word2Vec using CBOW</option>
+											<option value="Word2Vec_GRAM">Word2Vec using skip-gram</option>
 										</select>
 									</div>
 									<div class="col">
@@ -55,7 +58,7 @@
 												<input type="radio" name="stopwords" id="withoutstopwords" autocomplete="off" value = "True" checked>Remove Stop Words
 											</label>
 											<label class="btn btn-secondary w-50">
-												<input type="radio" name="stopwords" id="withstopwords" autocomplete="off" value = "False"> Keep Stop words
+												<input type="radio" name="stopwords" id="withstopwords" autocomplete="off" value = "False"> Keep Stop Words
 											</label>
 										</div>
 									</div>

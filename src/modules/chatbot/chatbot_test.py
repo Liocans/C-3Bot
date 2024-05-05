@@ -35,8 +35,9 @@ def test_chatbot(mode_filename: str) -> None:
         existing_results = json.load(result_file)
 
     for known_data in intent_test_data["known_data"]:
-        if (chatbot.predict_tag(known_data["user_input"]) == known_data["tag"]):
+        if chatbot.predict_tag(known_data["user_input"]) == known_data["tag"]:
             score_known_data += 1
+
     result["score_known_data"] = f"{round((score_known_data / len(intent_test_data["known_data"])) * 100, 2)} %"
 
     for unknown_data in intent_test_data["unknown_data"]:
@@ -46,5 +47,5 @@ def test_chatbot(mode_filename: str) -> None:
     result["score_unknown_data"] = f"{round((score_unknown_data / len(intent_test_data["unknown_data"])) * 100, 2)} %"
 
     with open(result_test_path, "w+", encoding='utf-8') as result_file:
-        existing_results["tests"].append(result)
+        existing_results["tests"].insert(0, result)
         json.dump(existing_results, result_file, indent=4)

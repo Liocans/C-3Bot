@@ -31,7 +31,6 @@ class ChatBot:
         Parameters:
             model_file (str): The path to the pre-trained model file.
         """
-        self.__tags = None
         self.__extractor = None
         self.__model = None
         self.__intents_data = dict()
@@ -64,6 +63,7 @@ class ChatBot:
              model_file (str): The path to the file containing the trained model and its metadata.
          """
         data = torch.load(model_file, map_location=self.__device)
+        preprocessor = Preprocessor(preprocessor_name=data["preprocessor"], remove_stopwords=data["remove_stopwords"])
 
         self.__model = Modeling.select_model(model_name=data["modeling_name"], input_size=data["input_size"],
                                                hidden_size=data["hidden_size"], num_classes=data["output_size"],
@@ -72,12 +72,8 @@ class ChatBot:
         self.__model.load_state_dict(data["model_state"])
         self.__model.eval()
 
-        self.__extractor = Extractor(preprocessor=Preprocessor(preprocessor_name=data["preprocessor"],
-                                                               remove_stopwords=data["remove_stopwords"]),
-                                     extractor_name=data[
-                                         "extractor"])  # Make sure this matches your actual implementation
-
-        self.__tags = data["tags"]
+        self.__extractor = Extractor(preprocessor=preprocessor, extractor_name=data["extractor"], vocab=data["vocab"],
+                                     docs=data["docs"], tags=data["tags"], window=data["window"], vector_size=data["vector_size"])
 
 
     def predict_tag(self, sentence):
@@ -110,7 +106,7 @@ class ChatBot:
         probabilities = torch.softmax(output, dim=1)
         prob = probabilities[0][predicted.item()]
 
-        return self.__tags[predicted.item()] if prob.item() > 0.7 else ""
+        return self.__extractor.tags[predicted.item()] if prob.item() > 0.7 else ""
 
     def get_response(self, user_input: str) -> list:
         """
@@ -131,17 +127,21 @@ class ChatBot:
             X = torch.from_numpy(X).to(dtype=torch.float).to(self.__device)
 
             output = self.__model(X)
+            print(output)
             _, predicted = torch.max(output, dim=1)
+            print(predicted.item())
 
-            predicted_tag = self.__tags[predicted.item()]
+            predicted_tag = self.__extractor.tags[predicted.item()]
             if predicted_tag not in treated_tags:
                 probabilities = torch.softmax(output, dim=1)
+                print(probabilities[0][predicted.item()])
                 prob = probabilities[0][predicted.item()]
 
                 if prob.item() > 0.7:
                     treated_tags.append(predicted_tag)
                     outputs.append(np.random.choice(self.__intents_data[predicted_tag]['responses']))
-                    if (self.__intents_data[predicted_tag]['class'] != ""):
+
+                    if self.__intents_data[predicted_tag]['class'] != "":
                         module = importlib.import_module(self.__intents_data[predicted_tag]['module'])
                         class_instance = getattr(module, self.__intents_data[predicted_tag]['class'])()
                         function_to_call = getattr(class_instance, self.__intents_data[predicted_tag]['function'])
@@ -152,7 +152,8 @@ class ChatBot:
                         param = list(self.__intents_data[predicted_tag]['parameters']['static'].values())
                         # Call the function with parameters unpacked from the list
                         outputs.append(function_to_call(*param))
-                    elif (self.__intents_data[predicted_tag]['function'] != ""):
+
+                    elif self.__intents_data[predicted_tag]['function'] != "":
                         module = importlib.import_module(self.__intents_data[predicted_tag]['module'])
                         function_to_call = getattr(module, self.__intents_data[predicted_tag]['function'])
 
@@ -161,6 +162,7 @@ class ChatBot:
                         param = list(self.__intents_data[predicted_tag]['parameters']['static'].values())
                         # Call the function with parameters unpacked from the list
                         outputs.extend(function_to_call(*param))
+
                 else:
                     outputs.append("Sorry, I do not understand your request...")
 

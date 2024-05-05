@@ -1,42 +1,53 @@
 import json
 
+import numpy as np
+
 from modules.NLP.features_extractor.bag_of_words import BagOfWords
 from modules.NLP.features_extractor.tf_idf import TFIDF
+from modules.NLP.features_extractor.word2vec import Word2Vec
 from modules.NLP.preprocessing.preprocessor import Preprocessor
 from utilities.path_finder import PathFinder
 
 
 class Extractor:
     """
-    A flexible class that handles feature extraction for text processing tasks by utilizing different feature
-    extraction strategies like Bag of Words or TF-IDF, depending on configuration.
+    A flexible class designed for feature extraction in natural language processing tasks. It supports various feature
+    extraction techniques like Bag of Words, TF-IDF, and Word2Vec, which can be configured dynamically.
 
     Attributes:
-        __preprocessor (Preprocessor): An instance of the Preprocessor class used for text preprocessing.
-        __extractor_name (str): The name of the feature extractor currently in use.
-        __extractor (BagOfWords | TFIDF): The feature extractor object, which can be either a BagOfWords or TFIDF instance.
+        __preprocessor (Preprocessor): An instance used for text preprocessing.
+        __extractor (Union[BagOfWords, TFIDF, Word2Vec]): The feature extractor object, which can be an instance of
+        BagOfWords, TFIDF, or Word2Vec depending on configuration.
 
     Methods:
-        extract_features(sentence): Extracts features from a given sentence using the configured feature extractor.
+        extract_features(sentence: str) -> list:
+            Extracts features from a given sentence using the configured feature extractor.
     """
-    def __init__(self, preprocessor: Preprocessor, extractor_name: str = "BagOfWords", vocab: list = None, tags: list = None, docs: list = None):
+
+    def __init__(self, preprocessor: Preprocessor, extractor_name: str = "BagOfWords", vocab: list = None,
+                 tags: list = None, docs: list = None, window: int = None, vector_size: int = None) -> object:
         """
-        Initializes the Extractor class with a specified preprocessor and extractor type.
+        Initializes the Extractor class with specified configurations for text preprocessing and feature extraction.
 
         Parameters:
-            preprocessor (Preprocessor): The preprocessor instance to use for preparing text data.
-            extractor_name (str, optional): The type of feature extractor to use. Defaults to "BagOfWords".
+            preprocessor (Preprocessor): The preprocessor instance to use for text preprocessing.
+            extractor_name (str): The type of feature extractor to use. Defaults to "BagOfWords".
+            vocab (list): A list of vocabulary words relevant for some extractors.
+            tags (list): A list of tags or categories used in the model.
+            docs (list): A list of documents or sentences used primarily with Word2Vec.
+            window (int): The maximum distance between the current and predicted word in a Word2Vec model.
+            vector_size (int): The dimensionality of the word vectors in a Word2Vec model.
         """
         self.__vocab = vocab
         self.__docs = docs
         self.__tags = tags
         self.__preprocessor = preprocessor
-        self.__extractor_name = extractor_name
-        self.__extractor = self.__select_extractor(preprocessor=preprocessor, extractor_name=extractor_name)
+        self.__extractor = self.__select_extractor(preprocessor=preprocessor, extractor_name=extractor_name,
+                                                   window=window, vector_size=vector_size)
 
-    def extract_features(self, sentence: str) -> list:
+    def extract_features(self, sentence: str) -> np.ndarray:
         """
-        Extracts features from a given sentence using the selected feature extraction method.
+        Extracts features from a given sentence using the selected feature extraction method, returning a list of features.
 
         Parameters:
             sentence (str): The sentence from which to extract features.
@@ -46,27 +57,37 @@ class Extractor:
         """
         return self.__extractor.extract_features(sentence)
 
-    def __select_extractor(self, preprocessor, extractor_name) -> BagOfWords | TFIDF:
+    def __select_extractor(self, preprocessor, extractor_name, window, vector_size) -> BagOfWords | TFIDF | Word2Vec:
         """
-        Selects the feature extractor based on the provided extractor name.
+        Selects the appropriate feature extractor based on the provided extractor name and initializes it.
 
         Parameters:
             preprocessor (Preprocessor): The preprocessor instance to use with the feature extractor.
             extractor_name (str): The name of the extractor to use.
 
         Returns:
-            BagOfWords | TFIDF: An instance of the specified feature extractor, initialized with the given preprocessor.
+            Union[BagOfWords, TFIDF, Word2Vec]: An instance of the specified feature extractor, initialized with the given parameters.
         """
+        if self.__vocab == self.__docs == self.__tags is None:
+            self.__load_corpus()
+
         if extractor_name == "BagOfWords":
-            if(self.__vocab == None):
-                self.__load_corpus()
             return BagOfWords(preprocessor=preprocessor, vocab=self.__vocab)
+
         elif extractor_name == "TFIDF":
-            if(self.__vocab == self.__tags == None):
-                self.__load_corpus()
             return TFIDF(preprocessor=preprocessor, vocab=self.__vocab, docs=self.__docs)
-    
+
+        elif extractor_name in ["Word2Vec_CBOW", "Word2Vec_GRAM"]:
+            sg = 0 if extractor_name == "Word2Vec_CBOW" else 1
+            return Word2Vec(preprocessor=preprocessor, docs=self.__docs, window=window, vector_size=vector_size, sg=sg)
+
     def __load_corpus(self):
+        """
+        Loads the corpus data from a JSON file and extracts vocabulary, documents, and tags to be used in the model.
+        """
+        self.__tags = []
+        self.__docs = []
+        self.__vocab = []
         file_path = PathFinder.get_complet_path('ressources/json_files/intents.json')
         with open(file_path, 'r', encoding='utf-8') as file:
             intents_data = json.load(file)
@@ -79,26 +100,30 @@ class Extractor:
                 for word in preprocessed_text:
                     if word not in self.__vocab:
                         self.__vocab.append(word)
-                        
+
     @property
     def vocab(self) -> list:
         """
-        Accesses the vocabulary used by the current feature extractor.
+        Accesses the vocabulary.
 
         Returns:
-            list: The vocabulary list from the current feature extractor.
+            list: The vocabulary list.
         """
         return self.__vocab
 
     @property
     def tags(self) -> list:
         """
-        Accesses the tags or categories used by the current feature extractor.
+        Accesses the tags.
 
         Returns:
-            list: A list of tags from the current feature extractor.
+            list: A list of tags.
         """
         return self.__tags
+
+    @property
+    def docs(self) -> list:
+        return self.__docs
 
     @property
     def extractor_name(self) -> str:
@@ -108,7 +133,7 @@ class Extractor:
         Returns:
             str: The name of the current feature extractor.
         """
-        return self.__extractor_name
+        return self.__extractor.extractor_name
 
     @property
     def preprocessor(self) -> Preprocessor:
@@ -118,4 +143,4 @@ class Extractor:
         Returns:
             Preprocessor: The preprocessor instance being used.
         """
-        return self.__preprocessor
+        return self.__extractor.preprocessor

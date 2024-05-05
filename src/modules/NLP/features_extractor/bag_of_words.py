@@ -1,9 +1,6 @@
-import json
-
 import numpy as np
 
 from modules.NLP.preprocessing.preprocessor import Preprocessor
-from utilities.path_finder import PathFinder
 
 
 class BagOfWords:
@@ -15,7 +12,6 @@ class BagOfWords:
     Attributes:
         __preprocessor (Preprocessor): An instance of the Preprocessor class used for tokenizing and normalizing text.
         __vocab (list): A list of unique words that forms the vocabulary of the corpus.
-        __tags (list): A list of tags or categories associated with different intents or purposes in the corpus.
     """
     def __init__(self, preprocessor: Preprocessor, vocab: list):
         """
@@ -23,11 +19,12 @@ class BagOfWords:
 
         Parameters:
             preprocessor (Preprocessor): The preprocessor instance to use for text preprocessing.
+            vocab (list): The vocabulary list, each word of which will be represented in the feature vectors.
         """
         self.__preprocessor = preprocessor
         self.__vocab = vocab
 
-    def extract_features(self, sentence: str) -> list:
+    def extract_features(self, sentence: str) -> np.ndarray:
         """
         Converts a sentence into a bag-of-words vector using the class's vocabulary.
 
@@ -37,7 +34,7 @@ class BagOfWords:
         Returns:
             np.ndarray: A numpy array representing the sentence as a vector of word frequencies.
         """
-        bow_representation = np.zeros(len(self.__vocab)).tolist()
+        bow_representation = np.zeros(len(self.__vocab))
         for word in self.__preprocessor.preprocess_text(text=sentence):
             if word in self.__vocab:
                 index = self.__vocab.index(word)

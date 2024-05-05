@@ -16,7 +16,7 @@ class MyTestCase(unittest.TestCase):
         with open(filename, "r") as file:
             syntax_tree = self.language_parser.parse(source_code=file.read(), language=self.language)
             actual_output = describe_clean_code_problems(syntax_tree=syntax_tree, language=self.language)
-        self.assertEqual(expected_output, actual_output)
+        self.assertEqual(actual_output, expected_output)
 
     def test_no_clean_code(self):
         filename = PathFinder().get_complet_path(path_to_file=f'ressources/{self.language}_files/code_without_cc.txt')
@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
         with open(filename, "r") as file:
             syntax_tree = self.language_parser.parse(source_code=file.read(), language=self.language)
             actual_output = describe_clean_code_problems(syntax_tree=syntax_tree, language=self.language)
-        self.assertEqual(expected_output, actual_output)
+        self.assertEqual(actual_output, expected_output)
 
 
 if __name__ == '__main__':
