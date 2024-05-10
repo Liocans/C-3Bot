@@ -7,7 +7,7 @@ from utilities.path_finder import PathFinder
 
 
 def test_chatbot(mode_filename: str) -> None:
-    file_path = PathFinder().get_complet_path(f"ressources/models/{mode_filename}.pth")
+    file_path = PathFinder().get_complet_path(f"ressources/models/{mode_filename}")
     intent_test_path = PathFinder().get_complet_path(f"ressources/json_files/chatbot_intent_test.json")
     result_test_path = PathFinder().get_complet_path(f"ressources/json_files/chatbot_test_result.json")
 

@@ -2,6 +2,7 @@ import numpy as np
 
 from gensim.models import Word2Vec as GensimWord2Vec
 from modules.NLP.preprocessing.preprocessor import Preprocessor
+from utilities.path_finder import PathFinder
 
 
 class Word2Vec:
@@ -31,7 +32,11 @@ class Word2Vec:
         self.__preprocessor = preprocessor
         self.__model = None
         self.__docs = docs
-        self.__train(vector_size, window, min_count, workers, sg)
+        self.__vector_size = vector_size
+        self.__window = window
+        self.__min_count = min_count
+        self.__workers = workers
+        self.__sg = sg
 
     def extract_features(self, sentence: str) -> np.ndarray:
         """
@@ -65,7 +70,7 @@ class Word2Vec:
 
         return self.__model.wv[word] if word in self.__model.wv else np.zeros(self.__model.vector_size)
 
-    def __train(self, vector_size, window, min_count, workers, sg):
+    def train(self, model_name):
         """
         Initializes and trains the Word2Vec model using the specified parameters and the provided documents.
 
@@ -77,8 +82,21 @@ class Word2Vec:
             sg (int): Specifies the training algorithm: 1 for skip-gram, otherwise CBOW.
         """
         # Initialize and train the Word2Vec model
-        self.__model = GensimWord2Vec(self.__docs, vector_size=vector_size, window=window, min_count=min_count,
-                                workers=workers, sg=sg)
+        self.__model = GensimWord2Vec(self.__docs, vector_size=self.__vector_size, window=self.__window, min_count=self.__min_count,
+                                workers=self.__workers, sg=self.__sg)
+
+        self.__save_model(model_name)
+
+    def __save_model(self, model_name: str) -> None:
+        """ Saves the trained Word2Vec model to the specified file path. """
+        file_path = PathFinder.get_complet_path(f"ressources/extractors/{model_name}_E.pth")
+        self.__model.save(file_path)
+
+    def load_model(self, model_name: str) -> None:
+        """ Loads a Word2Vec model from the specified file path. """
+        file_path = PathFinder.get_complet_path(f"ressources/extractors/{model_name}_E.pth")
+        self.__model = GensimWord2Vec.load(file_path)
+
 
     @property
     def extractor_name(self) -> str:

@@ -1,10 +1,12 @@
 import json
+import os
 
 import numpy as np
 import torch
 import importlib
 
 from modules.NLP.features_extractor.extractor import Extractor
+from modules.NLP.modeling.BERT import BertIntentClassifier
 from modules.NLP.modeling.modeling import Modeling
 from modules.NLP.preprocessing.preprocessor import Preprocessor
 from modules.NLP.preprocessing.sentence_segmenter import segment_sentences
@@ -35,8 +37,9 @@ class ChatBot:
         self.__model = None
         self.__intents_data = dict()
         self.__device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.load_model(model_file)
+        self.load_essential(model_file)
         self.__load_intents()
+        self.__modeling_name = None
 
     def __load_intents(self):
         """
@@ -55,25 +58,36 @@ class ChatBot:
                     "parameters": intent["parameters"]
                 }
 
-    def load_model(self, model_file):
+    def load_essential(self, model_file):
         """
          Loads a pre-trained model along with its configuration and necessary data for feature extraction.
 
          Parameters:
-             model_file (str): The path to the file containing the trained model and its metadata.
+             model_file (str): The name of the file containing the trained model and its metadata.
          """
-        data = torch.load(model_file, map_location=self.__device)
-        preprocessor = Preprocessor(preprocessor_name=data["preprocessor"], remove_stopwords=data["remove_stopwords"])
 
-        self.__model = Modeling.select_model(model_name=data["modeling_name"], input_size=data["input_size"],
-                                               hidden_size=data["hidden_size"], num_classes=data["output_size"],
-                                               device=self.__device)
+        path_file = PathFinder.get_complet_path("ressources/models/" + model_file)
 
-        self.__model.load_state_dict(data["model_state"])
-        self.__model.eval()
 
-        self.__extractor = Extractor(preprocessor=preprocessor, extractor_name=data["extractor"], vocab=data["vocab"],
-                                     docs=data["docs"], tags=data["tags"], window=data["window"], vector_size=data["vector_size"])
+        if (os.path.isdir(path_file)):
+            self.__model = BertIntentClassifier(model_name=model_file)
+            self.__model.load_model()
+            self.__modeling_name = "BERT"
+
+        else:
+            data = torch.load(path_file, map_location=self.__device)
+            self.__modeling_name = data["modeling_name"]
+
+            self.__model = Modeling.select_model(modeling_name=data["modeling_name"], input_size=data["input_size"],
+                                                 hidden_size=data["hidden_size"], num_classes=data["output_size"],
+                                                 device=self.__device)
+            self.__model.load_state_dict(data["model_state"])
+            self.__model.eval()
+
+            preprocessor = Preprocessor(preprocessor_name=data["preprocessor"], remove_stopwords=data["remove_stopwords"])
+            self.__extractor = Extractor(preprocessor=preprocessor, extractor_name=data["extractor"], vocab=data["vocab"],
+                                         docs=data["docs"], tags=data["tags"], window=data["window"], vector_size=data["vector_size"],
+                                         model_name=model_file)
 
 
     def predict_tag(self, sentence):
@@ -96,6 +110,10 @@ class ChatBot:
             This function is part of the testing tools and is not intended for use in production
             applications.
         """
+
+        if(self.__modeling_name=="BERT"):
+            return self.__model.predict()
+
         X = self.__extractor.extract_features(sentence)
         X = X.reshape(1, X.shape[0])
         X = torch.from_numpy(X).to(dtype=torch.float).to(self.__device)
@@ -122,22 +140,11 @@ class ChatBot:
         outputs = []
         treated_user_input = segment_sentences(user_input)
         for sentence in treated_user_input["user_input"]:
-            X = self.__extractor.extract_features(sentence)
-            X = X.reshape(1, X.shape[0])
-            X = torch.from_numpy(X).to(dtype=torch.float).to(self.__device)
 
-            output = self.__model(X)
-            print(output)
-            _, predicted = torch.max(output, dim=1)
-            print(predicted.item())
-
-            predicted_tag = self.__extractor.tags[predicted.item()]
+            predicted_tag = self.predict_tag(sentence)
             if predicted_tag not in treated_tags:
-                probabilities = torch.softmax(output, dim=1)
-                print(probabilities[0][predicted.item()])
-                prob = probabilities[0][predicted.item()]
 
-                if prob.item() > 0.7:
+                if predicted_tag != "":
                     treated_tags.append(predicted_tag)
                     outputs.append(np.random.choice(self.__intents_data[predicted_tag]['responses']))
 

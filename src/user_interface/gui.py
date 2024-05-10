@@ -35,7 +35,7 @@ class ChatInterface:
         """
         template = PathFinder().get_complet_path('user_interface/templates/')
         static = PathFinder().get_complet_path('user_interface/static/')
-        file = PathFinder().get_complet_path("ressources/models/bow_lemmatizer.pth")
+        file = ("bow_lemmatizer.pth")
         self.__chatbot = ChatBot(file)
         self.__app = Flask(__name__, template_folder=template, static_folder=static)
         self.__configs(**configs)
@@ -144,7 +144,25 @@ class ChatInterface:
                         'hidden_size': data["hidden_size"]
                     }
                 }
-                json_data['models'].append(model_item)
+            else:
+                config_path = path+file+"/config.json"
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+
+                model_item = {
+                    'name': file,
+                    'parameters': {
+                        'modeling': config["model_type"],
+                        'preprocessing': "None",
+                        'extractor': "BERT",
+                        'stopword': "None",
+                        'epochs': config["num_epochs"],
+                        'batch_size': config["batch_size"],
+                        'learning_rate': config["learning_rate"],
+                        'hidden_size': "None"
+                    }
+                }
+            json_data['models'].append(model_item)
 
         # Convert the Python dictionary to a JSON string
         return json.dumps(json_data, indent=4)
@@ -158,7 +176,6 @@ class ChatInterface:
         """
         directory = PathFinder.get_complet_path("ressources/models/")  # Change this to your directory path
         files = os.listdir(directory)
-        files = [file.removesuffix(".pth") for file in files]
         return jsonify(files)
 
     def __load_tests(self) -> str:
@@ -180,8 +197,8 @@ class ChatInterface:
         Returns:
             str: Simple text response to confirm the model was loaded.
         """
-        self.__chatbot.load_model(
-            model_file=PathFinder.get_complet_path("ressources/models/" + request.form["filename"] + ".pth"))
+
+        self.__chatbot.load_essential(model_file=request.form["filename"])
         return 'ok'
 
     def __test_chatbot(self):
@@ -209,7 +226,7 @@ class ChatInterface:
         training_thread = threading.Thread(target=self.__training,
                                            args=(data["features_extractor"], data["preprocessor"],
                                                  data["stopwords"] == "True", data["modeling"],
-                                                 data["model_name"], int(data["num_epochs"]),
+                                                 data["modeling_name"], int(data["num_epochs"]),
                                                  int(data["batch_size"]),
                                                  float(data["learning_rate"]),
                                                  int(data["hidden_size"])))
@@ -236,7 +253,7 @@ class ChatInterface:
             learning_rate (float): Learning rate for the training.
             hidden_size (int): Size of the hidden layers in the model.
         """
-        ChatBotTrainer(extractor_name=extractor_name, preprocessor_name=preprocessor_name, stopwords=stopwords,
+        ChatBotTrainer(extractor_name=extractor_name, preprocessor_name=preprocessor_name, remove_stopwords=stopwords,
                        modeling_name=modeling_name, model_name=model_name, num_epochs=num_epochs, batch_size=batch_size,
                        learning_rate=learning_rate, hidden_size=hidden_size).start_training()
 

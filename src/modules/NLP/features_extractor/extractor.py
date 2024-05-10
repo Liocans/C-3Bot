@@ -25,7 +25,8 @@ class Extractor:
     """
 
     def __init__(self, preprocessor: Preprocessor, extractor_name: str = "BagOfWords", vocab: list = None,
-                 tags: list = None, docs: list = None, window: int = None, vector_size: int = None) -> object:
+                 tags: list = None, docs: list = None, window: int = None, vector_size: int = None,
+                 model_name: str = None, is_training: bool = False):
         """
         Initializes the Extractor class with specified configurations for text preprocessing and feature extraction.
 
@@ -42,8 +43,10 @@ class Extractor:
         self.__docs = docs
         self.__tags = tags
         self.__preprocessor = preprocessor
-        self.__extractor = self.__select_extractor(preprocessor=preprocessor, extractor_name=extractor_name,
-                                                   window=window, vector_size=vector_size)
+        self.__extractor = None
+        self.__is_training = is_training
+        self.__select_extractor(preprocessor=preprocessor, extractor_name=extractor_name,
+                                window=window, vector_size=vector_size, model_name=model_name)
 
     def extract_features(self, sentence: str) -> np.ndarray:
         """
@@ -57,7 +60,7 @@ class Extractor:
         """
         return self.__extractor.extract_features(sentence)
 
-    def __select_extractor(self, preprocessor, extractor_name, window, vector_size) -> BagOfWords | TFIDF | Word2Vec:
+    def __select_extractor(self, preprocessor, extractor_name, window, vector_size, model_name) -> None:
         """
         Selects the appropriate feature extractor based on the provided extractor name and initializes it.
 
@@ -72,14 +75,19 @@ class Extractor:
             self.__load_corpus()
 
         if extractor_name == "BagOfWords":
-            return BagOfWords(preprocessor=preprocessor, vocab=self.__vocab)
+            self.__extractor = BagOfWords(preprocessor=preprocessor, vocab=self.__vocab)
 
         elif extractor_name == "TFIDF":
-            return TFIDF(preprocessor=preprocessor, vocab=self.__vocab, docs=self.__docs)
+            self.__extractor = TFIDF(preprocessor=preprocessor, vocab=self.__vocab, docs=self.__docs)
 
         elif extractor_name in ["Word2Vec_CBOW", "Word2Vec_GRAM"]:
             sg = 0 if extractor_name == "Word2Vec_CBOW" else 1
-            return Word2Vec(preprocessor=preprocessor, docs=self.__docs, window=window, vector_size=vector_size, sg=sg)
+            self.__extractor = Word2Vec(preprocessor=preprocessor, docs=self.__docs, window=window,
+                                        vector_size=vector_size, sg=sg)
+            if (self.__is_training):
+                self.__extractor.train(model_name=model_name)
+            else:
+                self.__extractor.load_model(model_name=model_name)
 
     def __load_corpus(self):
         """

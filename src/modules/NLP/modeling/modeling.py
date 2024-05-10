@@ -1,16 +1,15 @@
-from modules.NLP.modeling.enhanced_neural_net import EnhancedNeuralNet
 from modules.NLP.modeling.neural_net import NeuralNet
 
 
 class Modeling:
 
     @staticmethod
-    def select_model(model_name: str, input_size: int, hidden_size: int, num_classes: int, device) -> NeuralNet | EnhancedNeuralNet:
+    def select_model(modeling_name: str, input_size: int, hidden_size: int, num_classes: int, device) -> NeuralNet :
         """
         Selects and initializes a neural network model based on the specified model name.
 
         Parameters:
-            model_name (str): The name of the model to be selected.
+            modeling_name (str): The name of the model to be selected.
             input_size (int): The size of the input features.
             hidden_size (int): The size of the hidden layers in the neural network.
             num_classes (int): The number of classes for classification.
@@ -19,8 +18,6 @@ class Modeling:
         Returns:
             NeuralNet or EnhancedNeuralNet: An instance of the selected neural network model.
         """
-        if model_name == "NeuralNet":
+        if modeling_name == "NeuralNet":
             return NeuralNet(input_size=input_size, hidden_size=hidden_size, num_classes=num_classes).to(device=device)
 
-        elif model_name == "EnhancedNeuralNet":
-            return EnhancedNeuralNet(input_size=input_size, hidden_size=hidden_size, num_classes=num_classes)

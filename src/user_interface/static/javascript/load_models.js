@@ -13,7 +13,7 @@ $(document).ready(function() {
 
             $.each(model.parameters, function(key, parameter) {
                 if(typeof parameter == "boolean"){
-                    parameter = parameter ? "YES":"NO"
+                    parameter = parameter ? "NO":"YES"
                 }
                 newRow.append($("<td class='w-10'>"+  parameter +"</td>"))
             });
