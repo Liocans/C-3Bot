@@ -37,9 +37,9 @@ class ChatBot:
         self.__model = None
         self.__intents_data = dict()
         self.__device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.__modeling_name = None
         self.load_essential(model_file)
         self.__load_intents()
-        self.__modeling_name = None
 
     def __load_intents(self):
         """
@@ -68,11 +68,10 @@ class ChatBot:
 
         path_file = PathFinder.get_complet_path("ressources/models/" + model_file)
 
-
         if (os.path.isdir(path_file)):
+            self.__modeling_name = "BERT"
             self.__model = BertIntentClassifier(model_name=model_file)
             self.__model.load_model()
-            self.__modeling_name = "BERT"
 
         else:
             data = torch.load(path_file, map_location=self.__device)
@@ -112,7 +111,8 @@ class ChatBot:
         """
 
         if(self.__modeling_name=="BERT"):
-            return self.__model.predict()
+            print(sentence)
+            return self.__model.predict(text=sentence)
 
         X = self.__extractor.extract_features(sentence)
         X = X.reshape(1, X.shape[0])

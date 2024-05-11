@@ -28,24 +28,24 @@ class BertIntentClassifier:
         self.__intents = []
         self.__intent_map = {}
         self.__model = None
+        self.__texts = []
+        self.__tags = []
+        self.__device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.load_data()
 
     def load_data(self):
         file_path = PathFinder.get_complet_path("ressources/json_files/intents.json")
         with open(file_path, 'r', encoding='utf-8') as file:
             intents_data = json.load(file)
 
-        texts = []
-        tags = []
         for intent in intents_data["intents"]:
             tag = intent["tag"]
             if tag not in self.__intent_map:
                 self.__intent_map[tag] = len(self.__intents)
                 self.__intents.append(tag)
             for text in intent["patterns"]:
-                texts.append(text)
-                tags.append(self.__intent_map[tag])
-
-        return texts, tags
+                self.__texts.append(text)
+                self.__tags.append(self.__intent_map[tag])
 
     def prepare_data(self, texts, tags):
         encodings = self.__tokenizer(texts, truncation=True, padding=True, max_length=512, return_tensors='pt')
@@ -53,17 +53,22 @@ class BertIntentClassifier:
         return dataset
 
     def train(self, epochs=3, learning_rate=0.0005, batch_size=16):
-        texts, tags = self.load_data()
-        dataset = self.prepare_data(texts, tags)
+        self.load_data()
+        dataset = self.prepare_data(self.__texts, self.__tags)
         train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
         self.__model = BertForSequenceClassification.from_pretrained('bert-base-uncased',
                                                                      num_labels=len(self.__intents))
+
+        self.__model.to(self.__device)  # Send model to device
         self.__model.train()
         optimizer = AdamW(self.__model.parameters(), lr=learning_rate)
 
         for epoch in range(epochs):
-            for batch in tqdm(train_loader, desc=f"Epoch {epoch + 1}"):
+            running_loss = 0.0
+            # Create tqdm progress bar
+            progress_bar = tqdm(train_loader, desc=f"Epoch {epoch + 1}")
+            for i, batch in enumerate(progress_bar):
                 self.__model.zero_grad()
                 input_ids = batch['input_ids']
                 attention_mask = batch['attention_mask']
@@ -72,6 +77,10 @@ class BertIntentClassifier:
                 loss = outputs.loss
                 loss.backward()
                 optimizer.step()
+
+                running_loss += loss.item()
+                # Update progress bar description with current loss
+                progress_bar.set_description(f"Epoch {epoch + 1} Loss: {loss.item():.4f}")
 
         self.__save_model(epochs, learning_rate, batch_size)
 
@@ -107,6 +116,5 @@ class BertIntentClassifier:
         with torch.no_grad():
             inputs = self.__tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
             outputs = self.__model(**inputs)
-            probabilities = torch.softmax(outputs.logits, dim=-1)  # Apply softmax to convert logits to probabilities
-            max_prob, prediction = torch.max(probabilities, dim=-1)  # Get the max probability and index
-            return self.__intents[prediction.item()] if max_prob >= 0.7 else ""
+            prediction = torch.argmax(outputs.logits, dim=1)
+            return self.__intents[prediction.item()]

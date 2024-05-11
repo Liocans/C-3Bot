@@ -4,6 +4,18 @@
             "modeling": "NeuralNet",
             "preprocessing": "Lemmatizer",
             "extractor": "BagOfWords",
+            "stopword": true,
+            "epochs": 200,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "35.62 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "BagOfWords",
             "stopword": false,
             "epochs": 1000,
             "batch_size": 8,

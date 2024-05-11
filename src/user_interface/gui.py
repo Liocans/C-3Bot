@@ -149,19 +149,19 @@ class ChatInterface:
                 with open(config_path, 'r') as f:
                     config = json.load(f)
 
-                model_item = {
-                    'name': file,
-                    'parameters': {
-                        'modeling': config["model_type"],
-                        'preprocessing': "None",
-                        'extractor': "BERT",
-                        'stopword': "None",
-                        'epochs': config["num_epochs"],
-                        'batch_size': config["batch_size"],
-                        'learning_rate': config["learning_rate"],
-                        'hidden_size': "None"
+                    model_item = {
+                        'name': file,
+                        'parameters': {
+                            'modeling': config["model_type"],
+                            'preprocessing': "None",
+                            'extractor': "BERT",
+                            'stopword': "None",
+                            'epochs': config["num_epochs"],
+                            'batch_size': config["batch_size"],
+                            'learning_rate': config["learning_rate"],
+                            'hidden_size': "None"
+                        }
                     }
-                }
             json_data['models'].append(model_item)
 
         # Convert the Python dictionary to a JSON string
@@ -226,7 +226,7 @@ class ChatInterface:
         training_thread = threading.Thread(target=self.__training,
                                            args=(data["features_extractor"], data["preprocessor"],
                                                  data["stopwords"] == "True", data["modeling"],
-                                                 data["modeling_name"], int(data["num_epochs"]),
+                                                 data["model_name"], int(data["num_epochs"]),
                                                  int(data["batch_size"]),
                                                  float(data["learning_rate"]),
                                                  int(data["hidden_size"])))
