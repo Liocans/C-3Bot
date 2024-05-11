@@ -3,6 +3,7 @@ import torch
 from transformers import BertTokenizer, BertForSequenceClassification, AdamW
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
+import time
 
 from utilities.path_finder import PathFinder
 
@@ -53,7 +54,7 @@ class BertIntentClassifier:
         return dataset
 
     def train(self, epochs=3, learning_rate=0.0005, batch_size=16):
-        self.load_data()
+        start = time.time()
         dataset = self.prepare_data(self.__texts, self.__tags)
         train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
@@ -63,6 +64,7 @@ class BertIntentClassifier:
         self.__model.to(self.__device)  # Send model to device
         self.__model.train()
         optimizer = AdamW(self.__model.parameters(), lr=learning_rate)
+        running_loss = 0.0
 
         for epoch in range(epochs):
             running_loss = 0.0
@@ -78,13 +80,15 @@ class BertIntentClassifier:
                 loss.backward()
                 optimizer.step()
 
-                running_loss += loss.item()
+                running_loss = loss.item()
                 # Update progress bar description with current loss
                 progress_bar.set_description(f"Epoch {epoch + 1} Loss: {loss.item():.4f}")
 
-        self.__save_model(epochs, learning_rate, batch_size)
+        end = time.time()
 
-    def __save_model(self, epochs, learning_rate, batch_size):
+        self.__save_model(epochs, learning_rate, batch_size, end-start, running_loss)
+
+    def __save_model(self, epochs, learning_rate, batch_size, total_time, last_loss):
         model_path, tokenizer_path = self.__get_necessary_path()
 
         # Load or update the model config
@@ -98,7 +102,7 @@ class BertIntentClassifier:
         self.__model.save_pretrained(model_path)
         self.__tokenizer.save_pretrained(tokenizer_path)
 
-        print(f"Model saved to {model_path}, Tokenizer saved to {tokenizer_path}")
+        print(f'training complete in {total_time:.2f} sec. final loss: {last_loss:.4f}, file saved to {model_path}')
 
     def load_model(self):
         model_path, tokenizer_path = self.__get_necessary_path()

@@ -1,5 +1,6 @@
 import json
 
+import time
 import numpy as np
 import torch
 import torch.nn as nn
@@ -44,6 +45,7 @@ class ChatBotTrainer:
                                  batch_size=self.__batch_size)
 
         else:
+            start = time.time()
             input_size = len(self.dataset[0][0])
             output_size = len(self.extractor.tags)
 
@@ -71,9 +73,10 @@ class ChatBotTrainer:
                 if (epoch + 1) % 100 == 0:
                     print(f'Epoch [{epoch + 1}/{self.__num_epochs}], Loss: {loss.item():.4f}')
 
-            self.save_model(loss)
+            end = time.time()
+            self.save_model(loss, end - start)
 
-    def save_model(self, final_loss):
+    def save_model(self, final_loss, total_time):
         data = {
             "model_state": self.__model.state_dict(),
             "input_size": len(self.dataset[0][0]),
@@ -95,7 +98,7 @@ class ChatBotTrainer:
 
         file_path = PathFinder.get_complet_path(f"ressources/models/{self.__model_name}.pth")
         torch.save(data, file_path)
-        print(f'training complete. final loss: {final_loss.item():.4f}, file saved to {file_path}')
+        print(f'training complete in {total_time:.2f} sec. final loss: {final_loss.item():.4f}, file saved to {file_path}')
 
 
 class IntentDataset(Dataset):
