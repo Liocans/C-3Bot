@@ -8,6 +8,33 @@ from utilities.path_finder import PathFinder
 
 
 def test_chatbot(model_filename: str) -> None:
+    """
+    Tests a ChatBot model with predefined input data for known and unknown intents
+    and writes the test results to a JSON file.
+
+    This function retrieves paths for model resources and JSON files using `PathFinder`.
+    It then initializes a `ChatBot` instance with the specified model file. Depending
+    on the model's file structure, configuration parameters are loaded either from a
+    JSON file within a directory (if the model is stored in a directory) or directly
+    from a model data file (if the model is stored in a file).
+
+    The test involves scoring the ChatBot's ability to correctly predict intent tags
+    for known and unknown data sets. These scores are then written back to a JSON file
+    that aggregates test results.
+
+    Parameters:
+    - model_filename (str): The filename of the model to test. This is used to locate
+      the actual model file and its associated configuration.
+
+    Raises:
+    - FileNotFoundError: If the model file or any necessary JSON files are not found.
+    - Exception: For errors that occur during file reading or writing.
+
+    Outputs:
+    - No direct output, but updates a JSON file with the test results and prints a message
+      upon completion of the test.
+    """
+
     file_path = PathFinder().get_complet_path(f"ressources/models/{model_filename}")
     intent_test_path = PathFinder().get_complet_path(f"ressources/json_files/chatbot_intent_test.json")
     result_test_path = PathFinder().get_complet_path(f"ressources/json_files/chatbot_test_result.json")

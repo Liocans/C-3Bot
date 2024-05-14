@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 
 
@@ -13,7 +14,9 @@ class NeuralNet(nn.Module):
         relu (nn.ReLU): The ReLU activation function used between layers.
 
     Methods:
-        forward(x): Defines the forward pass of the model.
+        forward(features): Defines the forward pass of the model.
+        modeling_name(): Provides the name of the model configuration.
+
     """
 
     def __init__(self, input_size: int = None, hidden_size: int = None, num_classes: int = None):
@@ -31,7 +34,7 @@ class NeuralNet(nn.Module):
         self.l3 = nn.Linear(hidden_size, num_classes)
         self.relu = nn.ReLU()
 
-    def forward(self, features):
+    def forward(self, features: torch.Tensor) -> torch.Tensor:
         """
         Performs a forward pass through the network with ReLU activations after each of the first two linear layers.
 

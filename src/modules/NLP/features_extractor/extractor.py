@@ -39,6 +39,7 @@ class Extractor:
             window (int): The maximum distance between the current and predicted word in a Word2Vec model.
             vector_size (int): The dimensionality of the word vectors in a Word2Vec model.
         """
+
         self.__vocab = vocab
         self.__docs = docs
         self.__tags = tags
@@ -58,6 +59,7 @@ class Extractor:
         Returns:
             list: A list of features extracted from the sentence.
         """
+
         return self.__extractor.extract_features(sentence)
 
     def __select_extractor(self, preprocessor, extractor_name, window, vector_size, model_name) -> None:
@@ -71,6 +73,7 @@ class Extractor:
         Returns:
             Union[BagOfWords, TFIDF, Word2Vec]: An instance of the specified feature extractor, initialized with the given parameters.
         """
+
         if self.__vocab == self.__docs == self.__tags is None:
             self.__load_corpus()
 
@@ -84,7 +87,7 @@ class Extractor:
             sg = 0 if extractor_name == "Word2Vec_CBOW" else 1
             self.__extractor = Word2Vec(preprocessor=preprocessor, docs=self.__docs, window=window,
                                         vector_size=vector_size, sg=sg)
-            if (self.__is_training):
+            if self.__is_training:
                 self.__extractor.train(model_name=model_name)
             else:
                 self.__extractor.load_model(model_name=model_name)
@@ -93,6 +96,7 @@ class Extractor:
         """
         Loads the corpus data from a JSON file and extracts vocabulary, documents, and tags to be used in the model.
         """
+
         self.__tags = []
         self.__docs = []
         self.__vocab = []
@@ -117,6 +121,7 @@ class Extractor:
         Returns:
             list: The vocabulary list.
         """
+
         return self.__vocab
 
     @property
@@ -127,10 +132,18 @@ class Extractor:
         Returns:
             list: A list of tags.
         """
+
         return self.__tags
 
     @property
     def docs(self) -> list:
+        """
+        Accesses the docs.
+
+        Returns:
+            list: A list of all the document.
+        """
+
         return self.__docs
 
     @property
@@ -141,6 +154,7 @@ class Extractor:
         Returns:
             str: The name of the current feature extractor.
         """
+
         return self.__extractor.extractor_name
 
     @property
@@ -151,4 +165,5 @@ class Extractor:
         Returns:
             Preprocessor: The preprocessor instance being used.
         """
+
         return self.__extractor.preprocessor

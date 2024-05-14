@@ -19,7 +19,6 @@ class ChatBot:
     feature extraction, preprocessing, and deep learning models to process and respond to user queries.
 
     Attributes:
-        __tags (list): A list of possible tags or categories the bot can recognize.
         __extractor (Extractor): The feature extraction mechanism used to convert text input into a format suitable for the model.
         __model (Modeling): The neural network model that predicts the category of the input.
         __device (torch.device): The computation device (CPU or GPU) on which the model is loaded.
@@ -38,10 +37,10 @@ class ChatBot:
         self.__intents_data = dict()
         self.__device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.__modeling_name = None
-        self.load_essential(model_file)
+        self.__load_essential(model_file)
         self.__load_intents()
 
-    def __load_intents(self):
+    def __load_intents(self) -> None:
         """
         Loads intents data from a JSON file and initializes intent handling configurations.
         """
@@ -58,7 +57,7 @@ class ChatBot:
                     "parameters": intent["parameters"]
                 }
 
-    def load_essential(self, model_file):
+    def __load_essential(self, model_file: str) -> None:
         """
          Loads a pre-trained model along with its configuration and necessary data for feature extraction.
 
@@ -83,13 +82,14 @@ class ChatBot:
             self.__model.load_state_dict(data["model_state"])
             self.__model.eval()
 
-            preprocessor = Preprocessor(preprocessor_name=data["preprocessor"], remove_stopwords=data["remove_stopwords"])
-            self.__extractor = Extractor(preprocessor=preprocessor, extractor_name=data["extractor"], vocab=data["vocab"],
-                                         docs=data["docs"], tags=data["tags"], window=data["window"], vector_size=data["vector_size"],
-                                         model_name=model_file)
+            preprocessor = Preprocessor(preprocessor_name=data["preprocessor"],
+                                        remove_stopwords=data["remove_stopwords"])
+            self.__extractor = Extractor(preprocessor=preprocessor, extractor_name=data["extractor"],
+                                         vocab=data["vocab"], docs=data["docs"], tags=data["tags"],
+                                         window=data["window"],
+                                         vector_size=data["vector_size"], model_name=model_file)
 
-
-    def predict_tag(self, sentence):
+    def predict_tag(self, sentence: str) -> str:
         """
         Determines the tag of a given sentence using a deep learning model.
 
@@ -110,8 +110,7 @@ class ChatBot:
             applications.
         """
 
-        if(self.__modeling_name=="BERT"):
-            print(sentence)
+        if (self.__modeling_name == "BERT"):
             return self.__model.predict(text=sentence)
 
         X = self.__extractor.extract_features(sentence)

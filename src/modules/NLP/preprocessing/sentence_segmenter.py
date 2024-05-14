@@ -5,8 +5,8 @@ def segment_sentences(user_input: str) -> dict:
     Segments a string of user input into sentences, considering typical end-of-sentence punctuation,
     and also extracts any embedded code block and its language from the input.
 
-    This function uses regex to identify sentence boundaries and then delegates to an internal
-    function to extract any embedded code snippets and their respective programming language.
+    This function uses regex to identify sentence boundaries, including newlines, and then delegates
+    to an internal function to extract any embedded code snippets and their respective programming language.
 
     Parameters:
         user_input (str): The user's input string potentially containing natural language text and
@@ -18,7 +18,7 @@ def segment_sentences(user_input: str) -> dict:
               - 'code': The code block extracted from the input (if any).
               - 'user_input': A list of sentences segmented from the input, excluding the code block.
     """
-    pattern = re.compile(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s')
+    pattern = re.compile(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|!|\n)\s|\n+')
     segmented_sentences = __extract_language_and_code(user_input=user_input)
     segmented_sentences["user_input"] = pattern.split(string=segmented_sentences["user_input"])
     segmented_sentences["user_input"] = [segment for segment in segmented_sentences["user_input"] if segment != '']

@@ -39,7 +39,7 @@ def tree(dir_path: Path, prefix: str=''):
     pointers = [tee] * (len(contents) - 1) + [last]
     for pointer, path in zip(pointers, contents):
         yield prefix + pointer + path.name
-        if path.name != "ressources" and path.name != ".venv" and path.name != ".idea":
+        if path.name != "ressources" and path.name != ".venv" and path.name != ".idea" and path.name != "__pycache__":
             if path.is_dir(): # extend the prefix and recurse:
                 extension = branch if pointer == tee else space
                 # i.e. space because last, └── , above so no more |

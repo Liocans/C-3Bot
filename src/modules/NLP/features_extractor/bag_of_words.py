@@ -13,6 +13,7 @@ class BagOfWords:
         __preprocessor (Preprocessor): An instance of the Preprocessor class used for tokenizing and normalizing text.
         __vocab (list): A list of unique words that forms the vocabulary of the corpus.
     """
+
     def __init__(self, preprocessor: Preprocessor, vocab: list):
         """
         Initializes the BagOfWords class with a specified preprocessor.
@@ -21,6 +22,7 @@ class BagOfWords:
             preprocessor (Preprocessor): The preprocessor instance to use for text preprocessing.
             vocab (list): The vocabulary list, each word of which will be represented in the feature vectors.
         """
+
         self.__preprocessor = preprocessor
         self.__vocab = vocab
 
@@ -34,6 +36,7 @@ class BagOfWords:
         Returns:
             np.ndarray: A numpy array representing the sentence as a vector of word frequencies.
         """
+
         bow_representation = np.zeros(len(self.__vocab))
         for word in self.__preprocessor.preprocess_text(text=sentence):
             if word in self.__vocab:
@@ -49,6 +52,7 @@ class BagOfWords:
         Returns:
             str: The name of the feature extractor, "BagOfWords".
         """
+
         return "BagOfWords"
 
     @property
@@ -59,4 +63,5 @@ class BagOfWords:
         Returns:
             Preprocessor: The preprocessor instance used for preparing text data.
         """
+
         return self.__preprocessor

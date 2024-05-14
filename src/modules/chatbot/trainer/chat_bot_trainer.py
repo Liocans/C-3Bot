@@ -14,9 +14,42 @@ from utilities.path_finder import PathFinder
 
 
 class ChatBotTrainer:
-    def __init__(self, extractor_name=None, preprocessor_name=None, remove_stopwords=None,
-                 modeling_name=None, model_name=None, num_epochs=None, batch_size=None,
-                 learning_rate=None, hidden_size=None, vector_size=None, window=None):
+    """
+    A class responsible for training a chatbot using specified models and configurations. This trainer supports both BERT-based and custom model training setups.
+
+    Attributes:
+        __device (torch.device): The computing device (CPU or GPU) where the model operations are executed.
+        __modeling_name (str): The name of the modeling technique to be used (e.g., 'BERT').
+        __num_epochs (int): The number of training epochs.
+        __batch_size (int): The number of samples per training batch.
+        __learning_rate (float): The learning rate for the optimizer.
+        __hidden_size (int): The size of the hidden layers in the neural network.
+        __model_name (str): The name used to save or load the model.
+        __vector_size (int): The dimensionality of the word vectors.
+        __window (int): The context window size for the word vector model.
+        __model (torch.nn.Module): The neural network model used for training.
+
+    """
+
+    def __init__(self, extractor_name: str = None, preprocessor_name: str = None, remove_stopwords: bool = None,
+                 modeling_name: str = None, model_name: str = None, num_epochs: int = None, batch_size: int = None,
+                 learning_rate: float = None, hidden_size: int = None, vector_size: int = None, window: int = None):
+        """
+        Initializes the ChatBotTrainer with the specified configuration and sets up the model based on the provided model name.
+
+        Parameters:
+            extractor_name (str): The name of the feature extractor to use.
+            preprocessor_name (str): The name of the preprocessor to apply to the text data.
+            remove_stopwords (bool): Whether to remove stopwords during preprocessing.
+            modeling_name (str): The type of model to train ('BERT' for using BERT; others for custom models).
+            model_name (str): The identifier for the model, used for saving and loading.
+            num_epochs (int): The number of epochs to train the model.
+            batch_size (int): The batch size for training.
+            learning_rate (float): The optimizer's learning rate.
+            hidden_size (int): The number of units in the hidden layers of a custom model.
+            vector_size (int): The size of the embedding vectors.
+            window (int): The window size in terms of the number of words around the target word for feature extraction.
+        """
 
         self.__device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.__modeling_name = modeling_name
@@ -38,11 +71,16 @@ class ChatBotTrainer:
 
             self.dataset = IntentDataset(extractor=self.extractor)
 
-    def start_training(self):
+    def start_training(self) -> None:
+        """
+        Starts the training process for the chatbot. Depending on the configuration, it either trains a BERT model or a custom model.
+        Tracks and prints training progress and loss at regular intervals.
+        """
 
         if (self.__modeling_name == "BERT"):
-            BertIntentClassifier(model_name=self.__model_name).train(epochs=self.__num_epochs, learning_rate=self.__learning_rate,
-                                 batch_size=self.__batch_size)
+            BertIntentClassifier(model_name=self.__model_name).train(epochs=self.__num_epochs,
+                                                                     learning_rate=self.__learning_rate,
+                                                                     batch_size=self.__batch_size)
 
         else:
             start = time.time()
@@ -76,7 +114,15 @@ class ChatBotTrainer:
             end = time.time()
             self.save_model(loss, end - start)
 
-    def save_model(self, final_loss, total_time):
+    def save_model(self, final_loss: float, total_time: float) -> None:
+        """
+        Saves the trained model and configuration to a file. Additionally, prints the training summary including the final loss and total training time.
+
+        Parameters:
+            final_loss (torch.Tensor): The loss value of the last training batch.
+            total_time (float): The total time taken for the training process in seconds.
+        """
+
         data = {
             "model_state": self.__model.state_dict(),
             "input_size": len(self.dataset[0][0]),
@@ -98,17 +144,39 @@ class ChatBotTrainer:
 
         file_path = PathFinder.get_complet_path(f"ressources/models/{self.__model_name}.pth")
         torch.save(data, file_path)
-        print(f'training complete in {total_time:.2f} sec. final loss: {final_loss.item():.4f}, file saved to {file_path}')
+        print(
+            f'training complete in {total_time:.2f} sec. final loss: {final_loss.item():.4f}, file saved to {file_path}')
 
 
 class IntentDataset(Dataset):
-    def __init__(self, extractor):
+    """
+    A PyTorch Dataset for loading and transforming text data for intent classification.
+
+    Attributes:
+        extractor (Extractor): An instance of the Extractor class used to convert text data into features.
+        x_train (numpy.array): The features extracted from the training data.
+        y_train (numpy.array): The intent labels corresponding to each feature set in x_train.
+
+    """
+
+    def __init__(self, extractor: Extractor):
+        """
+        Initializes the dataset with a feature extractor.
+
+        Parameters:
+            extractor (Extractor): The feature extractor that will be used to process text data.
+        """
+
         self.extractor = extractor
         self.x_train = []
         self.y_train = []
         self.load_data()
 
-    def load_data(self):
+    def load_data(self) -> None:
+        """
+        Loads intent data from a JSON file and processes it using the feature extractor to populate x_train and y_train.
+        """
+
         file_path = PathFinder().get_complet_path('ressources/json_files/intents.json')
         with open(file_path, 'r', encoding='utf-8') as file:
             intents_data = json.load(file)
@@ -123,7 +191,24 @@ class IntentDataset(Dataset):
         self.y_train = np.array(self.y_train)
 
     def __getitem__(self, index):
+        """
+        Retrieves a single item from the dataset.
+
+        Parameters:
+            index (int): The index of the item to retrieve.
+
+        Returns:
+            tuple: A tuple containing the features and the label of the requested item.
+        """
+
         return self.x_train[index], self.y_train[index]
 
     def __len__(self):
+        """
+        Returns the total number of items in the dataset.
+
+        Returns:
+            int: The size of the dataset.
+        """
+
         return len(self.x_train)

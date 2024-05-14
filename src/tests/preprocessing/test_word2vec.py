@@ -32,13 +32,13 @@ class TestWord2Vec(unittest.TestCase):
 
     def test_extract_features_no_known_words(self):
         sentence = "goodbye"
-        expected_vector = np.array([0.0, 0.0])  # No known words results in a zero vector
+        expected_vector = np.array([0.0, 0.0])
         result_vector = self.word2vec.extract_features(sentence)
         np.testing.assert_array_almost_equal(result_vector, expected_vector)
 
     def test_extract_features_empty_sentence(self):
         sentence = ""
-        expected_vector = np.array([0.0, 0.0])  # Empty sentence should also result in a zero vector
+        expected_vector = np.array([0.0, 0.0])
         result_vector = self.word2vec.extract_features(sentence)
         np.testing.assert_array_almost_equal(result_vector, expected_vector)
 

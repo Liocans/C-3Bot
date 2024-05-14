@@ -16,12 +16,13 @@ class Word2Vec:
         __model (GensimWord2Vec): A Gensim Word2Vec model instance.
     """
 
-    def __init__(self, preprocessor: Preprocessor, docs: list, vector_size=100, window=5, min_count=1, workers=4, sg=0):
+    def __init__(self, preprocessor: Preprocessor, docs: list, vector_size: int = 100, window: int = 5,
+                 min_count: int = 1, workers: int = 4, sg: int = 0):
         """
-        Initializes the Word2VecExtractor class with a specified preprocessor and parameters for constructing the Word2Vec model.
+        Initializes the Word2Vec class with a specified preprocessor and parameters for the Word2Vec model construction.
 
         Parameters:
-            preprocessor (Preprocessor): The preprocessor instance to use for text preprocessing.
+            preprocessor (Preprocessor): The preprocessor instance for text preprocessing.
             docs (list): A list of tokenized documents/sentences for training the model.
             vector_size (int): Dimensionality of the word vectors.
             window (int): Maximum distance between the current and predicted word within a sentence.
@@ -29,6 +30,7 @@ class Word2Vec:
             workers (int): Number of worker threads to train the model.
             sg (int): Training algorithm: 1 for skip-gram; otherwise CBOW.
         """
+
         self.__preprocessor = preprocessor
         self.__model = None
         self.__docs = docs
@@ -40,7 +42,7 @@ class Word2Vec:
 
     def extract_features(self, sentence: str) -> np.ndarray:
         """
-        Converts a sentence into a vector by averaging the vectors of the words in the sentence.
+        Converts a sentence into a vector by averaging the vectors of the words present in the sentence, processed through the model.
 
         Parameters:
             sentence (str): The sentence to convert.
@@ -59,44 +61,51 @@ class Word2Vec:
 
     def __get_word_vector(self, word: str) -> np.ndarray:
         """
-        Retrieves the vector representation of a word, if it exists in the model's vocabulary.
+        Retrieves the vector representation of a word from the model's vocabulary.
 
         Parameters:
-            word (str): The word to retrieve the vector for.
+            word (str): The word for which to retrieve the vector.
 
         Returns:
-            np.ndarray: A numpy array representing the word's vector, or a zero vector if the word is not in the vocabulary.
+            np.ndarray: The vector representation of the word, or a zero vector if the word is not in the vocabulary.
         """
 
         return self.__model.wv[word] if word in self.__model.wv else np.zeros(self.__model.vector_size)
 
-    def train(self, model_name):
+    def train(self, model_name: str) -> None:
         """
-        Initializes and trains the Word2Vec model using the specified parameters and the provided documents.
+        Initializes and trains the Word2Vec model using the provided documents, then saves the trained model.
 
         Parameters:
-            vector_size (int): The dimensionality of the word vectors.
-            window (int): The maximum distance between the current and predicted word within a sentence.
-            min_count (int): The minimum count of words considered when training the model.
-            workers (int): The number of worker threads to use in training.
-            sg (int): Specifies the training algorithm: 1 for skip-gram, otherwise CBOW.
+            model_name (str): The name to use for saving the trained model file.
         """
-        # Initialize and train the Word2Vec model
-        self.__model = GensimWord2Vec(self.__docs, vector_size=self.__vector_size, window=self.__window, min_count=self.__min_count,
-                                workers=self.__workers, sg=self.__sg)
+
+        self.__model = GensimWord2Vec(self.__docs, vector_size=self.__vector_size, window=self.__window,
+                                      min_count=self.__min_count, workers=self.__workers, sg=self.__sg)
 
         self.__save_model(model_name)
 
     def __save_model(self, model_name: str) -> None:
-        """ Saves the trained Word2Vec model to the specified file path. """
+        """
+        Saves the trained Word2Vec model to the specified file path.
+
+        Parameters:
+            model_name (str): The name of the model to be saved.
+        """
+
         file_path = PathFinder.get_complet_path(f"ressources/extractors/{model_name}_E.pth")
         self.__model.save(file_path)
 
     def load_model(self, model_name: str) -> None:
-        """ Loads a Word2Vec model from the specified file path. """
+        """
+        Loads a Word2Vec model from the specified file path.
+
+        Parameters:
+            model_name (str): The name of the model to be loaded.
+        """
+
         file_path = PathFinder.get_complet_path(f"ressources/extractors/{model_name}_E.pth")
         self.__model = GensimWord2Vec.load(file_path)
-
 
     @property
     def extractor_name(self) -> str:
@@ -106,6 +115,7 @@ class Word2Vec:
         Returns:
             str: The name of the feature extractor, "Word2Vec".
         """
+
         return "Word2Vec"
 
     @property
@@ -116,4 +126,5 @@ class Word2Vec:
         Returns:
             Preprocessor: The preprocessor instance used for preparing text data.
         """
+
         return self.__preprocessor

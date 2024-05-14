@@ -28,7 +28,7 @@ class TestSentenceSegmenter(unittest.TestCase):
 
     def test_with_quotation_marks(self):
         input = '"Is it raining?" she asked. "Yes, it is," he replied.'
-        expected_output = ['"Is it raining?"', 'she asked.', '"Yes, it is," he replied.']
+        expected_output = ['"Is it raining?" she asked.', '"Yes, it is," he replied.']
         actual_output = segment_sentences(user_input=input)
         self.assertEqual(actual_output["user_input"], expected_output)
 
