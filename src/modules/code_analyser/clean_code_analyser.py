@@ -11,7 +11,6 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list | str
     Parameters:
         syntax_tree (Tree): A tree_sitter Tree object representing the syntax tree of the source code.
         language (str): The programming language of the source code (e.g., 'Python', 'Java', 'C').
-
     Returns:
         list | str: A list of descriptions detailing each identified issue or a string indicating no issues found.
     """
@@ -31,7 +30,7 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list | str
                     if new_description != "":
                         descriptions.add(new_description)
 
-            if (child.type in ["identifier", "field_identifier"]):
+            elif (child.type in ["identifier", "field_identifier"]):
                 if (child.parent.type not in ["call_expression", "function_declarator", "field_expression",
                                               "argument_list"]):
                     new_descriptions = [
@@ -41,20 +40,21 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list | str
                         if new_description != "":
                             descriptions.add(new_description)
 
-            if (child.type == "class_declaration"):
+            elif (child.type == "class_declaration"):
                 new_descriptions = [__class_namming_convention(node=child.child_by_field_name("name")),
                                     __namming_length(node=child.child_by_field_name("name"))]
                 for new_description in new_descriptions:
                     if new_description != "":
                         descriptions.add(new_description)
 
-            if (child.type == "struct_specifier"):
+            elif (child.type == "struct_specifier"):
                 new_descriptions = [
                     __struct_namming_convention(node=child.child_by_field_name("name")),
                     __namming_length(node=child.child_by_field_name("name"))]
                 for new_description in new_descriptions:
                     if new_description != "":
                         descriptions.add(new_description)
+
             todo.append(child)
 
     if descriptions == set():

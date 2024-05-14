@@ -2,6 +2,162 @@
     "tests": [
         {
             "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "Word2Vec_GRAM",
+            "stopword": true,
+            "epochs": 3000,
+            "batch_size": 8,
+            "learning_rate": 0.0005,
+            "hidden_size": 8,
+            "score_known_data": "62.28 %",
+            "score_unknown_data": "8.22 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "Word2Vec_GRAM",
+            "stopword": true,
+            "epochs": 3000,
+            "batch_size": 8,
+            "learning_rate": 0.0005,
+            "hidden_size": 8,
+            "score_known_data": "7.19 %",
+            "score_unknown_data": "2.74 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "Word2Vec_CBOW",
+            "stopword": true,
+            "epochs": 3000,
+            "batch_size": 8,
+            "learning_rate": 0.0005,
+            "hidden_size": 8,
+            "score_known_data": "79.04 %",
+            "score_unknown_data": "21.92 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "Word2Vec_CBOW",
+            "stopword": true,
+            "epochs": 3000,
+            "batch_size": 8,
+            "learning_rate": 0.0005,
+            "hidden_size": 8,
+            "score_known_data": "53.29 %",
+            "score_unknown_data": "19.18 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "Word2Vec_GRAM",
+            "stopword": false,
+            "epochs": 3000,
+            "batch_size": 8,
+            "learning_rate": 0.0005,
+            "hidden_size": 8,
+            "score_known_data": "28.74 %",
+            "score_unknown_data": "6.85 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "Word2Vec_GRAM",
+            "stopword": false,
+            "epochs": 2200,
+            "batch_size": 8,
+            "learning_rate": 0.001,
+            "hidden_size": 8,
+            "score_known_data": "62.28 %",
+            "score_unknown_data": "8.22 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "Word2Vec_CBOW",
+            "stopword": false,
+            "epochs": 2200,
+            "batch_size": 8,
+            "learning_rate": 0.001,
+            "hidden_size": 8,
+            "score_known_data": "89.22 %",
+            "score_unknown_data": "21.92 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "Word2Vec_CBOW",
+            "stopword": false,
+            "epochs": 2200,
+            "batch_size": 8,
+            "learning_rate": 0.001,
+            "hidden_size": 8,
+            "score_known_data": "98.2 %",
+            "score_unknown_data": "19.18 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "TFIDF",
+            "stopword": true,
+            "epochs": 300,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "39.73 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "TFIDF",
+            "stopword": true,
+            "epochs": 200,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "36.99 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "TFIDF",
+            "stopword": false,
+            "epochs": 300,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "41.1 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Lemmatizer",
+            "extractor": "TFIDF",
+            "stopword": false,
+            "epochs": 200,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "38.36 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "BagOfWords",
+            "stopword": true,
+            "epochs": 300,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "38.36 %"
+        },
+        {
+            "modeling": "NeuralNet",
             "preprocessing": "Lemmatizer",
             "extractor": "BagOfWords",
             "stopword": true,
@@ -10,19 +166,31 @@
             "learning_rate": 0.005,
             "hidden_size": 8,
             "score_known_data": "100.0 %",
-            "score_unknown_data": "35.62 %"
+            "score_unknown_data": "39.73 %"
+        },
+        {
+            "modeling": "NeuralNet",
+            "preprocessing": "Stemmer",
+            "extractor": "BagOfWords",
+            "stopword": false,
+            "epochs": 300,
+            "batch_size": 8,
+            "learning_rate": 0.005,
+            "hidden_size": 8,
+            "score_known_data": "100.0 %",
+            "score_unknown_data": "49.32 %"
         },
         {
             "modeling": "NeuralNet",
             "preprocessing": "Lemmatizer",
             "extractor": "BagOfWords",
             "stopword": false,
-            "epochs": 1000,
+            "epochs": 200,
             "batch_size": 8,
-            "learning_rate": 0.0005,
+            "learning_rate": 0.005,
             "hidden_size": 8,
             "score_known_data": "100.0 %",
-            "score_unknown_data": "39.73 %"
+            "score_unknown_data": "43.84 %"
         }
     ]
 }

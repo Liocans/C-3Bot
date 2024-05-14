@@ -4,7 +4,7 @@ from modules.NLP.modeling.neural_net import NeuralNet
 class Modeling:
 
     @staticmethod
-    def select_model(modeling_name: str, input_size: int, hidden_size: int, num_classes: int, device) -> NeuralNet:
+    def select_model(modeling_name: str, input_size: int, hidden_size: int, num_classes: int, device) -> NeuralNet :
         """
         Selects and initializes a neural network model based on the specified model name.
 

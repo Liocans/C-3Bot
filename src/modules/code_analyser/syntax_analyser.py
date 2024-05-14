@@ -16,6 +16,7 @@ def find_syntax_problem(syntax_tree: Tree, describe_problem: bool = False) -> tu
             - If describe_problem is True and issues are found, returns a list with a message and a sorted list of descriptions.
             - If describe_problem is True and no issues are found, returns a string stating no syntax errors were detected.
     """
+
     errors = set()
     missings = set()
     descriptions = set()

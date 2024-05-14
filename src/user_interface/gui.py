@@ -198,7 +198,7 @@ class ChatInterface:
             str: Simple text response to confirm the model was loaded.
         """
 
-        self.__chatbot.__load_essential(model_file=request.form["filename"])
+        self.__chatbot.load_essential(model_file=request.form["filename"])
         return 'ok'
 
     def __test_chatbot(self):

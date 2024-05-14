@@ -103,20 +103,20 @@ class Word2Vec:
         Parameters:
             model_name (str): The name of the model to be loaded.
         """
-
+        model_name = model_name.replace(".pth", "")
         file_path = PathFinder.get_complet_path(f"ressources/extractors/{model_name}_E.pth")
         self.__model = GensimWord2Vec.load(file_path)
 
     @property
     def extractor_name(self) -> str:
         """
-        Returns the name of the feature extractor used, which is "Word2Vec".
+        Returns the name of the feature extractor used, which is "Word2Vec_CBOW" or "Word2Vec_GRAM".
 
         Returns:
-            str: The name of the feature extractor, "Word2Vec".
+            str: The name of the feature extractor, "Word2Vec_CBOW" or "Word2Vec_GRAM" .
         """
 
-        return "Word2Vec"
+        return "Word2Vec_CBOW" if self.__sg == 0 else "Word2Vec_GRAM"
 
     @property
     def preprocessor(self) -> Preprocessor:

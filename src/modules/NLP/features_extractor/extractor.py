@@ -88,8 +88,10 @@ class Extractor:
             self.__extractor = Word2Vec(preprocessor=preprocessor, docs=self.__docs, window=window,
                                         vector_size=vector_size, sg=sg)
             if self.__is_training:
+                print("training WORD2VEC")
                 self.__extractor.train(model_name=model_name)
             else:
+                print("loading WORD2VEC")
                 self.__extractor.load_model(model_name=model_name)
 
     def __load_corpus(self):

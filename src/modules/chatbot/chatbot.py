@@ -37,7 +37,7 @@ class ChatBot:
         self.__intents_data = dict()
         self.__device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.__modeling_name = None
-        self.__load_essential(model_file)
+        self.load_essential(model_file)
         self.__load_intents()
 
     def __load_intents(self) -> None:
@@ -57,7 +57,7 @@ class ChatBot:
                     "parameters": intent["parameters"]
                 }
 
-    def __load_essential(self, model_file: str) -> None:
+    def load_essential(self, model_file: str) -> None:
         """
          Loads a pre-trained model along with its configuration and necessary data for feature extraction.
 
@@ -84,6 +84,7 @@ class ChatBot:
 
             preprocessor = Preprocessor(preprocessor_name=data["preprocessor"],
                                         remove_stopwords=data["remove_stopwords"])
+
             self.__extractor = Extractor(preprocessor=preprocessor, extractor_name=data["extractor"],
                                          vocab=data["vocab"], docs=data["docs"], tags=data["tags"],
                                          window=data["window"],
