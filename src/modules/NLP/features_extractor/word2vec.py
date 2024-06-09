@@ -52,11 +52,11 @@ class Word2Vec:
         """
 
         words = self.__preprocessor.preprocess_text(text=sentence)
-        sentence_vector = [self.__get_word_vector(word) for word in words if word in self.__model.wv]
-        if len(sentence_vector) != 0:
-            sentence_vector = np.array(sentence_vector).mean(axis=0)
-        else:
-            sentence_vector = np.zeros(self.__model.vector_size)
+        sentence_vector = np.zeros(self.__vector_size)
+        for word in words:
+            if word in self.__model.wv:
+                sentence_vector += self.__model.wv[word]
+        sentence_vector /= len(words)
         return sentence_vector
 
     def __get_word_vector(self, word: str) -> np.ndarray:

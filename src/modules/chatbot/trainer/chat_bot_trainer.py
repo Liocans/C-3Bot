@@ -4,6 +4,7 @@ import time
 import numpy as np
 import torch
 import torch.nn as nn
+from matplotlib import pyplot as plt
 from torch.utils.data import DataLoader, Dataset
 
 from modules.NLP.modeling.BERT import BertIntentClassifier
@@ -78,9 +79,8 @@ class ChatBotTrainer:
         """
 
         if (self.__modeling_name == "BERT"):
-            BertIntentClassifier(model_name=self.__model_name).train(epochs=self.__num_epochs,
-                                                                     learning_rate=self.__learning_rate,
-                                                                     batch_size=self.__batch_size)
+            BertIntentClassifier(model_name=self.__model_name, num_epochs=self.__num_epochs,
+                                 learning_rate=self.__learning_rate,batch_size=self.__batch_size).train()
 
         else:
             start = time.time()
@@ -96,6 +96,13 @@ class ChatBotTrainer:
             criterion = nn.CrossEntropyLoss()
             optimizer = torch.optim.Adam(self.__model.parameters(), lr=self.__learning_rate)
 
+            report_frequency = max(1, self.__num_epochs // 10)
+
+            total_loss = 0
+            num_batches = 0
+            average_loss = 0
+            losses = []
+            epochs_reported = []
             for epoch in range(self.__num_epochs):
                 for words, labels in train_loader:
                     words = words.to(dtype=torch.float).to(self.__device)
@@ -108,13 +115,34 @@ class ChatBotTrainer:
                     loss.backward()
                     optimizer.step()
 
-                if (epoch + 1) % 100 == 0:
-                    print(f'Epoch [{epoch + 1}/{self.__num_epochs}], Loss: {loss.item():.4f}')
+                    total_loss += loss.item()
+                    num_batches += 1
+
+                    # Check if it's time to report
+                if (epoch + 1) % report_frequency == 0 or epoch == 0:
+                    average_loss = total_loss / num_batches
+                    losses.append(average_loss)
+                    epochs_reported.append(epoch + 1)
+                    print(f'Epoch [{epoch + 1}/{self.__num_epochs}], Average Loss: {average_loss:.4f}')
+                    total_loss = 0  # Reset total loss after reporting
+                    num_batches = 0  # Reset batch count after reporting
 
             end = time.time()
-            self.save_model(loss, end - start)
+            self.__save_chart(epochs_reported=epochs_reported, losses=losses)
+            self.__save_model(final_loss=average_loss, total_time=end - start)
 
-    def save_model(self, final_loss: float, total_time: float) -> None:
+    def __save_chart(self, epochs_reported, losses):
+        # Plotting the loss curve
+        plt.figure(figsize=(10, 5))
+        plt.plot(epochs_reported, losses, marker='o', linestyle='-')
+        plt.title(f'Loss Curve for {self.__model_name} - Learning Rate {self.__learning_rate}')
+        plt.xlabel('Epoch')
+        plt.ylabel('Average Loss')
+        plt.grid(True)
+        plt.savefig(PathFinder.get_complet_path(f"ressources/models_training_chart/{self.__model_name} - Epoch {self.__num_epochs} - Learning Rate {self.__learning_rate}.png"))
+        plt.close()
+
+    def __save_model(self, final_loss: float, total_time: float) -> None:
         """
         Saves the trained model and configuration to a file. Additionally, prints the training summary including the final loss and total training time.
 
@@ -145,7 +173,7 @@ class ChatBotTrainer:
         file_path = PathFinder.get_complet_path(f"ressources/models/{self.__model_name}.pth")
         torch.save(data, file_path)
         print(
-            f'training complete in {total_time:.2f} sec. final loss: {final_loss.item():.4f}, file saved to {file_path}')
+            f'training complete in {total_time:.2f} sec. final loss: {final_loss:.4f}, file saved to {file_path}')
 
 
 class IntentDataset(Dataset):

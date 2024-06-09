@@ -67,7 +67,7 @@ class ChatBot:
 
         path_file = PathFinder.get_complet_path("ressources/models/" + model_file)
 
-        if (os.path.isdir(path_file)):
+        if os.path.isdir(path_file):
             self.__modeling_name = "BERT"
             self.__model = BertIntentClassifier(model_name=model_file)
             self.__model.load_model()

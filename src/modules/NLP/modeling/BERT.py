@@ -2,7 +2,8 @@ import json
 from typing import Tuple
 
 import torch
-from transformers import BertTokenizer, BertForSequenceClassification, AdamW
+from matplotlib import pyplot as plt
+from transformers import BertTokenizer, BertForSequenceClassification, TrainingArguments, Trainer
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 import time
@@ -47,7 +48,7 @@ class BertIntentClassifier:
         load_model(): Loads a trained BERT model and tokenizer from files.
     """
 
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str, num_epochs: int = None, learning_rate: float = None, batch_size: int = None):
         """
         Initializes the BertIntentClassifier with a specific model name.
 
@@ -63,6 +64,9 @@ class BertIntentClassifier:
         self.__texts = []
         self.__tags = []
         self.__device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.__num_epochs = num_epochs
+        self.__learning_rate = learning_rate
+        self.__batch_size = batch_size
         self.load_data()
 
     def load_data(self):
@@ -96,59 +100,67 @@ class BertIntentClassifier:
         dataset = IntentDataset(encodings, self.__tags)
         return dataset
 
-    def train(self, epochs: int = 3, learning_rate: float = 0.0005, batch_size: int = 16) -> None:
+    def train(self) -> None:
         """
         Trains the BERT model for intent classification using the specified hyperparameters.
-
-        Parameters:
-            epochs (int): Number of training epochs.
-            learning_rate (float): Learning rate for the optimizer.
-            batch_size (int): Number of samples per batch.
         """
 
-        start = time.time()
         dataset = self.prepare_data()
-        train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
         self.__model = BertForSequenceClassification.from_pretrained('bert-base-uncased',
-                                                                     num_labels=len(self.__intents))
+                                                                     num_labels=len(self.__intents)).to(self.__device)
 
-        self.__model.to(self.__device)  # Send model to device
-        self.__model.train()
-        optimizer = AdamW(self.__model.parameters(), lr=learning_rate)
-        running_loss = 0.0
+        training_args = TrainingArguments(
+            output_dir=PathFinder.get_complet_path(f"ressources/results/"),
+            num_train_epochs=self.__num_epochs,
+            per_device_train_batch_size=self.__batch_size,
+            per_device_eval_batch_size=self.__batch_size,
+            learning_rate=self.__learning_rate,
+            warmup_steps=500,
+            weight_decay=0.01,
+            logging_dir=PathFinder.get_complet_path(f"ressources/logs/"),
+            logging_steps=10  # Log metrics and loss every 10 steps
+        )
 
-        for epoch in range(epochs):
-            running_loss = 0.0
-            # Create tqdm progress bar
-            progress_bar = tqdm(train_loader, desc=f"Epoch {epoch + 1}")
-            for i, batch in enumerate(progress_bar):
-                self.__model.zero_grad()
-                input_ids = batch['input_ids']
-                attention_mask = batch['attention_mask']
-                labels = batch['labels']
-                outputs = self.__model(input_ids, attention_mask=attention_mask, labels=labels)
-                loss = outputs.loss
-                loss.backward()
-                optimizer.step()
+        trainer = Trainer(
+            model=self.__model,
+            args=training_args,
+            train_dataset=dataset,
+        )
 
-                running_loss = loss.item()
-                # Update progress bar description with current loss
-                progress_bar.set_description(f"Epoch {epoch + 1} Loss: {loss.item():.4f}")
+        train_result = trainer.train()
 
-        end = time.time()
+        last_loss = trainer.state.log_history[-2]["loss"] # Capture the last training loss
 
-        self.__save_model(epochs, learning_rate, batch_size, end - start, running_loss)
+        time_taken = train_result.metrics["train_runtime"]
 
-    def __save_model(self, epochs: int, learning_rate: float, batch_size: int, total_time: float,
-                     last_loss: float) -> None:
+        # Extract loss data from Trainer logs
+        loss_data = [entry for entry in trainer.state.log_history if 'loss' in entry]
+
+        # Prepare data for plotting
+        epochs_reported = [i for i in range(len(loss_data))]
+        losses = [entry['loss'] for entry in loss_data]
+
+        self.__save_chart(epochs_reported, losses)
+
+        self.__save_model(time_taken, last_loss)
+
+    def __save_chart(self, epochs_reported, losses):
+        # Plotting the loss curve
+        plt.figure(figsize=(10, 5))
+        plt.plot(epochs_reported, losses, marker='o', linestyle='-')
+        plt.title(f'Loss Curve for {self.__model_name} - Learning Rate {self.__learning_rate}')
+        plt.xlabel('Epoch')
+        plt.ylabel('Average Loss')
+        plt.grid(True)
+        plt.savefig(PathFinder.get_complet_path(f"ressources/models_training_chart/{self.__model_name} - Epoch {self.__num_epochs} - Learning Rate {self.__learning_rate}.png"))
+        plt.close()
+
+    def __save_model(self, total_time: float, last_loss: float) -> None:
         """
         Saves the trained BERT model and tokenizer to the specified file paths. Updates the model configuration with the training parameters.
 
         Parameters:
-            epochs (int): The total number of epochs trained.
-            learning_rate (float): The learning rate used in training.
-            batch_size (int): The batch size used in training.
             total_time (float): The total time taken for the training in seconds.
             last_loss (float): The loss value of the last training batch.
 
@@ -161,9 +173,9 @@ class BertIntentClassifier:
         config = self.__model.config
 
         # Add custom training parameters to the configuration
-        config.num_epochs = epochs  # Assuming self.epochs is defined
-        config.learning_rate = learning_rate  # Assuming self.lr is defined
-        config.batch_size = batch_size  # Assuming self.batch_size is defined
+        config.num_epochs = self.__num_epochs  # Assuming self.epochs is defined
+        config.learning_rate = self.__learning_rate  # Assuming self.lr is defined
+        config.batch_size = self.__batch_size  # Assuming self.batch_size is defined
 
         self.__model.save_pretrained(model_path)
         self.__tokenizer.save_pretrained(tokenizer_path)
@@ -204,8 +216,8 @@ class BertIntentClassifier:
         """
 
         self.__model.eval()
+        inputs = self.__tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
         with torch.no_grad():
-            inputs = self.__tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
             outputs = self.__model(**inputs)
-            prediction = torch.argmax(outputs.logits, dim=1)
-            return self.__intents[prediction.item()]
+        prediction = torch.argmax(outputs.logits, dim=1)
+        return self.__intents[prediction.item()]
