@@ -1,9 +1,9 @@
 #include <stdio.h>
-struct student {
+struct Student {
     char name[50];
     int roll;
     float marks;
-} s;
+} student;
 
 int MAX_STUDENTS = 50;
 int number_students;

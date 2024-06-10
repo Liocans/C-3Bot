@@ -1,4 +1,5 @@
 import re
+from typing import Tuple
 
 from tree_sitter import Tree, Node
 
@@ -58,12 +59,16 @@ def describe_clean_code_problems(syntax_tree: Tree, language: str) -> list | str
             todo.append(child)
 
     if descriptions == set():
-        return "I have not recommendation to do for the clean code"
-    return ["Here is all the recommendation for the clean code", list(descriptions)]
+        return "I have not recommendation to give for the clean code"
+
+    sorted_tuples = sorted(descriptions, key=lambda x: x[0])
+
+    sorted_texts = [text for _, text in sorted_tuples]
+    return ["Here is all the recommendation for the clean code", list(sorted_texts)]
 
 
 # check if the name is too short to be understandable bigger or equal of 3
-def __namming_length(node: Node) -> str:
+def __namming_length(node: Node) -> tuple[int, str] | str:
     """
     Checks if the name in the node is too short (less than 3 characters) to be understandable.
 
@@ -75,11 +80,11 @@ def __namming_length(node: Node) -> str:
     """
     identifier = node.text.decode('utf-8')  # Assuming node.text contains the identifier's name
     if len(identifier) < 3:
-        return f'Name too short at line {node.start_point[0] + 1} it should be should be at least 3 characters.'
+        return (node.start_point[0] + 1, f"Name too short at line {node.start_point[0] + 1} it should be should be at least 3 characters.")
     return ""
 
 
-def __variable_namming_convention(node: Node, language: str) -> str:
+def __variable_namming_convention(node: Node, language: str) -> tuple[int, str] | str:
     """
     Checks if the variable naming follows the conventional style based on the specified language.
 
@@ -102,10 +107,10 @@ def __variable_namming_convention(node: Node, language: str) -> str:
         pattern = r'^[a-z][a-zA-Z0-9]*$'
         convention_pattern = "lowerCamelCase"
     return "" if re.match(pattern,
-                          identifier) else f'Variable namming convention not respected at the line {node.start_point[0] + 1} it should be {convention_pattern}'
+                          identifier) else (node.start_point[0] + 1, f"Variable namming convention not respected at the line {node.start_point[0] + 1} it should be {convention_pattern}")
 
 
-def __class_namming_convention(node: Node) -> str:
+def __class_namming_convention(node: Node) -> tuple[int, str] | str:
     """
     Checks if the class naming follows the UpperCamelCase convention.
 
@@ -118,10 +123,10 @@ def __class_namming_convention(node: Node) -> str:
     identifier = node.text.decode('utf-8')
 
     return "" if re.match(r'^[A-Z][a-zA-Z0-9]*$',
-                          identifier) else f'class namming convention not respected at the line {node.start_point[0] + 1} it should be UpperCamelCase'
+                          identifier) else (node.start_point[0] + 1, f"class namming convention not respected at the line {node.start_point[0] + 1} it should be UpperCamelCase")
 
 
-def __struct_namming_convention(node: Node) -> str:
+def __struct_namming_convention(node: Node) -> tuple[int, str] | str:
     """
     Checks if the struct naming follows the UpperCamelCase convention.
 
@@ -134,10 +139,10 @@ def __struct_namming_convention(node: Node) -> str:
     identifier = node.text.decode('utf-8')
 
     return "" if re.match(r'^[A-Z][a-zA-Z0-9]*$',
-                          identifier) else f'struct namming convention not respected at the line {node.start_point[0] + 1} it should be UpperCamelCase'
+                          identifier) else (node.start_point[0] + 1, f"struct namming convention not respected at the line {node.start_point[0] + 1} it should be UpperCamelCase")
 
 
-def __function_namming_convention(node: Node, language: str) -> str:
+def __function_namming_convention(node: Node, language: str) -> tuple[int, str] | str:
     """
     Checks if the function naming follows the conventional style based on the specified language.
 
@@ -161,10 +166,10 @@ def __function_namming_convention(node: Node, language: str) -> str:
         pattern_name = "lowerCamelCase"
 
     return "" if re.match(pattern,
-                          identifier) else f'Function namming convention not respected at the line {node.start_point[0] + 1} it should be {pattern_name}'
+                          identifier) else (node.start_point[0] + 1, f"Function namming convention not respected at the line {node.start_point[0] + 1} it should be {pattern_name}")
 
 
-def __function_length(node: Node) -> str:
+def __function_length(node: Node) -> tuple[int, str] | str:
     """
     Checks if the function length exceeds 20 lines, which can be a sign of code that needs refactoring.
 
@@ -179,11 +184,11 @@ def __function_length(node: Node) -> str:
     end_line = node.end_point[0]  # Assuming this gives the ending line number
     line_count = end_line - start_line
     if line_count > 20:
-        return f"Function too long from line {start_line + 1} at line {end_line + 1}, try to keep the function length at 20 lines"
+        return (node.start_point[0] + 1, f"Function too long from line {start_line + 1} at line {end_line + 1}, try to keep the function length at 20 lines")
     return ""
 
 
-def __function_parameter_count(node: Node) -> str:
+def __function_parameter_count(node: Node) -> tuple[int, str] | str:
     """
     Checks if the function has more than 3 parameters, which can be a sign of a function doing too much.
 
@@ -195,5 +200,5 @@ def __function_parameter_count(node: Node) -> str:
     """
     number_of_parameters = len(node.named_children)  # This will depend on your AST structure
     if number_of_parameters > 3:
-        return f"Too many parameters for the function at line {node.start_point[0] + 1} try to only have 3 parameters if possible"
+        return (node.start_point[0] + 1, f"Too many parameters for the function at line {node.start_point[0] + 1} try to only have 3 parameters if possible")
     return ""

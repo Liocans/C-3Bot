@@ -56,7 +56,8 @@ class Word2Vec:
         for word in words:
             if word in self.__model.wv:
                 sentence_vector += self.__model.wv[word]
-        sentence_vector /= len(words)
+        if len(words) != 0:
+            sentence_vector /= len(words)
         return sentence_vector
 
     def __get_word_vector(self, word: str) -> np.ndarray:

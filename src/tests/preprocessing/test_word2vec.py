@@ -17,6 +17,7 @@ class TestWord2Vec(unittest.TestCase):
         ]
 
         self.word2vec = Word2Vec(self.preprocessor, docs=self.docs, vector_size=2)
+        self.word2vec.train("test.pth")
 
     def test_extract_features_single_known_word(self):
         sentence = "rain"

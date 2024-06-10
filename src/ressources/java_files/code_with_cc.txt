@@ -8,29 +8,29 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Student s = new Student();
+        Scanner scanner = new Scanner();
+        Student student = new Student();
 
         System.out.println("Enter information:");
         System.out.print("Enter name: ");
-        s.name = scanner.nextLine();
+        student.name = scanner.nextLine();
 
         System.out.print("Enter roll number: ");
-        s.roll = scanner.nextInt();
+        student.roll = scanner.nextInt();
 
         // Consume the newline left-over
         scanner.nextLine();
 
         System.out.print("Enter marks: ");
-        s.marks = scanner.nextFloat();
+        student.marks = scanner.nextFloat();
 
         // Consume the newline left-over
         scanner.nextLine();
 
         System.out.println("\nDisplaying Information:");
-        System.out.println("Name: " + s.name);
-        System.out.println("Roll number: " + s.roll);
-        System.out.println("Marks: " + s.marks);
+        System.out.println("Name: " + student.name);
+        System.out.println("Roll number: " + student.roll);
+        System.out.println("Marks: " + student.marks);
 
         scanner.close();
     }
