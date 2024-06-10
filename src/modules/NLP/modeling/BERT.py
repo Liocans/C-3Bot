@@ -1,13 +1,9 @@
 import json
-from typing import Tuple
 
 import torch
 from matplotlib import pyplot as plt
 from transformers import BertTokenizer, BertForSequenceClassification, TrainingArguments, Trainer
-from torch.utils.data import DataLoader, Dataset
-from tqdm import tqdm
-import time
-
+from torch.utils.data import Dataset
 from utilities.path_finder import PathFinder
 
 

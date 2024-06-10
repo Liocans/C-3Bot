@@ -33,6 +33,8 @@
 \RequirePackage{color}
 \RequirePackage{tikz}
 \RequirePackage{multirow}
+\RequirePackage[ruled,vlined]{algorithm2e}
+\RequirePackage{adjustbox}
 
 %-------------------- Setup du rapport ----------------------
 
@@ -89,7 +91,7 @@
     \lhead{\includegraphics[scale=0.15]{\logo}} %Affichage de l'image au top de la page
     \rhead{\nouppercase{\leftmark}}
     \rfoot{\thepage}
-    \cfoot{\hspace{0.5cm}\textit{\titre}}
+    \cfoot{\parbox{10cm}{\centering\textit{\titre}}}
 }
 
 \newcommand{\fairepagedegarde}{
@@ -139,6 +141,16 @@
         \label{fig:#4}
     \end{figure}
 }
+\newcommand{\insererfiguresideways}[4]{
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[scale=#2, angle=90]{#1}
+        \caption{#3}
+        \label{fig:#4}
+    \end{figure}
+}
+
+\newcommand{\myline}[0]{\par\noindent\rule{\textwidth}{0.4pt}\\}
 
 \newcommand{\copybutton}[1]{
     \begin{center}
@@ -158,6 +170,7 @@
 \newcommand{\highlightref}[1]{\textcolor{cyan}{\ref{#1}}}
 \newcommand{\highlightcite}[1]{\textcolor{cyan}{\cite{#1}}}
 \newcommand{\highlighthyperref}[2]{\hyperref[#1]{\fcolorbox{cyan}{white}{#2}}}
+\newcommand{\highlighthyperrefurl}[2]{\href{#1}{\fcolorbox{cyan}{white}{#2}}}
 
 % Définir la commande \comparefigures
 \newcommand{\comparethreefigures}[9]{
@@ -176,17 +189,17 @@
 \newcommand{\comparefigurescreator}[2]{
     \begin{figure}[h!]
         \centering
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.46\textwidth}
             \includegraphics[width=\textwidth]{\ArgI}
             \caption{\ArgII}
             \label{fig:\ArgIII}
         \end{subfigure}\hfill
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.46\textwidth}
             \includegraphics[width=\textwidth]{\ArgIV}
             \caption{\ArgV}
             \label{fig:\ArgVI}
         \end{subfigure}
-        \begin{subfigure}[b]{0.45\textwidth}
+        \begin{subfigure}[b]{0.46\textwidth}
             \centering
             \includegraphics[width=\textwidth]{\ArgVII}
             \caption{\ArgVIII}

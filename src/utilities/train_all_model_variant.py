@@ -3,8 +3,8 @@ from modules.chatbot.trainer.chat_bot_trainer import ChatBotTrainer
 
 if __name__ == '__main__':
 
-    ChatBotTrainer(extractor_name="BagOfWords", preprocessor_name="Stemmer", remove_stopwords=False,
-                   modeling_name="NeuralNet", model_name="bow_stemmer_ws", num_epochs=50, batch_size=16,
+    ChatBotTrainer(extractor_name="BagOfWords", preprocessor_name="Lemmatizer", remove_stopwords=False,
+                   modeling_name="NeuralNet", model_name="bow_lemmatizer_ws", num_epochs=50, batch_size=16,
                    learning_rate=0.005, hidden_size=16).start_training()
 
     test_chatbot("bow_lemmatizer_ws.pth")

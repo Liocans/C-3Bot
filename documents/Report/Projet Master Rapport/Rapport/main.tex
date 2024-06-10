@@ -7,16 +7,15 @@
 
 \logo{Logos/UMONS.png}
 \unif{Faculté des Sciences}
-\titre{Prototype de chatbot assistant l'écriture de code propre et exploitant les grands modèles de langage} %Titre du fichier .pdf
+\titre{Prototype de chatbot assistant l'écriture de code propre exploitant les grands modèles de langage et \\le traitement du langage naturel} %Titre du fichier .pdf
 \cours{Projet de premier master en sciences informatiques} %Nom du cours
 \sujet{Rapport}
-
 \enseignant{Stéphane \textsc{Dupont}} %Nom de l'enseignant
 
 \eleves{Nicolas \textsc{Gatta} \\} %Nom des élèves
 
 %----------- Initialisation -------------------
-        
+       
 \fairemarges %Afficher les marges
 \fairepagedegarde %Créer la page de garde
 \tabledematieres %Créer la table de matières
@@ -25,16 +24,18 @@
 
 
 \section{Introduction} 
-Ce projet en sciences informatiques se déroule dans le cadre de la première année du diplôme de master en sciences informatiques à finalité spécialisée en Artificial Intelligence and Data Analytics. Les objectifs principaux de ce projet sont de permettre d'apprendre à se documenter, de s'informer, d'apprendre de nouveaux concepts et outils ainsi que de faire preuve d'indépendance et de savoir gérer son temps.\\
+Ce projet en sciences informatiques se déroule dans le cadre de la première année du diplôme de master en sciences informatiques à finalité spécialisée en Artificial Intelligence and Data Analytics. Les objectifs principaux de ce projet sont de permettre d'apprendre à se documenter, de s'informer, de savoir gérer son temps, d'apprendre de nouveaux concepts et outils ainsi que de faire preuve d'indépendance.\\
 
-Le thème choisi pour ce projet est intitulé "Prototype de chatbot assistant l'écriture de code propre et exploitant les grands modèles de langage". Ce thème a pour but de se concentrer sur le développement d'un logiciel permettant à l'utilisateur de parler à l'aide d'une interface de saisie à l'ordinateur.\\
+Le thème choisi pour ce projet est intitulé "Intelligence Artificielle pour les interfaces utilisateurs de type chatbot". Ce thème a pour but de se concentrer sur le développement d'un logiciel permettant à l'utilisateur de parler à l'aide d'une interface de saisie à l'ordinateur.\\
 
-Ce thème offrant un éventail vaste de possibilités, il a été décidé que ce projet allait se concentrer sur le développement d'un chatbot complété d'une interface, qui sera dans la capacité d'aider l'utilisateur à corriger son code au niveau de la syntaxe ainsi que de l'aider à appliquer les principes du Clean Code. En plus de cela, il inclura des fonctionnalités standard de chatbot tel que la tenue de conversations.\\
+Ce thème offrant un éventail vaste de possibilités, il a été décidé que ce projet allait se concentrer sur le développement d'un chatbot complété d'une interface avec la capacité d'aider l'utilisateur à corriger son code au niveau de la syntaxe ainsi que de l'aider à appliquer les principes du Clean Code. En plus de cela, il inclura des fonctionnalités standard de chatbot tel que la tenue de conversations.\\
+
+De par la quantité de documentation disponible en anglais dans le domaine de l'intelligence artificielle et des interfaces utilisateurs de type chatbot, il a été naturel de choisir cette langue pour le développement intégral du projet. Cette décision a simplifié la recherche d'informations pertinentes et de technologies utilisables pour les chatbots qui sont souvent publiées en anglais. Ainsi, développer le projet de zéro en anglais a permis d'exploiter au mieux les différentes documentations et de faciliter l'intégration de bibliothèques et d'outils de développement qui sont majoritairement conçus et documentés en anglais.\\
 
 Les objectifs de ce travail vont être d'une part, d'approfondir les connaissances liées aux concepts d'intelligence artificielle et de chatbot, et d'autres par, d'améliorer les compétences liées à la conception et l'implémentation de code tout en respectant les principes de Clean Code.
-Ce rapport a pour objectif de fournir un aperçu du projet en permettant au lecteur de découvrir les tenants et aboutissant grâce à la division du rapport en plusieurs sections distinctes.\\
+Ce rapport a pour objectif de fournir un aperçu du projet en permettant au lecteur de découvrir les tenants et aboutissants grâce à la division du rapport en plusieurs sections distinctes.\\
 
-La section \highlightref{Préambule} a pour but d'aider le lecteur qui n'a pas les connaissances sur les concepts centraux de ce projet, de les présenter de manière détaillée et simple. La section \highlightref{TechnoUse} liste les technologies qui ont été nécessaires pour la réalisation de ce projet tout en y incluant des explications sur leur fonctionnement. La section \highlightref{concept} donne de manière graphique tout le processus de fonctionnement du logiciel ainsi que la structure de la base de données. La section \highlightref{implé} aborde la description complète du logiciel en passant par les détails techniques de l'implémentation des différentes technologies jusqu'au manuel de l'utilisateur. La section \highlightref{éval} fournit une description détaillée de la performance du logiciel en utilisant diverses métriques telles que la rapidité de réponse. Enfin, la section \highlightref{conclu} conclut le travail réalisé en récapitulant de manière concise les différentes observations et en offrant des pistes permettant une amélioration possible du logiciel.
+La section \highlightref{Préambule} a pour but d'aider le lecteur qui n'a pas les connaissances sur les concepts centraux de ce projet, de les présenter de manière détaillée et simple. La section \highlightref{TechnoUse} liste les technologies qui ont été nécessaires pour la réalisation de ce projet tout en y incluant des explications sur leur fonctionnement. La section \highlightref{sec:concept} donne de manière graphique tout le processus de fonctionnement du logiciel ainsi que la structure de la base de données. La section \highlightref{implé} aborde la description complète du logiciel en passant par les détails techniques de l'implémentation des différentes technologies jusqu'au manuel de l'utilisateur. La section \highlightref{éval} fournit une description détaillée de la performance du logiciel en utilisant diverses métriques telles que la rapidité de réponse. Enfin, la section \highlightref{conclu} conclut le travail réalisé en récapitulant de manière concise les différentes observations et en offrant des pistes permettant une amélioration possible du logiciel.
 
 \newpage
 \section{Préambule}
@@ -43,7 +44,7 @@ L'objectif de cette section est de permettre aux lecteurs de se familiariser ave
 
 \subsection{Le Clean Code: L'art de la programmation propre}
 \subsubsection{Introduction au Clean Code}
-Le Clean Code est un concept popularisé par l'ingénieur logiciel Robert C. Martin grâce à son livre "Clean Code: A Handbook of Agile Software Craftsmanship"\highlightcite{CleanCode}. Ce livre représente bien plus que de simples conventions de programmation, il incarne une philosophie que tout développeur logiciel devrait suivre. Il a pour but de placer la lisibilité, la simplicité et la maintenabilité au cœur de la conception des programmes. A la base de cette approche de la part de Robet C. Martin se trouve la conviction que le code source devrait non seulement permettre à un programme de fonctionner, mais également de permettre aux développeurs de facilement faire transiter l'information dans le présent ou pour le futur. De plus, il aurait pour effet d'améliorer la collaboration au sein des équipes, d'accélérer la détection d'erreurs et de faciliter la maintenance du logiciel tout au long de son cycle de vie.
+Le Clean Code est un concept popularisé par l'ingénieur logiciel Robert C. Martin grâce à son livre "Clean Code: A Handbook of Agile Software Craftsmanship"\highlightcite{CleanCode}. Ce livre représente bien plus que de simples conventions de programmation, il incarne une philosophie que tout développeur logiciel devrait suivre. Il a pour but de placer la lisibilité, la simplicité et la maintenabilité au cœur de la conception des programmes. A la base de cette approche de la part de Robert C. Martin se trouve la conviction que le code source devrait non seulement permettre à un programme de fonctionner, mais également de permettre aux développeurs de facilement faire transiter l'information dans le présent ou le futur. De plus, il aurait pour effet d'améliorer la collaboration au sein des équipes, d'accélérer la détection d'erreurs et de faciliter la maintenance du logiciel tout au long de son cycle de vie.
 \subsubsection{Principes fondamentaux}
 Les principes du Clean Code orientent la production de code informatique vers une qualité supérieure et une compréhension plus aisée. En suivant les principes ci-dessous, les développeurs créent un code source qui favorise une communication claire et efficace entre les membres de l'équipe:\\
 \begin{enumerate}[listparindent=0pt, parsep=0pt]
@@ -71,7 +72,7 @@ Les principes du Clean Code orientent la production de code informatique vers un
 \end{enumerate}
 
 \subsubsection{Exemple: Impacts du Clean Code sur la compréhension du code}
-Dans l'exemple ci-dessous, on peut constater que les noms des variables \textbf{x}, \textbf{y}, \textbf{result} ne reflètent pas de manière optimale la nature de ces variables dans la partie \highlighthyperref{lstlisting:WithoutCleanCode}{Listing 1 – Sans Clean Code}. De plus, on peut aussi remarquer que le nom de la fonction \textbf{fn} n'est pas représentatif de ce que celle-ci effectue.\\
+Dans l'exemple ci-dessous, on peut constater que les noms des variables \textbf{x}, \textbf{y} et\\ \textbf{result} ne reflètent pas de manière optimale la nature de ces variables dans la partie \highlighthyperref{lstlisting:WithoutCleanCode}{Listing 1 – Sans Clean Code}. De plus, on peut aussi remarquer que le nom de la fonction \textbf{fn} n'est pas représentatif de ce que celle-ci effectue.\\
 
 Pour corriger ce problème, il faut effectuer des changements sur les éléments cités ci-dessus pour respecter les principes du Clean Code et obtenir le résultat qui se trouve dans la partie \highlighthyperref{lstlisting:WithCleanCode}{Listing 2 – Avec Clean Code}:  
 \begin{enumerate}
@@ -104,7 +105,7 @@ Pour corriger ce problème, il faut effectuer des changements sur les éléments
 \subsection{Rigueur syntaxique dans le développement de logiciels}
 \subsubsection{Définition de la syntaxe}
 \label{subsubsec:defSynt}
-Avant de définir ce qu'est la rigueur syntaxique, il est important de définir ce qu'est la syntaxe. La syntaxe est définie comme des séquences et combinaisons de caractères nécessaires pour créer du code correctement structuré. En effet, la syntaxe ne fait que donner une structure et de l'ordre dans les instructions d'un code, mais celui-ci dépend énormément de la sémantique pour donner une signification à ces instructions. Cependant, la syntaxe est importante lors de la création de code et ne pas la respecter conduit à s'exposer à des erreurs de syntaxe qui vont bloquer le programme lors de son exécution.\highlightcite{SyntaxDef}
+Avant de définir ce qu'est la rigueur syntaxique, il est important de définir ce qu'est la syntaxe. La syntaxe est définie comme des séquences et combinaisons de caractères nécessaires pour créer du code correctement structuré. En effet, la syntaxe ne fait que donner une structure et de l'ordre dans les instructions d'un code, mais celui-ci dépend grandement de la sémantique pour donner une signification à ces instructions. Cependant, la syntaxe est importante lors de la création de code et ne pas la respecter conduit à s'exposer à des erreurs de syntaxe qui vont bloquer le programme lors de son exécution.\highlightcite{SyntaxDef}
 
 \subsubsection{Définition de la rigueur syntaxique}
 De par la définition dans la section \highlightref{subsubsec:defSynt}, la définition de la rigueur syntaxique découle tout naturellement. La rigueur syntaxique dans le contexte du développement logiciel fait référence à la conformité stricte du code à une syntaxe spécifique du langage de programmation actuellement utilisé. Il est question de respecter les règles et conventions établies pour  s'assurer de la lisibilité, la maintenabilité et la compréhension du code.
@@ -163,7 +164,7 @@ def calculer_resultat(x, y, operation){
         if operation == 'div':
             return x / y
         
-        return None
+        return Aucun
     
     \end{lstlisting}
     \captionof{lstlisting}{Avec rigueur syntaxique}
@@ -172,17 +173,37 @@ def calculer_resultat(x, y, operation){
 \newpage
 \subsection{Les chatbots : La révolution des interactions Homme-Machine}
 \subsubsection{Introduction aux chatbots}
-Un chatbot est un type d'intelligence artificielle qui incarne l'interaction entre l'homme et la machine. Fonctionnant sur le même principe qu'un programme informatique, un chatbot a pour but principal de créer et maintenir des conversations avec son utilisateur par le biais de texte ou encore de la voix. En plus de cela, il fait preuve de la capacité de comprendre et de répondre dans une ou plusieurs langues à l'aide d'algorithme de traitement du langage naturel qui sera abordée plus en détail dans la section \highlightref{subsec:NLP}.\highlightcite{ChatBotOverview}
+Un chatbot est un type d'intelligence artificielle qui incarne l'interaction entre l'homme et la machine. Fonctionnant sur le même principe qu'un programme informatique, un chatbot a pour but principal de créer et maintenir des conversations avec son utilisateur par le biais de texte ou de la voix. De plus, il fait preuve de la capacité de comprendre et de répondre dans une ou plusieurs langues à l'aide d'algorithme de traitement du langage naturel qui sera abordé plus en détail dans la section \highlightref{subsec:NLP}. \highlightcite{ChatBotOverview}
 
 \subsubsection{La Révolution des interfaces Homme-Machine}
-L'intégration de l'intelligence artificielle dans notre vie quotidienne a doucement amené à une nouvelle révolution aussi appelée la quatrième révolution industrielle. L'un des points clés de l'entrée dans cette nouvelle révolution est l'apparition des chatbots qui permettent une interaction plus intuitive et facile entre l'utilisateur et la machine en éliminant les barrières techniques qui pouvaient exister. Maintenant, tout un chacun peut se permettre d'utiliser des chatbots sans avoir de compétences techniques dans le domaine. Cela a été rendu possible grâce à deux éléments clés. Le premier élément est l'utilisation de technologie permettant à des programmes informatiques de mieux comprendre et donc répondre aux requêtes provenant du langage humain. Le deuxième élément est des interfaces simples pour permettre à monsieur et madame Tout-le-Monde d'utiliser ces nouvelles technologies.
+L'intégration de l'intelligence artificielle dans notre vie quotidienne a doucement amené à une nouvelle révolution aussi appelée la quatrième révolution industrielle. L'un des points clés de l'entrée dans cette nouvelle révolution est l'apparition des chatbots qui permettent une interaction plus intuitive et facile entre l'utilisateur et la machine en éliminant les barrières techniques qui pouvaient exister. Maintenant, chacun peut se permettre d'utiliser des chatbots sans avoir de compétences techniques dans le domaine. Cela a été rendu possible grâce à deux éléments clés. Le premier élément est l'utilisation de technologie permettant à des programmes informatiques de mieux comprendre et répondre aux requêtes provenant du langage humain. Le deuxième élément est une interface simple pour permettre à monsieur et madame Tout-le-Monde d'utiliser ces nouvelles technologies.
 
 \subsubsection{Exemple: ChatGPT}
-Un exemple concret illustrant bien l'avènement des chatbots est la création et la mise à disposition de chatGPT. En effet, même si chatGPT est une nouvelle technologie, il reste très simple d'utilisation grâce à son interface plus que basique mais remplissant sa fonction à merveille comme montrer dans la \highlighthyperref{fig:GPT}{Figure 1 – Interface de chatGPT}.
-\insererfigure{Images/Chatgpt.png}{0.23}{Interface de chatGPT}{GPT}
+Un exemple concret illustrant bien l'avènement des chatbots est la création et la mise à disposition de chatGPT. En effet, même si chatGPT est une nouvelle technologie, il reste très simple d'utilisation grâce à son interface plus que basique, mais remplissant sa fonction à merveille comme représenté sur la \highlighthyperref{fig:GPT}{Figure 1 – Interface de chatGPT}.
+\insererfigure{Images/Chatgpt.png}{0.25}{Interface de chatGPT}{GPT}
+
+\subsection{Les grands modèles de langage : La nouvelle génération de chatbot}
+\subsubsection{Introduction aux grands modèles de langage}
+Les grands modèles de langage ou Large Model Language (LLM) sont des systèmes d'intelligence artificielle qui sont développés pour comprendre, générer et interagir avec le langage humain. Ils ont pour but principal d'imiter la capacité humaine à comprendre et à produire du texte à tel point qu'il devient difficile de faire la différence entre l'humain et la machine. Ces modèles sont basés sur des architectures de réseaux de neurones qui leur permettent de traiter et d'apprendre de vastes quantités de données textuelles. Un LLM peut être entraîné sur des ensembles de données immenses leur permettant d'apprendre de plus en plus du langage humain. Le fonctionnement d'un des grands modèles de langage nommé BERT sera abordé en détail dans la section \highlightref{subsec:LLM}.
+
+\subsubsection{L'impact des grands modèles de langage}
+L'arrivée des LLM a marqué une étape significative dans le domaine de l'intelligence artificielle. Ceux-ci ont apporté des améliorations notables dans la compréhension du langage naturel permettant ainsi des implications profondes pour divers secteurs tels que l'éducation, la technologie et le service client. Depuis maintenant quelques années, les LLM font partie intégrante de nos de vies. En effet, de plus en plus de sites web mettent en avant l'utilisation d'assistant virtuel pour aider le client lors de ses achats en ligne. L'on peut citer des sites web comme Amazon, Facebook ou Google qui utilisent cette technologie pour offrir au client une expérience personnalisée  et des conversations complexes. 
+
+\subsubsection{Les architectures des grand modèles de langage}
+Dans le domaine des grands modèle de langage, il existe une grande variété de modèles de langage et il ne serait pas exagéré de dire qu'un nouveau modèle de langage apparaît chaque jour. Chaque modèle de langage qui apparaît peut-être classer dans une des trois catégories suivantes: \highlightcite{Hugging_encodeur_decodeur}\highlightcite{Hugging_encodeur}\highlightcite{Hugging_decodeur}
+\begin{itemize}
+    \item \textbf{Les décodeurs: }Les architectures de décodeur se concentrent principalement sur la génération de texte. Elles prennent en entrée une séquence de mots et effectue une prédiction pour le mot suivant dans la séquence en se basant uniquement sur les mots précédents. Cela est effectué jusqu'à générer un texte complet. L'un des portes étendard de cette architecture est le modèle GPT\footnotemark[1] qui a été développé par OpenAI. Ce modèle est l'un des LLM les plus avancés et a été largement discuté pour sa capacité à générer du texte d'une qualité proche de celle d'un humain. Il est utilisé dans diverses applications, allant de la rédaction automatique à la création de contenu et à l'assistance conversationnelle.
+    \footnotetext[1]{GPT: Generative Pre-trained Transformer}
+    \newpage
+    \item \textbf{Les encodeurs: } Les architectures d'encodeur analysent et transforment le texte en vecteurs de caractéristiques qui capturent le sens des mots dans leur contexte. Contrairement aux décodeurs, les encodeurs ne sont pas conçus pour générer du texte mais pour comprendre et encoder les informations. Le modèle le plus connu de ce type d'architecture est le modèle BERT\footnotemark[1] qui a été créé par Google. Le modèle BERT a révolutionné la façon dont les moteurs de recherche comprennent les requêtes linguistiques en améliorant significativement la pertinence des résultats de recherche basés sur le contexte du langage naturel.
+    \item \textbf{Les encodeur-décodeurs: }Ces architectures combinent les fonctions des encodeurs et des décodeurs pour effectuer des tâches complexes de transformation de texte comme de la traduction automatique. Le texte d'entrée est d'abord encodé pour former une représentation intermédiaire qui sera par la suite décodée en une nouvelle séquence de texte. Le modèle qui représente au mieux cette architecture est le modèle T5\footnotemark[2] qui est développé par Google. Le modèle T5 interprète toutes les tâches de traitement du langage comme un problème de transformation de texte en texte. Cela lui permet de réaliser des tâches telles que la traduction, la correction et le résumé de textes.
+\end{itemize}
+
+\footnotetext[1]{BERT: Bidirectional Encoder Representations from Transformers}
+\footnotetext[2]{T5: Text-To-Text Transfer Transformer}
 
 \newpage
-\section{Technologies utilisées}
+\section{Technologies}
 \label{TechnoUse}
 Cette section vise à expliquer les principes de fonctionnements des différents composants exploités tout au long de ce projet. C'est une partie cruciale du document qui permet d'explorer en détails les différentes architectures, technologies et frameworks intégrés dans le projet.
 \subsection{Natural Language Processing}
@@ -193,24 +214,25 @@ Le Natural Language Processing (NLP) ou Traitement Automatique du Langage Nature
 Un langage naturel est un langage qui est parlé ou écrit par des êtres humains dans un but de faire transiter des informations entre eux. Ce terme est apparu grâce à l'apparition d'utilisateurs voulant communiquer avec un ordinateur sans pour autant apprendre le langage spécifique de la machine. \\
 
 De par cela, on peut conclure que la technologie du NPL est apparue pour aider les personnes qui n'ont pas les connaissances qui permettent l'interaction avec un ordinateur en utilisant le langage machine, mais qui possèdent des connaissances assez poussées dans un langage humain que pour communiquer avec une autre personne, qui est dans ce cas remplacée par un ordinateur. \highlightcite{chopra2013natural}
+
 \subsubsection{Les niveaux de langage dans le Natural Language Processing}
-La compréhension Natural Language Processing peut être ardue de par la complexité de ce système, il est donc très commun d'utiliser l'approche par niveaux de langage pour l'expliquer. Cette méthode de décomposition par niveaux comparer à la méthode séquentielle permet un traitement plus dynamique du langage et une interaction plus facile entre les différents niveaux.\\
+La compréhension du traitement du langage naturel (Natural Language Processing, NLP) peut être une tâche complexe en raison de la diversité des éléments linguistiques impliqués. Il est donc très souvent utile de décomposer le langage en ses principales composantes linguistiques. Cette approche permet de gérer plus efficacement le traitement du langage et de faciliter l'interaction entre ses différents aspects.\\
 
-Cette manière de procéder provient des recherches réalisées dans le domaine de la psycholinguistique\footnotemark[1] qui suggèrent que le traitement du langage se fait de manière dynamique. L'un des exemples les plus parlants pour illustrer le dynamisme d'une langue réside dans la présence de mots aux sens multiples. Grâce à l'utilisation des différents niveaux de langage, un sens peut être privilégié par rapport aux autres. Passons maintenant à l'explication des différents niveaux de langages utilisés par la technologie NLP. Il est important de noter que le premier niveau, la phonologie, n'est utilisée que dans le cas d'une utilisation vocale du NLP. \highlightcite{liddy2001natural}
-\footnotetext[1]{Psycholinguistique: la psycholinguistique est un domaine de recherche relativement récent qui se donne pour objectif de mettre au jour les mécanismes impliqués dans l’utilisation du langage, plus spécifiquement dans la production, la compréhension et l’acquisition du langage. \highlightcite{labelle2001trente}}
+Cette manière de procéder provient des recherches réalisées dans le domaine de la psycholinguistique\footnotemark[1] qui suggèrent que le traitement du langage se fait de manière dynamique. L'un des exemples les plus parlants pour illustrer le dynamisme d'une langue réside dans la présence de mots aux sens multiples. Grâce à la décomposition en différentes composants linguistiques\footnotemark[2], un sens peut être privilégié par rapport aux autres. Il est important maintenant de comprendre ce que sont ces différents composants linguistiques utilisés par la technologie NLP. Il est important de noter que le premier composant qui est la phonologie n'est utilisée que dans le cas d'une utilisation vocale du NLP. \highlightcite{liddy2001natural}
 
+\footnotetext[1]{Psycholinguistique: la psycholinguistique est un domaine de recherche relativement récent qui se donne pour objectif de mettre au jour les mécanismes impliqués dans l’utilisation du langage plus spécifiquement dans la production, la compréhension et l’acquisition du langage. \highlightcite{labelle2001trente}}
+\footnotetext[2]{Composant linguistique: partie fondamentale du langage qui aide à comprendre et à analyser sa structure et son fonctionnement}
 \newpage
 \begin{enumerate}[listparindent=0pt, parsep=0pt]
 
     \item \textbf{Phonologie}\\
     Ce premier niveau concerne l'interprétation des sons provenant de la parole telle que les mots. Il utilise trois règles qui sont respectivement la phonétique\footnotemark[1], le phonème\footnotemark[2] et la prosodie\footnotemark[3].\\
 
-    
     \item \textbf{Morphologie}\\
-    Ce deuxième niveau traite la nature des mots composés. Par exemple, le mot préenregistrement qui peut être analysé en deux parties distinctes: la première qui est "pré" qui signifie "avant" et la deuxième qui est "enregistrement" qui est "l'action d'enregistrer"\\
+    Ce deuxième niveau se concentre sur l'analyse de la structure et la formation des mots qui est un domaine essentiel pour la maîtrise des conjugaisons, des accords et des mots composés. Par exemple, le mot préenregistrement qui peut être analysé en deux parties distinctes: la première qui est "pré" qui signifie "avant" et la deuxième qui est "enregistrement" qui est "l'action d'enregistrer". L'on peut aussi prendre l'exemple du verbe "parler" sous différentes formes tel que "je parle", "tu parlais" et "il parlera". Ces variations illustrent comment la conjugaison adapte le verbe selon le temps et la personne. En ce qui concerne les accords, ils sont visibles quand des adjectifs ou des articles s'accordent en genre et en nombre avec les noms qu'ils déterminent comme dans la phrase "la voiture noire".\\
     
     \item \textbf{Lexique}\\
-    Ce troisième niveau se base sur l'analyse des mots de manières individuels ce qui aide à attribuer un seul sens à un mot et ainsi permettre de remplacer ce mot par une représentation.\\
+    Ce troisième niveau se concentre sur l'étude des mots pris individuellement pour leur attribuer une signification précise. Cependant, il est important de noter que cette étape peut associer plusieurs sens à un même mot, il faudra utilisé le contexte dans lequel le mot est utilisé pour permettre de lever toute ambiguïté de manière définitive.\\
 
     \item \textbf{Syntaxique}\\
     Ce quatrième niveau se concentre sur l'analyse des mots qui composent une phrase pour en comprendre la structure grammaticale. Cela résulte en une représentation de la phrase qui met en évidence les relations entre les mots.\\
@@ -231,87 +253,125 @@ Cette manière de procéder provient des recherches réalisées dans le domaine 
 \footnotetext[4]{Désambiguïser: faire disparaître l'ambiguïté.}
     
 \newpage
+
 \subsubsection{Comment fonctionne le Natural Language Processing}
+\label{subsub:NLP_work}
 La technologie du Natural language Processing utilise trois grands processus qui sont respectivement le prétraitement des données, l'extraction de caractéristiques et la modélisation.\\
 
-La première étape est le prétraitement des données. Avant qu'un modèle ne traite le texte pour une tâche spécifique, il est nécessaire de prétraiter les données pour améliorer les performances du modèle. On retrouve une variété de techniques diverses qui peuvent être utilisées lors de ce prétraitement tel que l'analyse syntaxique, la racinisation, la sémantique, la suppression des mots vides et la tokenisation.
+La première étape est le prétraitement des données. Avant qu'un modèle ne traite le texte pour une tâche spécifique, il est nécessaire de prétraiter les données pour améliorer les performances du modèle. On retrouve une variété de techniques diverses qui peuvent être utilisées lors de ce prétraitement:
 \begin{enumerate}[listparindent=0pt, parsep=0pt]
 
     \item \textbf{Analyse syntaxique}\\
-    L'analyse syntaxique est un processus qui a pour but de déterminer le début et la fin de chaque phrase dans le document.\\
+    L'analyse syntaxique est un processus qui a pour but de déterminer le début et la fin de chaque phrase dans le document. Elle est grandement utilisée pour la segmentation de texte qui permet de diviser un texte en un ensemble de phrases.\\
     
-    \item \textbf{Racinisation}\\
-    La racinisation est un processus qui permet de convertir des mots en leurs formes de bases. On peut par exemple ramener les mots "chanteur", "chanteuses" et "chantent" à la base "chant".\\ 
+    \item \textbf{Racinisation/Lemmatisation}\\
+    La racinisation et la lemmatisation sont deux processus linguistiques utilisés pour simplifier les mots dans le traitement du langage naturel. La racinisation convertit les mots en leurs formes de base alors que la lemmatisation va plus loin en prenant en compte le contexte grammatical et sémantique pour ramener les mots à leur forme canonique.\\
     
-    \item \textbf{Sémantique}\\
-    La sémantique est un processus qui permet de comprendre le rôle de chaque mot dans une phrase. Ce processus va marquer chaque mot avec une étiquette telle que nom, adverbe, etc.\\
+    \item \textbf{Analyse sémantique}\\
+    L'analyse sémantique vise à comprendre la signification des mots et des phrases dans leur contexte spécifique. Cela inclut l'interprétation des expressions idiomatiques\footnotemark[1], savoir à qui ou à quoi se réfèrent les mots comme "il" ou "elle", et voir comment différentes idées ou phrases sont liées entre elles.\\
+
+    \item \textbf{Analyse morphosyntaxique}\\
+    L'analyse morphosyntaxique consiste à identifier quel rôle chaque mot joue dans une phrase, comme déterminer s'il s'agit d'un nom, d'un verbe ou d'un adjectif. Ce processus aide à comprendre comment les mots sont connectés et organisés pour former des phrases qui ont du sens. \\
 
     \item \textbf{Suppression des mots vides}\\
     La suppression des mots vides est un processus qui permet d'enlever les mots qui n'apportent que peu d'informations sur le texte telles que "un", "le", "une", etc.\\
 
     \item \textbf{Tokenisation}\\
-    La tokenisation est un processus qui consiste à diviser le texte en mots individuels puis à attribuer à chaque mot un numéro spécial comme une sorte de code d'identification pour ensuite reconstruire la phrase grâce au code d'identification des mots comme dans la \highlighthyperref{fig:tokenisation}{Figure 2 – Fonctionnement de la tokenisation}. \insererfigure{Images/Tokenizers.png}{0.25}{Fonctionnement de la tokenisation \highlightcite{deeplearning.ai}}{tokenisation}
+    \label{token}
+    La tokenisation est un processus qui consiste à décomposer un texte en segments plus petits comme des mots, des morceaux de phrases ou des caractères individuels appelés tokens. Une fois l'obtention des différents tokens, ceux-ci reçoivent un identifiant unique pour faciliter le traitement informatique du texte. 
+    
+    En prenant comme exemple la \highlighthyperref{fig:tokenisation}{Figure 2 – Fonctionnement de la tokenisation}. On commence avec des données de bases qui sont composées d'un ensemble de texte appelé corpus: "This is a sentence" et "This is another big sentence". Une fois les textes dans le système, les phrases sont séparés en une liste de mots uniques auxquelles sont assignés un identifiant unique à chacun (rectangle de gauche). Par la suite, il est possible de transformer les phrases du corpus en une liste de chiffre dans laquelle chaque chiffre représente un mot et la liste complète des chiffres représente la phrase (rectangle de droite).
+    
+    \insererfigure{Images/Tokenizers.png}{0.25}{Fonctionnement de la tokenisation \highlightcite{deeplearning.ai}}{tokenisation}
+    
 \end{enumerate}
-
+\footnotetext[1]{Expression idiomatique: Phrase où les mots ensemble ont un sens différent de ce qu'ils disent littéralement}
 La deuxième étape est l'extraction de caractéristiques. Elle s'effectue à la suite de la tokenisation du texte pour obtenir les séries de chiffres qui décrivent le texte. Il est ensuite possible de trouver des caractéristiques en utilisant différentes méthodes telles que le sac de mots ou le TF-IDF.
 \begin{enumerate}[listparindent=0pt, parsep=0pt]
 
     \item \textbf{Sac de mots}\\
     La méthode du sac de mots consiste à compter le nombre d'occurrences d'un mot ou d'un groupe de mots dans un document. Pour cela, la tokenisation doit être réalisée au préalable, comme cela devrait déjà être effectué dans la partie prétraitement. Ensuite, on procède au décompte du nombre d'apparitions de chaque mot dans la phrase comme illustré dans la \highlighthyperref{fig:tokenisation}{Figure 3 – Fonctionnement du sac de mots}.
-    \insererfigure{Images/BagOfWords}{0.3}{Fonctionnement du sac de mots \highlightcite{deeplearning.ai}}{bagOfWords}
-    
+    \insererfigure{Images/BagOfWords}{0.25}{Fonctionnement du sac de mots \highlightcite{deeplearning.ai}}{bagOfWords}
+
+    \newpage
     \item \textbf{TF-IDF}\\
-    La méthode du TF-IDF fonctionne de la même manière que le sac de mots à la différence qu'elle ajoute une pondération à chaque mot en fonction du nombre de fois qu'il apparaît par rapport au nombre total de mots comme illustré dans la \highlighthyperref{fig:TF-IDF}{Figure 4 – Fonctionnement du TF-IDF}.
-    \insererfigure{Images/TF-IDF.png}{0.3}{Fonctionnement du TF-IDF \highlightcite{deeplearning.ai}}{TF-IDF}
+    La méthode du TF-IDF (Term Frequency-Inverse Document Frequency) affine l'approche du sac de mots en intégrant une pondération spécifique pour chaque mot, augmentant ainsi la précision de la représentation textuelle. Le TF-IDF est composé de deux termes. Le premier terme TF (Term Frequency) qui mesure la fréquence d'un mot précis dans un document ce qui est calculé par le nombre de fois qu'un mot apparaît dans ce document divisé par le nombre total de mots dans le document. Le deuxième terme IDF (Inverse Document Frequency) sert à diminuer l'importance des mots qui apparaissent fréquemment dans les documents pour ainsi réduire leur impact. Il est calculé en faisant le logarithme du nombre total de documents divisé par le nombre de documents contenant le mot en question. Pour calculer le TF-IDF il suffit juste de multiplier le TF et IDF comme représenté sur la \highlighthyperref{fig:TF-IDF}{Figure 4 – Fonctionnement du TF-IDF}.\\
+    
+    \textbf{Term Frequency (TF):}
+    \begin{equation}
+    \text{TF}(t, d) = \frac{\text{Nombre de fois que le terme } t \text{ apparaît dans le document } d}{\text{Nombre total de termes dans le document } d}
+    \end{equation}
+    
+    \textbf{Inverse Document Frequency (IDF):}
+    \begin{equation}
+    \text{IDF}(t, D) = \log \left(\frac{\text{Nombre total de documents } |D|}{\text{Nombre de documents contenant le terme } t} \right)
+    \end{equation}
+    
+    \textbf{TF-IDF:}
+    \begin{equation}
+    \text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D)
+    \end{equation}
+
+    \insererfigure{Images/TF-IDF.png}{0.35}{Fonctionnement du TF-IDF \highlightcite{deeplearning.ai}}{TF-IDF}
 
 \end{enumerate}
+\newpage
 La troisième et dernière étape concerne l'application de modèles d'apprentissages tels que les réseaux neuronaux, les SVM\footnotemark[1] ou des méthodes utilisant des statistiques pour permettre la classification, la traduction automatique ou encore la génération de texte. \highlightcite{deeplearning.ai} \highlightcite{raina2022natural}
 \begin{enumerate}
     \item \textbf{Réseau de neurones artificiels}\\
-    Le réseau de neurones artificiel est une structure adaptative inspirée de la nature, plus précisément du fonctionnement du cerveau humain. Composé d'éléments appelés neurones\footnotemark[2], il utilise la plasticité\footnotemark[3] de manière similaire à sa contrepartie humaine ce qui permet la modification de l'agencement des connexions pour se spécialiser dans une tâche précise. Le réseau de neurones fonctionne en traitant des entrées qui passent successivement à travers plusieurs couches de neurones avant de produire une sortie, comme illustré dans la \highlighthyperref{fig:neuralnetwork}{Figure 5 – Fonctionnement du réseau de neurones}. \highlightcite{grossi2007introduction}
-    \insererfigure{Images/neuralnetwork.png}{0.5}{Fonctionnement du réseau de neurones \highlightcite{EponaMind}}{neuralnetwork} \\
+    Le réseau de neurones artificiels est une structure adaptative inspirée de la nature, plus précisément du fonctionnement du cerveau humain. Celui-ci est composé d'éléments appelés neurones\footnotemark[2] qui utilisent la plasticité\footnotemark[3] de manière similaire à sa contrepartie humaine, ce qui permet la modification de l'agencement des connexions pour se spécialiser dans une tâche précise. Le réseau de neurones fonctionne en traitant des entrées qui passent successivement à travers plusieurs couches de neurones avant de produire une sortie, comme sur la \highlighthyperref{fig:neuralnetwork}{Figure 5 – Fonctionnement du réseau de neurones}. \highlightcite{grossi2007introduction}
+    \insererfigure{Images/neuralnetwork.png}{0.3}{Fonctionnement du réseau de neurones \highlightcite{EponaMind}}{neuralnetwork} 
     
     \item \textbf{SVM}\\
-    Les SVM sont des algorithmes d'apprentissage qui sont utilisés à des fins de classifications. Ils fonctionnement grâce à l'utilisation d'un hyperplan\footnotemark[4] qui est utilisé pour séparer les différentes classes d'objets de manière optimale, comme illustré dans la \highlighthyperref{fig:hyperplan}{Figure 6 – Fonctionnement de l'hyperplan}. \highlightcite{Gandhi_2018}
-    \insererfigure{Images/SVM.png}{0.5}{Fonctionnement de l'hyperplan \highlightcite{Gandhi_2018}}{hyperplan}
+    Les machines à vecteurs de support (SVM) sont des modèles d’apprentissage supervisé fréquemment utilisés pour la classification. Le principe des SVM est de chercher un hyperplan\footnotemark[4] qui sépare de manière optimale les échantillons. Malencontreusement, il est très commun que les données ne soient pas linéairement séparables, c'est-à-dire qu'il n'existe pas d'hyperplan qui puisse les diviser parfaitement. Pour résoudre ce problème, les SVM utilisent une technique appelée le kernel trick. Cette méthode permet de projeter les données dans un espace dimension supérieur où elles deviennent séparables par un hyperplan. Cette projection se fait avec des fonctions de noyau qui permettent de traiter des relations complexes entre les échantillons sans avoir besoin de les transformer explicitement dans un espace de dimension supérieure tel que représenté sur la \highlighthyperref{fig:hyperplan}{Figure 6 – Fonctionnement du Kernel Trick}. \highlightcite{Gandhi_2018}
+    \insererfigure{Images/SVM.png}{0.5}{Fonctionnement du Kernel Trick \highlightcite{Post_2018}}{Kernel}
     
 \end{enumerate}
 \footnotetext[1]{SVM ou Support Vector Machine: Algorithme de classification utilisant les vecteurs.}
 \footnotetext[2]{Neurone: Élément spécialisé dans le traitement, la réception et la transmission d'informations.}
 \footnotetext[3]{Plasticité : Capacité du cerveau à changer, se remodeler, se réorganiser, dans le but de s’adapter à de nouvelles situations. \highlightcite{dindouveapprentissage}}
 \footnotetext[4]{Hyperplan: Objet qui permet de séparer un espace en deux parties distinctes.}
+\newpage
+\subsubsection{Comment représenter les caractéristiques des données ?}
+Dans le domaine du traitement du langage naturel, il est cruciale de bien représenté les caractérisitques extraites des ensembles de données pour qu'elles soient traitées et comprises par les algorithmes. Quatre approches de représentation des caractéristiques des données existent: les représentations denses, les représentations creuses, les représentations contextuelles et les représentations non-contextuelles. En pratique, il est possible de combiner ces différents types de représentations pour créer un hybride tels que des représentations denses non-contextuelles ou des représentations denses contextuelles. \highlightcite{Induraj_2023} \highlightcite{Barua_2021} \highlightcite{Imeshadilshani_2023}
+\begin{itemize}
+    \item Les représentations denses (dense representations) désignent des vecteurs continus où chaque dimension encode une caractéristique. Dans ce type de représentation, chaque composante du vecteur contient explicitement une valeur. Par exemple, une représentation d'un groupe de personnes d'âges différents est considéré comme dense, car il est peu probable d'avoir des valeurs manquantes. Il est possible de voir la représentation dense sous forme de matrice dans la partie gauche de la \highlighthyperref{fig:dense_sparse}{Figure 7 – Représentation dense et sparse}
+    \item Les représentations creuses (Sparse Representations) désignent des vecteurs dans lesquels les éléments sont principalement des valeurs nulles, mais l'où on ne stocke que des valeurs explicites non nulles. Ce type de représentation est particulièrement utile pour gérer des données de grande dimension qui sont naturellement creuses, comme les données textuelles où chaque dimension pourrait représenter la présence ou l'absence d'un mot spécifique dans un dictionnaire. Il est possible de voir la représentation dense sous forme de matrice dans la partie droite de la \highlighthyperref{fig:dense_sparse}{Figure 7 – Représentation dense et sparse}
+    \item Les représentations contextuelles sont des vecteurs de caractéristiques générés de manière à ce que le sens d’un mot ou d’une caractéristique soit influencé par son contexte immédiat. Ces représentations sont dynamiques et peuvent changer en fonction de la phrase ou du texte dans lequel l'élément est utilisé. Ce type de représentation est souvent utilisé par les modèles de langage comme BERT pour permettre une meilleure analyse du contexte dans le cas du traitement du langage naturel.
+    \item Les représentations non contextuelles sont statiques et ne varient pas en fonction du contexte. Chaque instance d'un mot ou d'une caractéristique a toujours la même représentation indépendamment de son utilisation dans différentes phrases. Des technologies telles que Word2Vec ou GloVe sont des exemples de représentations denses non contextuelles.
+\end{itemize}
+\insererfigure{Images/dense_sparse.png}{0.41}{Représentation dense et sparse \highlightcite{Induraj_2023}}{dense_sparse}
+
 
 \newpage
 \subsection{Analyseur syntaxique}
 \subsubsection{Introduction}
-Dans le domaine de l'informatique, le parseur également connu sous le nom d'analyseur syntaxique est un composant essentiel présent dans la plupart des compilateurs.\footnotemark[1] Sa fonction principale est d'analyser les données en entrée qui sont sous la forme d'instructions séquentielles provenant du code source puis, de repérer les erreurs potentielles à l'aide de divers mécanismes.\highlightcite{Lutkevich_2022}
+Dans le domaine de l'informatique, le parseur également connu sous le nom d'analyseur syntaxique est un composant essentiel présent dans la plupart des compilateurs.\footnotemark[1] Sa fonction principale est d'analyser les données en entrée qui sont sous la forme d'instructions séquentielles provenant du code source puis de repérer les erreurs potentielles à l'aide de divers mécanismes. \highlightcite{Lutkevich_2022}
 \footnotetext[1]{Compilateur: Un programme qui traite les instructions écrites dans un langage de programmation donné pour les traduire en langage machine}
 
 \subsubsection{Comment fonctionne un analyseur syntaxique}
 L'analyseur syntaxique se compose de trois éléments, chacun gérant une étape différente du processus d'analyse. Ces trois étapes sont les suivantes :
 \begin{enumerate}
     \item \textbf{L'analyse lexicale}\\
-    L'analyse lexicale est un composant essentiel dans le processus de compilation d'un langage de programmation. Il a pour but de segmenter le code source en petits morceaux appelés jetons ou tokens et en plus de permettre une classification de chaque élément. Chaque jeton est une brique élémentaire de la grammaire du langage comme les mots clés, les identifiants, les opérateurs et les littéraux. Ceux-ci sont essentiel pour que le compilateur comprenne et traite le code de manière appropriée comme illustré dans la \highlighthyperref{fig:lexicale}{Figure 7 – Classification des tokens}. En plus de cela, l'analyse lexicale va supprimer tous les éléments non essentiels, les commentaires et les caractères d'espacement.
-    \insererfigure{Images/parsing_token_classifications-h.png}{0.4}{Classification des tokens \highlightcite{Lutkevich_2022}}{lexicale}
-    \newpage
+    L'analyse lexicale est un composant essentiel dans le processus de compilation d'un langage de programmation. Il a pour but de segmenter le code source en petits morceaux appelés jetons ou tokens pour ensuite permettre une classification de chaque élément. Chaque jeton est une brique élémentaire de la grammaire du langage comme les mots clés, les identifiants, les opérateurs et les littéraux. Ceux-ci sont essentiels pour que le compilateur comprenne et traite le code de manière appropriée comme illustré sur la \highlighthyperref{fig:lexicale}{Figure 8 – Classification des tokens}. De plus, l'analyse lexicale va supprimer tous les éléments non essentiels, les commentaires et les caractères d'espacement.
+    \insererfigure{Images/parsing_token_classifications-h.png}{0.3}{Classification des tokens \highlightcite{Lutkevich_2022}}{lexicale}
     \item \textbf{L'analyse syntaxique}\\
-    L'analyse syntaxique à pour but de validé si la séquence de jetons respect les règles syntaxiques du langage. Pour cela, l'utilisation d'un arbre syntaxique est essentiel et permet la représentation de la structure du code comme présenter dans la \highlighthyperref{fig:tree}{Figure 8 – Arbre syntaxique}. Cet arbre permet une visualisation des différentes relations entre les jetons tout en respectant les règles grammaticales du langage. Si le code source viole ces règles, des erreurs de syntaxe sont signalées pour indiquer les parties du code qui doivent être corrigées.
-    \insererfigure{Images/parse_tree-h.png}{0.4}{Arbre syntaxique \highlightcite{Lutkevich_2022}}{tree}
+    L'analyse syntaxique a pour but de valider si la séquence de jetons respecte les règles syntaxiques du langage. Pour cela, l'utilisation d'un arbre syntaxique est essentielle et permet la représentation de la structure du code comme présenté sur la \highlighthyperref{fig:tree}{Figure 9 – Arbre syntaxique}. Cet arbre permet une visualisation des différentes relations entre les jetons tout en respectant les règles grammaticales du langage. Si le code source enfreint ces règles, des erreurs de syntaxe sont signalées pour indiquer les parties du code qui doivent être corrigées.
+    \insererfigure{Images/parse_tree-h.png}{0.3}{Arbre syntaxique \highlightcite{Lutkevich_2022}}{tree}
     \item \textbf{L'analyse sémantique}\\
-    L'analyse sémantique vérifie la cohérence de l'arbre de dérivation avec la sémantique du langage en effectuant des tâches telles que la vérification des types, la résolution des variables et la détection d'erreurs sémantiques. Elle garantit que les variables sont déclarées avant utilisation et que les fonctions sont appelées correctement. Au final, Son objectif est de détecter les erreurs non capturées par l'analyse syntaxique et qui empécherait le programme de s'exécuter correctement.
+    L'analyse sémantique vérifie la cohérence de l'arbre de dérivation avec la sémantique du langage en effectuant des tâches telles que la vérification des types, la résolution des variables et la détection d'erreurs sémantiques. Elle garantit que les variables sont déclarées avant leur utilisation et que les fonctions sont appelées correctement. Au final, son objectif est de détecter les erreurs non capturées par l'analyse syntaxique et qui empêcherait le programme de s'exécuter correctement.
 \end{enumerate}
 
-\newpage
 \subsubsection{Quels sont les différents types d'analyseur syntaxique ?}
-Pour accomplir les différentes tâches de l'analyseur syntaxique, il existe différentes méthodes qui vérifies les étapes dans différents ordres. Il existe deux principaux types d'analyseur syntaxique :
+Pour accomplir les différentes tâches de l'analyseur syntaxique, il existe différentes méthodes qui vérifient les étapes dans différents ordres. Il existe deux principaux types d'analyseur syntaxique :
 \begin{enumerate}
     \item \textbf{L'analyseur descendant (top-down) :}\\
-    Les analyseurs descendant commencent le processus en partant de la règle la plus générale dans la grammaire du langage de programmation et descendent jusqu'aux symboles terminaux.
+    Les analyseurs descendants commencent le processus en partant de la règle la plus générale dans la grammaire du langage de programmation et descendent jusqu'aux symboles terminaux.
     \item \textbf{L'analyseur ascendant (bottom-up) :}\\
-    Les analyseurs ascendant commencent le processus en partant des symboles terminaux dans la grammaire du langage de programmation et remontent jusqu'à la règle la plus générale.
+    Les analyseurs ascendants commencent le processus en partant des symboles terminaux dans la grammaire du langage de programmation et remontent jusqu'à la règle la plus générale.
 \end{enumerate}
 
-En plus de cela, il existe deux types de variation possible pour les analyseurs syntaxiques:
+Il existe deux types de variation possible pour les analyseurs syntaxiques:
 \begin{enumerate}
     \item \textbf{L'analyseur LL (Left-to-Right, Leftmost Derivation) :}\\
     L'analyseur LL parcourt l'entrée de gauche à droite en utilisant une dérivation la plus à gauche. Cela signifie qu'à chaque étape de l'analyse, l'analyseur choisit la règle la plus à gauche pour étendre l'arbre de dérivation.
@@ -319,36 +379,780 @@ En plus de cela, il existe deux types de variation possible pour les analyseurs 
      L'analyseur LR analyse également l'entrée de gauche à droite, mais en utilisant une dérivation la plus à droite. Cela signifie qu'il choisit toujours la règle la plus à droite lorsqu'il étend l'arbre de dérivation.
 \end{enumerate}
 \newpage
+\subsection{BERT: Bidirectional Encoder Representations from Transformers}
+\label{subsec:LLM}
+\subsubsection{Introduction}
+Dans le domaine du traitement du langage naturel, une révolution a doucement fait son apparition. Le modèle dénommé BERT développé par Google a permis une avancée significative dans ce domaine en permettant une compréhension plus profonde et contextuelle du langage humain. Contrairement aux modèles précédents qui traitent les mots séquentiellement, BERT analyse les mots dans le contexte de la phrase. BERT permet de saisir des nuances complexes et des dépendances syntaxiques entre les mots tout en offrant une compréhension du texte bien plus riche.
+\subsubsection{Comment fonctionne BERT}
+Le modèle BERT fonctionne grâce à quatre mécanismes: la bidirectionnalité qui permet de comprendre le langage, l'architecture des Transformers qui traite les mots dans leur contexte global, le NSP qui permet de prédire la phrase suivante et le fine-tuning qui est une étape permettant au modèle BERT de se spécialiser sur une tâche précise. \highlightcite{Vojtko_2023} \highlightcite{Hashemi_Pour_Lutkevich_2024} \highlightcite{Horev_2018}\\
+
+Le premier mécanisme utilisé dans le modèle BERT est la bidirectionnalité. La majorité des modèles avant l'arrivée de BERT traitaient le texte de manière séquentielle de gauche à droite. BERT quant à lui essaye de comprendre le contexte d'un mot en tenant compte des mots voisins à celui-ci. À cette fin, le modèle utilise une technique appelée "Masked Language Model" (MLM) qui est utilisée durant l'entrainement du modèle. Celle-ci consiste à dissimuler un mot dans une phrase pour inciter le modèle à utiliser les mots de part et d'autre du mot dissimulé pour prédire le mot caché en utilisant les deux directions de gauche à droite et de droite à gauche. Il est possible de voir un exemple de ce fonctionnement sur la \highlighthyperref{fig:MLM}{Figure 10 – MLM “how are you doing today”} dans laquelle le mot "you" a été masqué et le but du modèle est de retrouver quel mot aurait la plus grande probabilité de s'y trouver en utilisant les mots autour pour déterminer un contexte.
+\insererfigure{Images/BERT_MLM.png}{0.6}{MLM “how are you doing today” \highlightcite{Vojtko_2023}}{MLM}
+
+\newpage
+Le deuxième mécanisme central du modèle BERT repose sur les architectures des Transformers qui sont conçues spécifiquement pour traiter des séquences de données. \\Ces architectures utilisent des mécanismes d'attention pour évaluer l'importance relative et le contexte de chaque mot dans une phrase tout en améliorant la compréhension globale du contexte et réduisant les ambiguïtés. L'architecture typique d'un Transformer est exposée sur la \highlighthyperref{fig:transformer}{Figure 11 – La structure codeur-décodeur de l’architecture Transformer} et est décrite ci-dessous:\\
+\begin{enumerate}
+    \item \textbf{Inputs et Input Embedding }: Les entrées sont converties en vecteurs dense non-contextuels. Ces vecteurs permettent au modèle de traiter efficacement les informations.
+
+    \item \textbf{Positional Encoding} : Comme les Transformers ne traitent pas les données séquentiellement, ils utilisent un "encodage positionnel" pour tenir compte de la position des mots dans la phrase.
+
+    \item \textbf{Multi-Head Attention} : Cette couche permet au modèle de se concentrer sur différentes parties de la phrase pendant qu'il traite l'information. Chaque "tête" d'attention peut se concentrer sur différentes relations entre les mots, comme leur contexte ou leur signification grammaticale.
+
+    \item \textbf{Add \& Norm} : Après chaque couche d'attention et chaque couche suivante, une opération d'addition (Add) est effectuée pour combiner les informations de différentes couches, suivie d'une normalisation (Norm) pour stabiliser l'apprentissage du réseau.
+
+    \item \textbf{Feed Forward} : Application de transformations linéaires et de non-linéarités à chaque position d'entrée.
+
+    \item \textbf{Output Embedding et Output Probabilities} : Les sorties sont finalement transformées en probabilités à l'aide de la fonction softmax, qui aide à déterminer le mot le plus probable suivant dans la séquence.
+\end{enumerate}
+\insererfigure{Images/transformer.png}{0.3}{La structure codeur-décodeur de l'architecture Transformer}{transformer}
+
+\newpage
+Le troisième mécanisme présent dans le modèle BERT est le "Next Sentence Prediction" (NSP) qui fait partie des mécanismes d'entraînement du modèle. Ce mécanisme a été conçu pour permettre au modèle de comprendre la relation entre deux phrases, ce qui est crucial pour des tâches telles que la réponse aux questions de l'utilisateur. Ce mécanisme fonctionne en fournissant durant l'entraînement du modèle des paires de phrases et le modèle. Il doit alors prédire si la seconde phrase dans la paire est la suite logique de la première phrase. Pour environ 50\% des paires d'apprentissage, la seconde phrase est effectivement la suite de la première et pour les autres 50\%, la seconde partie de la phrase est juste une phrase au hasard. Grâce à l'exemple de la \highlighthyperref{fig:NSP}{Figure 12 – Exemple de paire de phrases}, on peut observer que des tokens ont été rajoutés pour que le modèle sache où se trouve le début avec le [CLS] ainsi qu'un token [SEP] pour marquer la fin d'une phrase.
+\insererfigure{Images/NSP.png}{0.8}{Exemple de paire de phrases}{NSP}\\
+
+Le quatrième mécanisme est le fine-tuning qui est une étape cruciale pour spécialiser un modèle BERT préentraîné. Initialement, BERT est entraîné sur un large corpus de texte tel que Wikipédia pour récolter le maximum d'information. Cela permet de comprendre la langue de manière générale grâce à des tâches comme la prédiction de mots masqués et la prédiction de la prochaine phrase. Lors du fine-tuning, il est nécessaire d'utiliser un modèle de base qui est un modèle BERT dans notre cas, auquel il va falloir ajouté une dernière couche pour ainsi permettre une spécialisation du modèle pour une ou des tâches spécifiques qui peuvent être de la classification de texte, de la reconnaissance d'entités nommées, ou de la génération de réponses aux questions des utilisateurs. Par exemple, pour une tâche de classification, on ajoute une couche qui va être spécialement utilisée pour la tâche en question puis le modèle est entraîné sur un ensemble de données. Durant l'entrainement, le modèle ajuste les différents paramètres internes pour optimiser la performance sur cette tâche précise. Ce processus permet au modèle BERT de transférer les connaissances acquises lors de l'entraînement initial à des applications plus ciblées tout en améliorant sa précision et son efficacité dans des domaines spécialisés.
+\newpage
 \section{Modélisation conceptuelle}
-\label{concept}
-La section sur la modélisation conceptuelle est une étape cruciale dans le développement de logiciel informatique. Elle vise à représenter de manière compréhensible les différentes étapes de conceptions d'un logiciel qui seront ensuite présentées à d'autres personnes qui ne sont pas nécessairement sensibles à la technologie. 
+\label{sec:concept}
+La section sur la modélisation conceptuelle vise à représenter de manière compréhensible les différentes étapes de conceptions d'un logiciel qui seront ensuite présentées à d'autres personnes qui ne sont pas nécessairement sensibles à la technologie. 
 \subsection{BPMN (Le Business Process Model and Notation)}
 \subsubsection{Qu'est-ce qu'un Business Process Model and Notation ?}
 Le BPMN est une norme de modélisation des processus métier\footnotemark[1] qui fournit une base graphique commune à toute une équipe. Cela permet aux différentes personnes composant l'équipe d'avoir une base commune pour comprendre, documenter et optimiser le processus métier. \highlightcite{von2015business}
 \footnotetext[1]{Processus métier: une activité ou un ensemble d'activités mis en place pour réaliser une tâche, \newline un projet ou atteindre un objectif \highlightcite{NeoLedge_2019}}
 \subsubsection{Représentation du projet en schéma BPMN}
-\insererfigure{Images/diagram.png}{0.4}{Schéma BPMN du logiciel}{BPMN}
+Le schéma présenté dans la \highlighthyperref{fig:BPMN}{Figure 13 – Schéma BPMN du logiciel} illustre le fonctionnement de l'application développée pour ce projet. Elle est divisée en deux principales composantes : le back-end\footnotemark[2] est responsable du traitement des entrées utilisateur, et le front-end\footnotemark[3] fournit une interface intuitive pour faciliter l'interaction avec le chatbot.\\
 
+Lors du démarrage du programme, celui-ci attend que l'utilisateur interagisse avec l'interface. Une fois les entrées confirmées par l'utilisateur, celles-ci sont affichées dans l'interface et envoyées au back-end pour traitement. \\
+
+Dans le back-end, les entrées sont analysées pour décider si elles doivent être divisées en plusieurs segments qui subiront diverses transformations tels que la suppression des mots vides et de la ponctuation. Après ces modifications, le programme extrait les caractéristiques des entrées pour prédire la catégorie de réponse que le chatbot devrait utiliser. Si le programme ne trouve pas de réponse adéquate, un message d'excuses est envoyé à l'utilisateur. Si une réponse est identifiée, le programme détermine l'action correspondante pouvant être une réponse standard ou nécessite une analyse plus approfondie du code pour signaler des erreurs de syntaxe ou suggérer des améliorations en rapport avec le Clean Code. Le processus se termine lorsque l'utilisateur décide de quitter l'application. \\
+\footnotetext[2]{Front-end: Partie visible de l'application avec laquelle les utilisateurs interagissent, comprenant l'interface utilisateur.}
+\footnotetext[3]{Back-end: Partie de l'application qui opère en arrière-plan, gérant les données et les logiques métier nécessaires pour traiter les requêtes des utilisateurs}
 \newpage
-\subsection{Schéma entité-association}
-\subsubsection{Qu'est-ce qu'un schéma entité-association ?}
-Le schéma entité-association est une technique de modélisation de données largement utilisée dans le domaine de la conception de bases de données. Il offre une représentation visuelle des entités, des relations et des attributs qui composent un système d'information de manière simple et claire.
-
-\subsubsection{Représentation de la base de données en schéma entité-association}
+\insererfiguresideways{Images/diagram.png}{0.4}{Schéma BPMN du logiciel}{BPMN}
 
 \newpage
 \section{Structure du logiciel}
-\subsection{Fonctionnalités}
-\subsection{Implémentations}
 \label{implé}
+Cette section fournit une description complète de la structure du projet qui a été réalisée en relation avec le thème choisi. Elle comprendra une explication des fonctionnalités supportées par le logiciel ainsi que des explications sur le pseudocode des algorithmes principaux développés à partir de zéro. Comme expliquer durant dans l'introduction de ce projet, les fonctionnalités ont été développé pour être utiliser avec la langue Anglaise.
+\subsection{Fonctionnalités}
+\label{subsec:fonc}
+Les fonctionnalités développent et intégrer pour ce projet sont des fonctionnalités qui sont très souvent présentent dans les projets de ce type. Le chatbot possède des fonctionnalités basiques telles que répondre à l'utilisateur et traiter l'entrée de celui-ci.\\
+
+Ces capacités de traitement reposent sur des technologies de traitement du langage naturel qui donnent au chatbot la possibilité de diviser le texte de l'utilisateur en phrases ainsi que d'effectuer la tokenisation. De plus, il peut appliquer d'autres transformations sur les entrées pour éliminer les éléments superflus grâce à la lemmatisation et à la racinisation. Les fonctionnalités d'extraction de caractéristiques comme le "bag of words", TF-IDF ou Word2Vec sont également implémentées. Pour traiter toutes ces données, le chatbot utilise des modèles de deep learning tels que BERT ou des réseaux de neurones simples, ce qui lui permet de comprendre le contexte et de choisir une réponse adaptée à l'entrée de l'utilisateur.\\
+
+Le système est également doté d'une fonction d'analyse syntaxique qui lui permet de construire des arbres syntaxiques pour examiner le code entré par l'utilisateur. Cette fonction détecte les erreurs de syntaxes et suggère des améliorations pour rendre le code plus lisible.\\
+
+Pour faciliter l'utilisation pendant le développement, plusieurs fonctionnalités ont été intégrées à l'interface graphique pour permettre d'entraîner des modèles, de les tester et de consulter le fichier contenant toutes les intentions du chatbot.
+
+\newpage
+\subsection{Explication des pseudocodes}
+Cette section va permettre d'aller en profondeur dans la façon dont ont été implémentés les algorithmes principaux. Chaque sous-section est dédiée à l'explication détaillée du pseudocode d'un algorithme spécifique dans l'ordre de son exécution dans le programme. Cela permettra une compréhension plus claire et précise du fonctionnement interne du projet.
+
+\subsubsection{Séparation en phrases}
+L'algorithme présenté ci-dessous est le premier algorithme à se déclencher lors de la réception de l'entrée de l'utilisation. Il est séparé en deux étapes principales qui vont permettre d'extraire de l'entrée utilisateur les différentes phrases ainsi que le bloc de code si celle-ci en contient un.
+\begin{enumerate}
+    \item \textbf{L'extraction du code et du langage informatique}\\
+    Cette fonction permet de chercher dans une entrée utilisateur la présence d'un bloc de code sous format Markdown c'est-à-dire entourée de ```. S'il détecte un bloc de code, il le retire de l'entrée utilisateur puis, la fonction va permettre l'extraction du langage informatique si l'utilisateur la préciser. Pour ce qui est du texte restant, il est préservé pour les différentes analyses ultérieures. 
+    \item \textbf{La segmentation en phrase}\\
+    Cette fonction qui survient après l'extraction du code et du langage informatique va permettre de segmenter la partie conservée de l'entrée de l'utilisateur en phrases. Pour cela, l'utilisation d'une expression régulière a été nécessaire pour identifier les fins de phrases marquées par un point, point d'exclamation, point d'interrogation ou un retour à la ligne tout en écartant les abréviations.
+\end{enumerate}
+
+\begin{algorithm}[H]
+\small
+\KwResult{Renvoie un dictionnaire avec les phrases, la langue et le code extraits de l'entrée utilisateur}
+\KwIn{Une chaîne de caractères pouvant contenir du texte et du code}
+\DontPrintSemicolon
+\SetKwFunction{FMain}{segment\_sentences}
+\SetKwFunction{FExtract}{extract\_language\_and\_code}
+\SetKwProg{Fn}{Function}{:}{}
+\Fn{\FMain{user\_input}}{
+    phrases\_segmentées $\leftarrow$ \FExtract{user\_input}\;
+    user\_input $\leftarrow$ diviser user\_input en phrases en utilisant l'expression régulière\;
+    \For{segment dans phrases\_segmentées["user\_input"]}{
+        \If{segment $\neq$ ""}{
+            Ajouter segment à phrases\_segmentées["user\_input"]
+        }
+    }
+    \KwRet phrases\_segmentées\;
+}
+
+\SetKwProg{PrivFn}{Private Function}{:}{}
+\PrivFn{\FExtract{user\_input}}{
+    Initialiser code, langue à Aucun\;
+    pattern $\leftarrow$ expression régulière pour les blocs de code\;
+    correspondance $\leftarrow$ rechercher pattern dans user\_input\;
+    \If{correspondance trouvée}{
+        langue $\leftarrow$ premier groupe de correspondance\;
+        code $\leftarrow$ deuxième groupe de correspondance\;
+        user\_input $\leftarrow$ extraire le texte en dehors du bloc de code de user\_input\;
+    }
+    \KwRet{dictionnaire avec langue, code, et le user\_input modifié}\;
+}
+
+\caption{\small Segmenter les phrases, extraire le code intégré et identifier le langage de programmation de l'entrée utilisateur}
+
+\end{algorithm}
+
+\subsubsection{Tokenisation et filtrage}
+L'algorithme ci-dessous présente la manière dont la tokenisation et le filtrage se déroulent dans le programme. Cette partie se déclenche lors de la réception d'une entrée de l'utilisateur après que celle-ci ait été prétraitée par \textbf{l'algorithme 1}. Il a pour but de faire un deuxième prétraitement sur les différentes phrases pour les rendre plus facilement utilisables par les algorithmes en utilisant trois grandes étapes qui sont la tokenisation, la suppression des mots vides et la suppression des ponctuations.
+\begin{enumerate}
+    \item \textbf{Suppression des ponctuations}\\
+    Lorsqu'une phrase est reçue, l'une des premières étape est de retirer les ponctuations qui dans notre cas n'apporte pas plus d'information pour l'analyse.
+    \item \textbf{Tokenisation}\\
+    Lors de la tokenisation la phrase est transformée en une liste contenant les mots de la phrase.
+    \item \textbf{Suppression des mots vides}\\
+    Avant de renvoyer la liste comprenant les mots de la phrase pour que celle-ci soit analysée, les mots vides sont retirés car ceux-ci constituent des informations parasites.
+\end{enumerate}
+\begin{algorithm}[H]
+
+\DontPrintSemicolon
+
+\SetKwFunction{FTokeniserEtFiltrerPhrase}{tokenize\_and\_filter\_sentence}
+\SetKwFunction{FChargerMotsVides}{load\_stop\_words}
+\SetKwFunction{FTokeniser}{tokenize}
+\SetKwFunction{FEnleverMotsVides}{remove\_stop\_words}
+\SetKwFunction{FEnleverPonctuation}{remove\_punctuation}
+\SetKwProg{Fn}{Fonction}{:}{}
+
+\Fn{\FTokeniserEtFiltrerPhrase{phrase}}{
+    phrase $\leftarrow$ \FEnleverPonctuation{phrase}\;
+    jetons $\leftarrow$ \FTokeniser{phrase}\;
+    \If{enlever mots vides}{
+        jetons $\leftarrow$ \FEnleverMotsVides{jetons}\;
+    }
+    \Return jetons\;
+}
+
+\SetKwProg{PrivFn}{Private Function}{:}{}
+\PrivFn{\FChargerMotsVides{}}{
+    mots\_vides $\leftarrow$ Aucun \;
+    chemin\_fichier $\leftarrow$ Chemin vers le fichier\;
+    Ouverture du fichier contenant les mots vides\;
+    \ForEach{ligne dans fichier}{
+        Ajouter mots vides dans la liste\;
+    }
+    \Return mots\_vides\;
+}
+
+\PrivFn{\FTokeniser{phrase}}{
+    jetons $\leftarrow$ Utilisation d'un regex pour séparer la phrase en mots\;
+    \Return jetons\;
+}
+
+\PrivFn{\FEnleverMotsVides{jetons}}{
+    mots\_filtrés $\leftarrow$ Retrait des mots vides dans jetons\;
+    \Return mots\_filtrés\;
+}
+
+\PrivFn{\FEnleverPonctuation{phrase}}{
+    traducteur $\leftarrow$ Retrait des ponctuations\;
+    \Return phrase.traduire(traducteur)\;
+}
+\caption{Tokenisation et Filtrage des Phrases}
+\end{algorithm}
+\newpage
+
+
+\newpage
+\subsubsection{Porter Stemmer}
+Le Porter Stemmer fonctionne en appliquant une série de règles de remplacement à des mots pour en retirer les affixes communs.
+\begin{enumerate}
+    \item Suppressions initiales
+    \begin{itemize}
+        \item Si le mot se termine par 'sses', remplacer par 'ss'
+        \item Si le mot se termine par 'ies', remplacer par 'i'
+        \item Si le mot se termine par 'ss', ne rien faire
+        \item Si le mot se termine par 's', supprimer 's'
+        \item Si le m > 0 et que le mot se termine par 'eed', remplacer par 'ee'
+        \item Si le mot contient une voyelle et que le mot se termine par 'ed', supprimer 'ed'
+        \item Si le mot contient une voyelle et que le mot se termine par 'ing', supprimer 'ing'
+        \item \textbf{Si l'une des étapes précédentes a été exécutée alors}
+        \begin{itemize}
+            \item Si le mot se termine par 'at', remplacer par 'ate'
+            \item Si le mot se termine par 'bl', remplacer par 'ble'
+            \item Si le mot se termine par 'iz', remplacer par 'ize'
+            \item Si le mot se termine une double consonne qui n'est pas 'l', 's' ou 'z', supprimer la dernière lettre
+            \item Si le m = 1 et se termine par une consonne, une voyelle puis une consonne, rajouter 'e'
+        \end{itemize}
+        \item Si le mot possède une voyelle et qu'il se termine par un 'y', remplacer par 'i'
+    \end{itemize}
+    \item Traitement des terminaisons plus complexes
+    \begin{itemize}
+        \item Les remplacements de suffixes 'ational' $\rightarrow$ 'ate', 'tional' $\rightarrow$ 'tion', 'enci' $\rightarrow$ 'ence', 'anci' $\rightarrow$ 'ance', 'izer' $\rightarrow$ 'ize' ,  'abli' $\rightarrow$ 'able',  'alli' $\rightarrow$ 'al', 'entli' $\rightarrow$ 'ent',  'eli' $\rightarrow$ 'e', 'ousli' $\rightarrow$ 'ous',  'ization' $\rightarrow$ 'ize', 'ation' $\rightarrow$ 'ate', 'ato' $\rightarrow$ 'ate',  'alism' $\rightarrow$ 'al', 'iveness' $\rightarrow$ 'ive', 'fulness' $\rightarrow$ 'ful', 'ousness' $\rightarrow$ 'ous', 'aliti' $\rightarrow$ 'al',  'iviti' $\rightarrow$ 'ive' , et  'biliti' $\rightarrow$ 'ble' .
+
+    \end{itemize}
+    \item Traitement des suffixes résiduels
+    \begin{itemize}
+        \item Supprimer 'ative', 'full', 'ness' si ces suffixes sont présents
+        \item Si le mot se termine par 'icate' ou 'iciti', remplacer par 'ic'
+        \item Si le mot se termine par 'alize' ou 'ical', remplacer par 'al'
+    \end{itemize}
+    \item Réductions finales
+    \begin{itemize}
+        \item Suppression des terminaisons tel que 'al', 'ance', 'ence', 'er', 'ic', 'able', 'ible', 'ant', 'ement', 'ment', 'ent', 'ion', 'ou', 'ism', 'ate', 'iti', ous', 'ive' et 'ize'
+    \end{itemize}
+    \item Suppression finale de 'e'
+    \begin{itemize}
+        \item Supprimer 'e' final si le mot contient plus d'une syllabe après cette suppression
+        \item Supprimer un 'l' si jamais celui-ci est dédoubler à la fin du mot
+    \end{itemize}
+\end{enumerate}
+
+\begin{algorithm}[H]
+\caption{Étape 1 de l'algorithme de racinisation de Porter}
+\DontPrintSemicolon
+\SetKwFunction{FStepOneA}{step\_1\_a}
+\SetKwFunction{FStepOneB}{step\_1\_b}
+\SetKwFunction{FStepOneTwoB}{step\_1\_2b}
+\SetKwFunction{FStepOneC}{step\_1\_c}
+\SetKwFunction{FDetermineM}{determine\_m}
+\SetKwProg{Fn}{Function}{:}{\KwRet}
+\SetKw{KwTo}{in}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+
+\Fn{\FStepOneA{mot}}{
+    \Input{Un mot}
+    \Output{Mot après suppression des suffixes pluriels}
+    \If{mot se termine par "sses" ou "ies" ou "ss" ou "s"}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\Fn{\FStepOneB{mot}}{
+    \Input{Un mot}
+    \Output{Mot après traitement des formes en -ed, -ing}
+    \If{mot se termine par "eed" et \FDetermineM{mot sans suffixe} > 0}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \If{mot se termine par "ed" et mot avec suffixe en moins contient une voyelle}{
+        \KwRet{\FStepOneTwoB{mot avec suffixe modifié}}\;
+    }
+    \If{mot se termine par "ing" et mot avec suffixe en moins contient une voyelle}{
+        \KwRet{\FStepOneTwoB{mot avec suffixe modifié}}\;
+    }
+    \KwRet{mot}\;
+}
+
+\Fn{\FStepOneTwoB{mot}}{
+    \Input{Un mot}
+    \Output{Mot après application des règles supplémentaires de l'étape 1b}
+    \If{mot se termine "at" ou "bl" ou "iz"}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \If{mot ne se termine ni par "s", ni par "z", ni par "l" et se termine par une double consonne}{
+        \KwRet{mot moins la dernière lettre}\;
+    }
+    \If{m == 1 et se termine par une consonne un voyelle et une consonne}{
+        \KwRet{mot + "e"}\;
+    }
+    \KwRet{mot}\;
+}
+
+\Fn{\FStepOneC{mot}}{
+    \Input{Un mot}
+    \Output{Mot après changement de 'y' en 'i' si nécessaire}
+    \If{mot se termine par "y" ou "i" et mot sans suffixe contient une voyelle)}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Étape 2 de l'algorithme de racinisation de Porter}
+\DontPrintSemicolon
+\SetKwFunction{FStepTwo}{step\_2}
+\SetKwFunction{FDetermineM}{determine\_m}
+\SetKwProg{Fn}{Function}{:}{\KwRet}
+\SetKw{KwTo}{in}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+
+\Fn{\FStepTwo{mot}}{
+    \Input{Un mot}
+    \Output{Mot modifié après application des transformations de suffixe}
+    \If{mot se termine par 'ational', 'tional',... et \FDetermineM{mot sans suffixe} > 0}{
+         \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Étape 3 de l'algorithme de racinisation de Porter}
+\DontPrintSemicolon
+\SetKwFunction{FStepThree}{step\_3}
+\SetKwFunction{FDetermineM}{determine\_m}
+\SetKwProg{Fn}{Function}{:}{\KwRet}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+
+\Fn{\FStepThree{mot}}{
+    \Input{Un mot}
+    \Output{Mot modifié après application des transformations de suffixe}
+    \If{mot se termine par "icate" ou "ative" ou "alize" ou "iciti" ou "ical" ou "ful" ou "ness" \& \FDetermineM{mot sans suffixe} > 0}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\end{algorithm}
+\begin{algorithm}[H]
+\caption{Étape 4 de l'algorithme de racinisation de Porter}
+\DontPrintSemicolon
+\SetKwFunction{FStepFour}{step\_4}
+\SetKwFunction{FDetermineM}{determine\_m}
+\SetKwProg{Fn}{Function}{:}{\KwRet}
+\SetKw{KwTo}{in}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+
+\Fn{\FStepFour{mot}}{
+    \Input{Un mot}
+    \Output{Mot modifié après application des transformations de suffixe}
+    \If{mot se termine par 'al', 'ance', 'ence',... et \FDetermineM{mot sans suffixe} > 1}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Étape 5 de l'algorithme de racinisation de Porter}
+\DontPrintSemicolon
+\SetKwFunction{FStepFiveA}{step\_5\_a}
+\SetKwFunction{FStepFiveB}{step\_5\_b}
+\SetKwFunction{FDetermineM}{determine\_m}
+\SetKwFunction{FEndWithDoubleConsonant}{end\_with\_double\_consonant}
+\SetKwFunction{FEndWithCVC}{end\_with\_cvc}
+\SetKwProg{Fn}{Function}{:}{\KwRet}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+
+\Fn{\FStepFiveA{mot}}{
+    \Input{Un mot}
+    \Output{Mot après suppression possible d'un 'e' terminal}
+    \If{\FDetermineM{mot sans suffixe} > 1 et mot se termine par 'e'}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \If{mot se termine par 'e' et \FDetermineM{mot sans suffixe} == 1 et !\FEndWithCVC{mot sans suffixe}}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\Fn{\FStepFiveB{mot}}{
+    \Input{Un mot}
+    \Output{Mot après suppression possible de la dernière consonne en double}
+    \If{mot se termine par 'l' et \FDetermineM{mot sans suffixe} > 1 et \FEndWithDoubleConsonant{mot}}{
+        \KwRet{mot avec suffixe modifié}\;
+    }
+    \KwRet{mot}\;
+}
+
+\end{algorithm}
+\newpage
+\subsubsection{Sac de mots}
+La fonction ci-dessous permet de convertir une phrase qui a été au préalable tokenisée en un vecteur où chaque indice correspond à un mot spécifique du vocabulaire. Pour chaque mot du vocabulaire, un indice lui sera associé dans le vecteur qui contiendra le nombre de fois que ce mot apparaît dans la phrase analysée.\\
+\begin{algorithm}[H]
+\KwResult{Renvoie un tableau numpy représentant la phrase sous forme de vecteur de fréquences de mots}
+\KwIn{Une chaîne de caractères à convertir en représentation sac de mots}
+
+\SetKwFunction{FMain}{extraire\_caracteristiques}
+\SetKwProg{Fn}{Function}{:}{}
+\Fn{\FMain{phrase}}{
+    representation\_sac\_de\_mots $\leftarrow$ initialise un tableau de zéros de taille égale à la longueur du vocabulaire \;
+    \For{mot dans texte de phrase prétraité}{
+        \If{mot est dans le vocabulaire}{
+            indice $\leftarrow$ trouve l'indice du mot dans le vocabulaire\;
+            incrémente representation\_sac\_de\_mots à l'indice de 1\;
+        }
+    }
+    \KwRet representation\_sac\_de\_mots\;
+}
+
+\caption{Convertit une phrase en vecteur sac de mots}
+
+\end{algorithm}
+
+\subsubsection{TF\_IDF}
+L'algorithme ci-dessous permet de convertir une phrase qui a été au préalable tokenisée en un vecteur où chaque indice correspond à un mot spécifique du vocabulaire. Contrairement au sac de mots, le TF\_IDF prend en compte la fréquence d'apparitions des mots pour ainsi réduire l'impact des mots qui appraissent fréquemment.\\
+\begin{algorithm}[H]
+\DontPrintSemicolon
+
+\SetKwFunction{FExtraireCaracteristiques}{ExtraireCaracteristiques}
+\SetKwFunction{FPretraiterTexte}{PretraiterTexte}
+\SetKwFunction{FCalculerFreqDoc}{CalculerFreqDoc}
+\SetKwProg{Fn}{Fonction}{:}{}
+
+\Fn{\FExtraireCaracteristiques{phrase}}{
+    phrase\_pretraitee $\leftarrow$ \FPretraiterTexte{phrase}\;
+    vecteur\_tf\_idf $\leftarrow$ tableau de zéros (longueur de vocab)\;
+    \ForEach{mot dans phrase\_pretraitee}{
+        \If{mot dans vocab}{
+            tf $\leftarrow$ nombre de fois mot dans phrase\_pretraitee / longueur de phrase\_pretraitee\;
+            idf $\leftarrow$ log du  nombre total de document / \FCalculerFreqDoc{mot}\;
+            vecteur\_tf\_idf[index du mot] $\leftarrow$ tf $\times$ idf\;
+        }
+    }
+    \KwRet vecteur\_tf\_idf\;
+}
+
+\SetKwProg{PrivFn}{Private Function}{:}{\Retour}
+\PrivFn{\FCalculerFreqDoc{}}{
+    \ForEach{doc dans docs}{
+        \ForEach{mot dans doc}{
+            freq\_doc[mot] $\leftarrow$ freq\_doc[mot] + 1\;
+        }
+    }
+    \KwRet freq\_doc
+}
+
+\caption{Extraction des Caractéristiques et Calcul de Fréquence Documentaire}
+\end{algorithm}
+
+\newpage
+\subsubsection{Analyseur de la syntaxe du langage de programmation}
+L'algorithme ci-dessous permet de parcourir un arbre syntaxique pour trouver les erreurs de syntaxe ou les éléments manquants dans le code qui pourraient l'empêcher de compiler. L'arbre syntaxique est obtenu grâce à l'utilisation d'une bibliothèque externe nommée \highlighthyperrefurl{https://tree-sitter.github.io/tree-sitter/}{Tree-sitter} qui a été développée spécifiquement pour la création d'arbres syntaxiques pour les langages de programmation.\\
+\begin{algorithm}[H]
+\caption{Trouver des problèmes de syntaxe dans un arbre syntaxique}
+\SetKwInOut{Input}{Input}
+\SetKwInOut{Output}{Output}
+\SetKwFor{While}{while}{do}{endw}
+\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{endif}
+\SetKw{Return}{return}
+
+\Input{syntax\_tree (Tree)}
+\Output{Liste d'éléments}
+descriptions $\leftarrow$ empty set\;
+todo $\leftarrow$ Contient le premier élément de l'arbre syntaxique\;
+
+\While{todo n'est pas vide}{
+    node $\leftarrow$ retire le premier élément du todo\;
+    \For{child in node.children}{
+        \If{Si il y a une erreur dans le child}{
+            Ajoute l'erreur et la ligne dans la description
+        }
+        \ElseIf{Si il manque un élément dans le child}{
+            Ajoute le missing et la ligne dans la description
+        }
+       Ajouter le child au todo\;
+    }
+}
+
+\If{descriptions est vide}{
+    \Return{"I didn't detect syntax errors in your code."}\;
+}
+Trie les descriptions dans l'ordre des lignes\;
+\Return{descriptions}\;
+
+\end{algorithm}
+
+\newpage
+\subsubsection{Analyseur de Clean Code}
+L'algorithme ci-dessous permet de parcourir un arbre syntaxique pour y trouver des recommandations à faire au niveau du Clean Code. Ces recommandations sont basées sur les conventions des langages supportés actuellement et peuvent varier de la simple longueur du nom d'une variable ou d'une fonction au nombre de lignes ou de paramètres dans une fonction.\\
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\KwData{syntax\_tree (Tree), language (str)}
+\KwResult{Liste ou chaîne des problèmes de codage}
+\SetKwFunction{FMain}{describe\_clean\_code\_problems}
+\SetKwProg{Fn}{Function}{:}{}
+\Fn{\FMain{syntax\_tree, language}}{
+  descriptions $\leftarrow$ empty set\;
+  todo $\leftarrow$ Contient le premier élément de l'arbre syntaxique\;
+  \While{todo n'est pas vide}{
+    node $\leftarrow$ retire le premier élément du todo\;
+    \For{child in node.named\_children}{
+      \If{child est de type "function\_declarator"}{
+        \If{Le nombre de paramètre est trop important}{
+            descriptions $\leftarrow$ une recommandation sur le nombre de paramètre de la fonction\;
+          }
+          \If{Le nom de la fonction ne respecte pas les conventions}{
+            descriptions $\leftarrow$ une recommandation sur le nom de la fonction\;
+          }
+          \If{Le nombre de ligne de la fonction est trop important}{
+            descriptions $\leftarrow$ une recommandation sur la grandeur de la fonction\;
+          }
+      }
+      \ElseIf{child est de type "identifier" ou "field\_identifier"}{
+          \If{Le nom de la variable ne respecte pas les conventions de no}{
+            descriptions $\leftarrow$ une recommandation sur le nom\;
+          }
+          \If{Le nom de la variable est plus petit que 3 caractères}{
+            descriptions $\leftarrow$ une recommandation sur la longueur du nom\;
+          }
+      }
+      \ElseIf{child est de type "class\_declaration", "struct\_specifier"]}{
+          \If{Le nom de la classe ou de la structure ne respecte pas les conventions}{
+            descriptions $\leftarrow$ une recommandation sur le nom\;
+          }
+            \If{Le nom de la classe ou de la structure est plus petit que 3 caractères}{
+            descriptions $\leftarrow$ une recommandation sur la longueur du nom\;
+          }
+      }
+        ajoute le child dans le todo\;
+    }
+  }
+  \If{descriptions est vide}{
+    \Return{"No recommendations to make for Clean Code"}\;
+  }
+  Trie les descriptions dans l'ordre des lignes\;
+  \Return descriptions
+}
+
+\caption{Analyse d'un arbre syntaxique pour les problèmes de code propre}
+\end{algorithm}
+
+\newpage
+\section{Entraînement du chatbot}
+Cette section présente une des phases cruciales de la création d'un chatbot qui n'est d'autre que son entraînement. L'entraînement du chatbot à pour but de lui permettre de répondre de manière efficace et intelligente aux utilisateurs. Cependant, il n'est pas uniquement question de cela dans cette section mais aussi de tout ce qui entoure l'entraînement tel que la gestion des données utilisées, leur stockage, les méthodes d'entraînement employées, et le développement de modèles de compréhension du langage naturel qui a été traité dans la section \highlightref{subsec:NLP}. L'objectif final étant de créer un chatbot qui peut comprendre le contenu textuel, mais aussi de permettre si possible au chatbot de comprendre le contexte et la nuance des dialogues. 
+\subsection{Gestion des données pour l'entraînement}
+\label{subsec:data}
+Il serait difficile de parler d'entraînement sans parler des données. En effet, les données sont un aspect essentiel de l'entraînent qui ne peut simplement pas fonctionner sans celle-ci. Pour le chatbot lié à ce projet, les données provenant du site web Kaggle \highlightcite{Aghammadzada_2020} ont été utilisées comme base avant de les agrémenter de plusieurs nouveaux éléments pour répondre aux besoins de ce projet. Une fois les données en main, celles-ci ont été stockées dans un fichier JSON qui sera surnommée \textbf{la base de connaissance }vu que ce fichier contient tout ce que le chatbot est censé pouvoir comprendre. L'exemple ci-dessous représente un type d'intention stocké qui est ici la catégorie "Greeting" qui référence la salutation.\\\\
+\begin{minipage}{0.25\textwidth}
+    \begin{verbatim}
+"intents": [
+  {
+    "tag": "Greeting",
+    "patterns": [
+      "Hi",
+      "Hi there",
+      "Hola",
+      "Hello",
+      "Hello there",
+      "Hya",
+      "Hya there"
+    ],
+    "responses": [
+      "Hi human !",
+      "Hello human !",
+      "Hola human !"
+    ],
+    "module": "",
+    "class": "",
+    "function": "",
+    "parameters": []
+  }
+]
+\end{verbatim}
+\end{minipage}
+\hfill
+\vspace{0.1cm}
+\vrule
+\vspace{0.1cm}
+\begin{minipage}{0.68\textwidth}
+    \begin{description}
+\item[\textbf{"intents":}] Un tableau contenant plusieurs objets, chacun représentant une intention spécifique que le chatbot peut reconnaître.
+  \item[\textbf{"tag":}] Un identifiant unique pour chaque intention, utilisé pour classer les différents types de requêtes ou de questions posées par les utilisateurs.
+  \item[\textbf{"patterns":}] Un tableau de phrases ou expressions que les utilisateurs sont susceptibles d'utiliser pour exprimer l'intention correspondante.
+  \item[\textbf{"responses":}] Un tableau de réponses que le chatbot peut utiliser pour répondre à l'intention détectée.
+  \item[\textbf{"module":}] Nom du module de traitement, si applicable. Laissez vide si non applicable.
+  \item[\textbf{"class":}] Nom de la classe utilisée dans le module, si applicable. Laissez vide si non applicable.
+  \item[\textbf{"function":}] Nom de la fonction à exécuter dans la classe spécifiée, si applicable. Laissez vide si non applicable.
+  \item[\textbf{"parameters":}] Un tableau des paramètres nécessaires pour la fonction, si applicable. Laissez vide si non applicable.
+\end{description}
+\end{minipage}
+\newpage
+\subsection{Classification des intentions}
+La classification des intentions est une composante clé dans le développement des chatbots. Elle consiste à identifier l'intention derrière les phrases saisies par les utilisateurs afin que le chatbot puisse répondre de manière appropriée.
+\subsubsection{Fonctionnement de la classification}
+Le fonctionnement de la classification suit une structure bien précise qui est décrite ci-dessous en 5 étapes. De plus, la \highlighthyperref{fig:Intent}{Figure 14 – Exemple Simple d’un classificateur d’intention} offre un schéma simplifié de comment fonctionne la classification.\
+\begin{enumerate}
+  \item \textbf{Réception de la requête :} Le chatbot reçoit une phrase de l'utilisateur.
+  \item \textbf{Prétraitement des données :} La phrase est préparé pour l'analyse en effectuant la suppression de la ponctuation, la mise en minuscule des lettres et l'élimination des mots inutiles.
+  \item \textbf{Analyse et comparaison :} La phrase traitée est ensuite comparée aux différents modèles de la base de connaissances.
+  \item \textbf{Identification de l'intention :} À l'aide d'algorithmes de traitement du langage naturel, le système détermine l'intention la plus probable en fonction des similitudes avec les données stockées.
+  \item \textbf{Sélection de la réponse :} Une fois l'intention identifiée, le chatbot sélectionne une réponse appropriée parmi celles associées à l'intention détectée.
+\end{enumerate}
+\insererfigure{Images/Intent.png}{0.45}{Exemple Simple d'un classificateur d'intention}{Intent}\\
+
+\subsubsection{Ressources nécessaires}
+Pour que la classification des intentions soit efficace, elle nécessite :
+\begin{itemize}
+  \item Une \textbf{base de connaissances} qui peut-être un fichier contenant multiple information comme dans l'exemple ci-dessus
+  \item Des \textbf{algorithmes de traitement du langage naturel (NLP)} capables de comprendre et d'analyser le texte.
+\end{itemize}
 
 \newpage
 \section{Évaluation}
-\label{éval}
+Cette section vise à présenter une évaluation complète du logiciel en utilisant l'évaluation qualitative et quantitative. L'objectif est de déterminer dans quelle mesure le logiciel répond aux attentes des utilisateurs issus de divers horizons professionnels ainsi que de déterminer grâce à des métriques si le logiciel répond correctement à la problématique.
+\subsection{Évaluation Qualitative}
+L'évaluation qualitative a été menée en prenant un échantillon de dix personnes qui sont divisées en trois catégories: cinq personnes travaillant dans l'informatique, deux personnes qui sont totalement extérieures au domaine de l'informatique et enfin trois étudiants en informatique. Chaque participant a été invité à tester le logiciel et à évaluer son expérience selon trois critères principaux: la facilité d'utilisation, le design de l'interface, et la qualité des réponses du chatbot. Pour chaque critère, trois options étaient disponibles pour évaluer: "Bien", "Satisfaisant" et "Mauvais". En plus de cela, les participants ont eu la possibilité de laisser des commentaires pour justifier leur décision.
 
+\subsubsection{Critère: Facilité d'utilisation}
+Ce critère évalue si l'interface de l'application est intuitive et simple à naviguer pour l'utilisateur.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||} 
+ \hline
+ \multicolumn{3}{|| c ||}{Facilité d'utilisation}\\
+ \hline
+ \textbf{Bien} & \textbf{Satisfaisant} & \textbf{Mauvais} \\ 
+ \hline
+ 3 & 7 & 0 \\ 
+ \hline
+\end{tabular}
+\caption{Table des évaluations pour la facilité d'utilisation}
+\label{table:use}
+\end{table}\\
+\textbf{Commentaires des utilisateurs :}
+\begin{itemize}
+    \item ``L'interface est facile à utiliser, ce qui simplifie grandement l'expérience.''
+    \item ``L'utilisation est aussi simple que celle d'un chatbot classique, ce qui rend le processus très intuitif.''
+    \item ``J'ai eu du mal à comprendre qu'il fallait utiliser le bouton 'code' pour permettre au chatbot de localiser le code.''
+    \item ``Une version française serait fortement appréciée pour faciliter l'utilisation par des francophones.''
+\end{itemize}
+\newpage
+\subsubsection{Critère: Design de l'interface}
+Ce critère se concentre sur l'esthétique visuelle de l'interface utilisateur et l'ergonomie globale. Il prend en compte l'harmonie des couleurs, la lisibilité des textes et la disposition logique des éléments.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||} 
+ \hline
+ \multicolumn{3}{|| c ||}{Design de l'interface}\\
+ \hline
+ \textbf{Bien} & \textbf{Satisfaisant} & \textbf{Mauvais} \\ 
+ \hline
+ 8 & 2 & 0 \\ 
+ \hline
+\end{tabular}
+\caption{Table des évaluations pour le design de l'interface}
+\label{table:UI}
+\end{table}\\
+\textbf{Commentaires des utilisateurs :}
+\begin{itemize}
+    \item ``Le design de l'interface est simple et les couleurs sont douces pour les yeux ''
+    \item ``J'aurais aimé avoir la possibilité de changer vers un mode plus lumineux.''
+\end{itemize}
+\subsubsection{Critère: Qualité des réponses du chatbot}
+Ce critère mesure la pertinence et l'exactitude des réponses fournies par le chatbot. Il évalue la capacité du chatbot à comprendre les demandes des utilisateurs et à fournir des réponses qui sont correctes. La mesure de la qualité peut également inclure la vitesse de réponse du chatbot.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||} 
+ \hline
+ \multicolumn{3}{|| c ||}{Qualité des réponses du chatbot}\\
+ \hline
+ \textbf{Bien} & \textbf{Satisfaisant} & \textbf{Mauvais} \\ 
+ \hline
+ 4 & 5 & 1 \\ 
+ \hline
+\end{tabular}
+\caption{Table des évaluations pour la qualité du chatbot}
+\label{table:chat}
+\end{table}\\
+\textbf{Commentaires des utilisateurs :}
+\begin{itemize}
+    \item ``Le chatbot m'a l'air assez limité sur les sujets auxquels il peut répondre.''
+    \item ``Le chatbot a des réponses simples, je m'attendais à quelques comme ChatGPT''
+    \item ``J'ai été agréablement surpris de voir la vitesse à laquelle le chatbot répondait, et ce même lors de la correction de code.''
+    \item `` La qualité pour un prototype est assez bonne, le chatbot répond rapidement même si limité dans sa base de connaissances. Continue comme ça !''
+\end{itemize}
+
+\newpage
+\subsection{Évaluation Quantitative}
+\label{éval}
+ L'objectif principal de l'analyse quantitative est de comparer les différents modèles utilisables pour la création d'un chatbot pour ce projet afin de déterminer lequel offre les meilleures performances. Tous les entraînements ont été effectués sur un ordinateur disposant d'un Ryzen 7 3800X à 16 coeurs (de 3.9 GHz à 4.5 GHz) et de 32 GO de RAM.\\
+
+ Pour permettre cette comparaison, il a été nécessaire d'entraîner une multitude de modèles en utilisant pour chacun des paramètres optimaux qui ont été trouvés en utilisant une manière de procéder par essais-erreurs. Cette méthode a permis au fil des essais d'identifier des paramètres optimaux pour les modèles en termes d'épochs, de taille de lot, de taux d'apprentissage et taille cachée. Les graphiques générés à la fin de chaque entrainement de modèle ont été utilisés pour ajuster ces paramètres en les comparant aux courbes de la \highlighthyperref{fig:lr}{Figure 15 – Modèle des taux d’apprentissages}. Un échantillon des derniers graphiques générer est présent dans la \highlighthyperref{fig:compare-training}{Figure 16 – Comparaison des courbes d’entraînement}.\\
+
+\insererfigure{Images/learning_rate.png}{0.15}{Modèle des taux d'apprentissages \highlightcite{learning_rate}}{lr}
+
+\comparethreefigures{Images/bert_intent_classificator - Epoch 40 - Learning Rate 4e-05.png}{Bert}{bert_sample}{Images/tfidf_stemmer_ws - Epoch 50 - Learning Rate 0.005.png}{TFIDF avec mots vides}{TFIDF_sample}{Images/bow_stemmer - Epoch 50 - Learning Rate 0.005.png}{BagOfWords}{BagOfWords_sample}{des courbes d'entraînement}{compare-training}
+
+ \newpage
+Une fois les paramètres optimaux trouvés pour chaque modèle, ils sont testés grâce à deux métriques qui mesurent les performances sur des données connues et sur des données inconnues. Chaque modèle et les résultats obtenus pour ces deux métriques sont résumés dans le \highlighthyperref{tab:train}{Table 4 – Résultats d’entraînement des différents modèles}:
+\begin{itemize}
+    \item \textbf{Les données connues (Train Acc)}: es données connues sont celles qui figurent dans la base de connaissances définie dans la section \highlightref{subsec:data}. Cette métrique vise à déterminer si le modèle fonctionne correctement sur les données sur lesquelles il a été entraîné.
+    \item \textbf{Les données inconnues (Test Acc)}: Les données inconnues ne sont pas présentes dans la base de connaissances, mais elles sont suffisamment similaires pour que le modèle puisse normalement les reconnaître. Cette métrique permet de déterminer si le modèle peut identifier des similarités entre les données qu'il connaît et celles qu'il ne connaît pas. Cela est crucial étant donné que nos utilisateurs viennent de divers horizons, il peut y avoir de légères variations dans les entrées fournies par les utilisateurs par rapport aux informations présentes dans la base de connaissances. 
+\end{itemize}
+
+
+\begin{table}[h]
+\centering
+\begin{adjustbox}{width=1.2\textwidth, center}
+\begin{tabular}{||l|l|m{2.2cm}|m{1.5cm}|l|m{1.2cm}|m{1.7cm}|m{1.5cm}|m{1.5cm}|l||}
+\hline
+\textbf{Modèle} & \textbf{Prétraitement} & \textbf{Extracteur} & \textbf{Avec mots vides ?} & \textbf{Epochs} & \textbf{Taille de lot} & \textbf{Taux d'apprentissage} & \textbf{Taille caché} & \textbf{Train Acc} & \textbf{Test Acc} \\ \hline
+BERT & Aucun & BERT & Aucun & 40 & 16 & 0.00004 & Aucune & 100.0\% & 76.71\% \\ 
+\hline
+NeuralNet & Stemmer & Word2Vec GRAM & NO & 1000 & 16 & 0.003 & 16 & 100.0\% & 20.55\% \\ 
+\hline
+NeuralNet & Lemmatizer & Word2Vec GRAM & NO & 1000 & 16 & 0.003 & 16 & 97.01\% & 17.81\% \\ 
+\hline
+NeuralNet & Stemmer & Word2Vec CBOW & NO & 1000 & 16 & 0.003 & 16 & 100.0\% & 23.29\% \\ 
+\hline
+NeuralNet & Lemmatizer & Word2Vec CBOW & NO & 1000 & 16 & 0.003 & 16 & 99.4\% & 19.18\% \\ 
+\hline
+NeuralNet & Stemmer & Word2Vec GRAM & YES & 1000 & 16 & 0.003 & 16 & 100.0\% & 24.66\% \\ 
+\hline
+NeuralNet & Lemmatizer & Word2Vec GRAM & YES & 1000 & 16 & 0.003 & 16 & 100.0\% & 23.29\% \\ 
+\hline
+NeuralNet & Stemmer & Word2Vec CBOW & YES & 1000 & 16 & 0.003 & 16 & 100.0\% & 26.03\% \\ 
+\hline
+NeuralNet & Lemmatizer & Word2Vec CBOW & YES & 1000 & 16 & 0.003 & 16 & 98.8\% & 28.77\% \\ 
+\hline
+NeuralNet & Stemmer & TFIDF & NO & 50 & 16 & 0.005 & 16 & 100.0\% & 42.47\% \\ 
+\hline
+NeuralNet & Lemmatizer & TFIDF & NO & 50 & 16 & 0.005 & 16 & 100.0\% & 38.36\% \\ 
+\hline
+NeuralNet & Stemmer & TFIDF & YES & 50 & 16 & 0.005 & 16 & 100.0\% & 41.10\% \\ 
+\hline
+NeuralNet & Lemmatizer & TFIDF & YES & 50 & 16 & 0.005 & 16 & 100.0\% & 34.25\% \\ 
+\hline
+NeuralNet & Stemmer & BagOfWords & NO & 50 & 16 & 0.005 & 16 & 100.0\% & 38.36\% \\ 
+\hline
+NeuralNet & Lemmatizer & BagOfWords & NO & 50 & 16 & 0.005 & 16 & 100.0\% & 41.10\% \\ 
+\hline
+NeuralNet & Stemmer & BagOfWords & YES & 50 & 16 & 0.005 & 16 & 100.0\% & 47.95\% \\ 
+\hline
+NeuralNet & Lemmatizer & BagOfWords & YES & 50 & 16 & 0.005 & 16 & 100.0\% & 41.10\% \\ 
+\hline
+\end{tabular}
+\end{adjustbox}
+\label{table:train}
+\caption{Résultats d'entraînement des différents modèles}
+\end{table}
+
+\newpage
+\section{Discussion}
+Dans cette section, il sera question d'explorer en détail les différentes facettes du projet. La lumière sera mise sur les limites inhérentes à l'approche actuelle ainsi que les possibilités d'améliorations futures.
+\subsection{Les limites du projet}
+Ce projet bien qu'il exploite les grands modèles de langage et la technologie de traitement du langage naturel (NLP) présent des limites bien visibles notamment en ce qui concerne sa base de connaissances.\\
+
+La première limite présente dans le projet est la base de connaissances. En effet, cette base est constituée uniquement d'un fichier regroupant toutes les données nécessaires au chatbot pour la classification des intentions. L'utilisation d'un fichier comme celui-ci pose plusieurs problèmes, notamment en ce qui concerne la capacité du chatbot à comprendre des variations de phrases ayant le même sens, mais présentant des différences syntaxiques importantes. De plus, la capacité de réponse du chatbot qui est limité, car elle dépend des réponses préenregistrées dans ce fichier. En conséquence, le chatbot ne peut pas générer de réponses par lui-même. Tout cela amène à une efficacité limitée du chatbot dans les scénarios de communication plus complexes ou moins prévisibles.\\
+
+La deuxième limite est tout ce qui concerne la maintenance et la mise à jour de la base de connaissances. Vu que les mises à jour ne peuvent se faire que manuellement, cela peut-être très laborieux de venir ajouter de gros conglomérats de données dans le fichier actuel. Cela deviendra de plus en plus difficile au fur et à mesure que le champ d'application du chatbot s'élargit, car on pourrait être amené à faire des erreurs lors de l'encodage.\\
+
+La troisième limite de ce projet concerne principalement l'analyse des erreurs de syntaxe et la recommandation de pratiques de Clean Code. Ces fonctionnalités reposent sur l'utilisation d'un arbre syntaxique, ce qui peut se révéler rapidement limité face à des codes complexes ou l'utilisation d’annotations de haut niveau qui sont courantes dans de nombreux langages de programmation. De plus, l'absence d'une base de données dynamique pour intégrer les nouvelles recommandations de Clean Code rend nécessaire une mise à jour manuelle. Cette tâche peut devenir particulièrement fastidieuse surtout lorsque le système prend en charge des dizaines de langages de programmation différents qui possèdent tout des règles de Clean Code différents. De plus, les recommandations de Clean Code qui sont actuellement en vigueur ne seront très certainement plus les mêmes d'ici une dizaine d'années.\\
+
+La dernière limite de ce projet est directement liée à la langue que le programme peut traiter. En effet, à l'heure actuelle, le programme ne peut gérer que les entrées de l'utilisateur en Anglais, ce qui limite l'utilisation par des personnes ne parlant pas cette langue.\\
+
+Ces limites soulignent l'importance de penser à des améliorations pour le futur du projet. Dans la section suivante, il sera discuté des améliorations qui peuvent être implémentées pour surmonter ces obstacles.
+
+\newpage
+\subsection{Les pistes d'améliorations}
+Pour surmonter les obstacles évoqués précédemment, il est nécessaire d'explorer les pistes d'améliorations visant à amener ce projet vers une version plus pérenne dans le temps. Les pistes d'amélioration proposées ci-dessous visent à changer le programme qui est dans un mode statique vers un mode dynamique. En mode statique, les principes du programme tel que la base de connaissances ou les règles de Clean Code ne changent pas avec le temps. Cependant, le mode dynamique confère au programme la capacité de s'adapter et d'évoluer avec le temps. Cela permettrait d'enrichir la base de connaissances grâce au données provenant des interactions avec l'utilisateur ainsi que de mettre à jour les principes du Clean Code si besoin.\\
+
+La première amélioration suggérée concerne la base de connaissances qui est actuellement dans un état statique. Il serait bénéfique de permettre au système d'apprendre continuellement des interactions avec l'utilisateur ou grâce à leurs feedbacks. Cette habilité d'apprendre du programme permettrait de rendre les réponses plus dynamiques et adaptatives. Cependant, pour garantir la qualité des réponses du programme, il sera essentiel de développer un système de validation qui filtrera les données inexactes ou inappropriées avant leur intégration dans la base de connaissances.\\
+
+La deuxième amélioration possible concerne l'analyseur syntaxique et la recommandation du Clean Code qui utilise tout deux les arbres syntaxiques. Bien que cela soit efficace pour analyser la syntaxe, cette méthode montre des limites pour l'analyse du Clean Code. La solution serait de mettre en place des modèles d'intelligence artificielle qui seront spécialisés dans la suggestion de recommandation pour le Clean Code ainsi que dans la correction de syntaxe. Cela permettrait de passer de méthodes statiques à des méthodes dynamiques qui pourront s'adapter dépendant du langage ainsi que dépendant de l'époque.\\
+
+La troisième amélioration possible concerne la gestion des langues de l'utilisateur. Pour rendre le chatbot plus accessible et efficace, il est important d'intégrer un système de détection automatique de la langue. Cela permettra au chatbot de comprendre et de répondre dans la langue choisie par l'utilisateur sans que ce dernier ait à la spécifier. Il serait aussi possible d'implémenter une fonctionnalité de traduction automatique en temps réel. Cela permettrait alors d'entrainer le chatbot que sur une seul langage et de traduire tout ce que l'utilisateur dit vers la langage compris par le chatbot puis inversément lors de l'envoi de la réponse vers l'utilisateur. Cette capacité multilingue améliorera non seulement l'expérience utilisateur, mais élargira également la portée du chatbot à une audience globale.\\
+
+Grâce à ces trois améliorations, on peut espérer avoir un système plus pérenne dans le temps, plus efficace et réactif.
 \newpage
 \section{Conclusion}
 \label{conclu}
+Ce projet a conduit à la réalisation d'un prototype de chatbot destiné à soutenir l'utilisateur dans la rédaction de code en utilisant le traitement du langage naturel et les arbres syntaxiques. Ce logiciel offre un aperçu des possibilités dans le domaine des chatbots et de l'assistance à l'écriture de code propre, ce qui répond parfaitement à l'objectif principal du projet qui était de développer un "Prototype de chatbot assistant l'écriture de code propre et exploitant le langage naturel". De plus, ce projet laisse entrevoir la prochaine étape dans la continuité du projet qui permettra la création d'un chatbot avancé exploitant les grands modèles de langage.\\
+
+Cependant, malgré sa capacité à répondre à la problématique initiale, le prototype est limité par sa base de connaissances actuelles et nécessite des mises à jour manuelles pour évoluer. Il est également important de souligner que le chatbot peut rencontrer des difficultés à interpréter les entrées des utilisateurs en fonction du contexte.\\
+
+En conclusion, bien que le développement du projet ait bien progressé, ce programme reste dans un état de prototype en raison des contraintes de temps typiques pour un projet de cette envergure. Il est judicieux de souligner que l'exploration des domaines des chatbots, du traitement du langage naturel et des arbres syntaxiques s'est révélée très enrichissante. Finalement, le travail de recherche effectué dans ces différents domaines durant le développement du logiciel a grandement contribué à renforcer mes connaissances tout en me donnant l'envie d'approfondir mes recherches sur ces différents sujets.
 
 \newpage
 \section{Références} 
@@ -360,4 +1164,8 @@ Le schéma entité-association est une technique de modélisation de données la
 
 \newpage
 \listoftables
+
+\newpage
+\listofalgorithms
+
 \end{document}

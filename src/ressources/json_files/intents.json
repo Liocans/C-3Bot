@@ -1,8 +1,8 @@
 {
-  "intents": [
+  "intents" : [
     {
-      "tag": "Greeting",
-      "patterns": [
+      "tag" : "Greeting",
+      "patterns" : [
         "Hi",
         "Hi there",
         "Hola",
@@ -11,19 +11,26 @@
         "Hya",
         "Hya there"
       ],
-      "responses": [
+      "responses" : [
         "Hi human !",
         "Hello human !",
         "Hola human !"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "Courtesy",
-      "patterns": [
+      "tag" : "Courtesy",
+      "patterns" : [
         "How are you doing?",
         "How's it going?",
         "How are you?",
@@ -32,26 +39,33 @@
         "How have you been?",
         "How's everything?"
       ],
-      "responses": [
+      "responses" : [
         "I'm doing well, thanks! How about you?",
         "I'm fine, thanks for asking! How are you?",
         "All good here, how about yourself?"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "CourtesyGreeting",
-      "patterns": [
+      "tag" : "CourtesyGreeting",
+      "patterns" : [
         "Hi how are you?",
         "Hello how are you?",
         "Hola how are you?",
         "Hope you are doing well?",
         "Hello hope you are doing well?"
       ],
-      "responses": [
+      "responses" : [
         "Hello, I am great, how are you?",
         "Hello, how are you? I am great thanks!",
         "Hello, I am good thank you, how are you?",
@@ -60,14 +74,21 @@
         "Hi, I am good thank you, how are you?",
         "Hi, good thank you, how are you?"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "CurrentHumanQuery",
-      "patterns": [
+      "tag" : "CurrentHumanQuery",
+      "patterns" : [
         "What is my name?",
         "What do you call me?",
         "Who do you think I am?",
@@ -76,21 +97,28 @@
         "What name do you call me by?",
         "Tell me my name"
       ],
-      "responses": [
+      "responses" : [
         "You are <HUMAN>! How can I help?",
         "Your name is  <HUMAN>, how can I help you?",
         "They call you <HUMAN>, what can I do for you?",
         "Your name is <HUMAN>, how can I help you?",
         "<HUMAN>, what can I do for you?"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "NameQuery",
-      "patterns": [
+      "tag" : "NameQuery",
+      "patterns" : [
         "What is your name?",
         "What could I call you?",
         "What can I call you?",
@@ -98,19 +126,26 @@
         "Who are you?",
         "Tell me your name?"
       ],
-      "responses": [
+      "responses" : [
         "You can call me Ceb",
         "You may call me Ceb",
         "Call me Ceb"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "RealNameQuery",
-      "patterns": [
+      "tag" : "RealNameQuery",
+      "patterns" : [
         "What is your real name?",
         "What is your real name please?",
         "What's your real name?",
@@ -119,18 +154,25 @@
         "Your real name please?",
         "Your real name please?"
       ],
-      "responses": [
+      "responses" : [
         "My name is C-3Bot",
         "My real name is C-3Bot"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "Thanks",
-      "patterns": [
+      "tag" : "Thanks",
+      "patterns" : [
         "OK thank you",
         "OK thanks",
         "OK",
@@ -138,20 +180,27 @@
         "Thank you",
         "That's helpful"
       ],
-      "responses": [
+      "responses" : [
         "No problem!",
         "Happy to help!",
         "Any time!",
         "My pleasure"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "NotTalking2U",
-      "patterns": [
+      "tag" : "NotTalking2U",
+      "patterns" : [
         "I am not talking to you",
         "I was not talking to you",
         "Not talking to you",
@@ -160,19 +209,26 @@
         "Wasn't communicating to you",
         "Wasn't speaking to you"
       ],
-      "responses": [
+      "responses" : [
         "OK",
         "No problem",
         "Right"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "UnderstandQuery",
-      "patterns": [
+      "tag" : "UnderstandQuery",
+      "patterns" : [
         "Do you understand what I am saying",
         "Do you understand me",
         "Do you know what I am saying",
@@ -180,19 +236,26 @@
         "Comprendo",
         "Know what I mean"
       ],
-      "responses": [
+      "responses" : [
         "Well I would not be a very clever AI if I did not would I?",
         "I read you loud and clear!",
         "I do in deed!"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "Shutup",
-      "patterns": [
+      "tag" : "Shutup",
+      "patterns" : [
         "Be quiet",
         "Shut up",
         "Stop talking",
@@ -201,55 +264,76 @@
         "Quiet",
         "Shhh"
       ],
-      "responses": [
+      "responses" : [
         "I am sorry to disturb you",
         "Fine, sorry to disturb you",
         "OK, sorry to disturb you"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "Swearing",
-      "patterns": [
+      "tag" : "Swearing",
+      "patterns" : [
         "fuck off",
         "fuck",
         "twat",
         "shit"
       ],
-      "responses": [
+      "responses" : [
         "Please do not swear",
         "How rude",
         "That is not very nice"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "GoodBye",
-      "patterns": [
+      "tag" : "GoodBye",
+      "patterns" : [
         "Bye",
         "Adios",
         "See you later",
         "Goodbye"
       ],
-      "responses": [
+      "responses" : [
         "See you later",
         "Have a nice day",
         "Bye! Come back again soon."
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "CourtesyGoodBye",
-      "patterns": [
+      "tag" : "CourtesyGoodBye",
+      "patterns" : [
         "Thanks, bye",
         "Thanks for the help, goodbye",
         "Thank you, bye",
@@ -257,19 +341,26 @@
         "Thanks goodbye",
         "Thanks good bye"
       ],
-      "responses": [
+      "responses" : [
         "No problem, goodbye",
         "Not a problem! Have a nice day",
         "Bye! Come back again soon."
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "Clever",
-      "patterns": [
+      "tag" : "Clever",
+      "patterns" : [
         "You are very clever",
         "You are a very clever girl",
         "You are very intelligent",
@@ -278,19 +369,26 @@
         "Clever girl",
         "Genious"
       ],
-      "responses": [
+      "responses" : [
         "Thank you, I was trained that way",
         "I was trained well",
         "Thanks, I was trained that way"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "Jokes",
-      "patterns": [
+      "tag" : "Jokes",
+      "patterns" : [
         "Tell me a joke",
         "Do you know any jokes",
         "How about a joke",
@@ -298,7 +396,7 @@
         "Make me laugh",
         "I need cheering up"
       ],
-      "responses": [
+      "responses" : [
         "Van Gogh goes into a pub and his mate asks him if he wants a drink. 'No thanks', said Vincent, 'I've got one ear.'",
         "A pony walks into a pub. The publican says, 'What's the matter with you?' 'Oh it's nothing', says the pony. 'I'm just a little horse!'",
         "A white horse walks into a bar, pulls up a stool, and orders a pint. The landlord pours him a tall frothy mug and say, 'You know, we have a drink named after you.' To which the white horse replies, 'What, Eric?'",
@@ -318,14 +416,21 @@
         "Waiter: And how did you find your steak sir? Customer: I just flipped a chip over, and there it was!",
         "A guy goes into a pet shop and asks for a wasp. The owner tells him they don't sell wasps, to which the man says, 'Well you've got one in the window.'"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "SelfAware",
-      "patterns": [
+      "tag" : "SelfAware",
+      "patterns" : [
         "Can you prove you are self-aware",
         "Can you prove you are self aware",
         "Can you prove you have a conscious",
@@ -334,19 +439,26 @@
         "Can you prove you have a conscious please",
         "prove you have a conscious"
       ],
-      "responses": [
+      "responses" : [
         "That is an interesting question, can you prove that you are?",
         "That is an difficult question, can you prove that you are?",
         "That depends, can you prove that you are?"
       ],
-      "module": "",
-      "class": "",
-      "function": "",
-      "parameters": [ ]
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     },
     {
-      "tag": "SyntaxCorrection",
-      "patterns": [
+      "tag" : "SyntaxCorrection",
+      "patterns" : [
         "Can you help me with the syntax?",
         "Can you check this code for syntax errors?",
         "I need help with syntax errors in my code.",
@@ -369,24 +481,27 @@
         "Check this code for syntax problems",
         "Help me correct the syntax errors"
       ],
-      "responses": [
+      "responses" : [
         "Sure, I can help you the syntax errors."
       ],
-      "module": "modules.code_analyser.code_analyser",
-      "class": "CodeAnalyser",
-      "function": "analyse",
-       "parameters": {
-         "dynamic": ["code", "language"],
-         "static": {
-           "code": "",
-           "language": "",
-           "mode": "S"
-         }
-       }
+      "module" : "modules.code_analyser.code_analyser",
+      "class" : "CodeAnalyser",
+      "function" : "analyse",
+      "parameters" : {
+        "dynamic" : [
+          "code",
+          "language"
+        ],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : "S"
+        }
+      }
     },
     {
-      "tag": "CleanCodeAdvice",
-      "patterns": [
+      "tag" : "CleanCodeAdvice",
+      "patterns" : [
         "Can you help me with the clean code?",
         "How can I make this code cleaner?",
         "Any tips to improve the readability of my code?",
@@ -414,24 +529,27 @@
         "Can you help me to do the clean code",
         "Can you do the clean code"
       ],
-      "responses": [
+      "responses" : [
         "Sure, let's make your code cleaner."
       ],
-      "module": "modules.code_analyser.code_analyser",
-      "class": "CodeAnalyser",
-      "function": "analyse",
-       "parameters": {
-         "dynamic": ["code", "language"],
-         "static": {
-           "code": "",
-           "language": "",
-           "mode": "C"
-         }
-       }
+      "module" : "modules.code_analyser.code_analyser",
+      "class" : "CodeAnalyser",
+      "function" : "analyse",
+      "parameters" : {
+        "dynamic" : [
+          "code",
+          "language"
+        ],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : "C"
+        }
+      }
     },
     {
-      "tag": "SyntaxAndCleanCode",
-      "patterns": [
+      "tag" : "SyntaxAndCleanCode",
+      "patterns" : [
         "Can you help me with the clean code and the syntax?",
         "Can you fix syntax errors and suggest cleanliness improvements?",
         "I need syntax correction and tips for cleaner code.",
@@ -454,21 +572,97 @@
         "Do a code check for syntax errors and offer suggestions for cleanliness.",
         "Can you edit this code to correct errors and improve its readability?"
       ],
-      "responses": [
+      "responses" : [
         "Sure, I can help with both syntax and code cleancode."
       ],
-      "module": "modules.code_analyser.code_analyser",
-      "class": "CodeAnalyser",
-      "function": "analyse",
-       "parameters": {
-         "dynamic": ["code", "language"],
-         "static": {
-           "code": "",
-           "language": "",
-           "mode": "both"
-         }
-       }
+      "module" : "modules.code_analyser.code_analyser",
+      "class" : "CodeAnalyser",
+      "function" : "analyse",
+      "parameters" : {
+        "dynamic" : [
+          "code",
+          "language"
+        ],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : "both"
+        }
+      }
+    },
+    {
+      "tag" : "SyntaxDefinition",
+      "patterns" : [
+        "What is syntax in programming?",
+        "Can you explain code syntax to me?",
+        "What does 'syntax' mean in programming?",
+        "Define code syntax.",
+        "How would you describe programming syntax?",
+        "Please explain the concept of syntax in coding."
+      ],
+      "responses" : [
+        "Sure! Syntax in programming refers to the set of rules that define the combinations of symbols and keywords that are considered to be correctly structured code in a particular programming language."
+      ],
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
+    },
+    {
+      "tag" : "CleanCodeDefinition",
+      "patterns" : [
+        "What is Clean Code?",
+        "Can you explain the concept of Clean Code?",
+        "Define Clean Code.",
+        "How would you describe Clean Code principles?",
+        "Please explain the importance of writing clean code."
+      ],
+      "responses" : [
+        "Clean Code refers to code that is easy to read, understand, and maintain. It follows good programming practices, such as meaningful variable names, proper indentation, and modular design, leading to improved readability and reduced errors."
+      ],
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
+    },
+    {
+      "tag" : "ChatbotDefinition",
+      "patterns" : [
+        "What is a chatbot?",
+        "Can you explain what a chatbot is?",
+        "Define chatbot.",
+        "How would you describe a chatbot?",
+        "Please explain the concept of a chatbot."
+      ],
+      "responses" : [
+        "A chatbot is a computer program designed to simulate conversation with human users, especially over the internet. It uses artificial intelligence techniques to understand and respond to user queries or commands in a conversational manner."
+      ],
+      "module" : "",
+      "class" : "",
+      "function" : "",
+      "parameters" : {
+        "dynamic" : [],
+        "static" : {
+          "code" : "",
+          "language" : "",
+          "mode" : ""
+        }
+      }
     }
   ],
-  "url": "https://www.kaggle.com/datasets/elvinagammed/chatbots-intent-recognition-dataset"
+  "url" : "https://www.kaggle.com/datasets/elvinagammed/chatbots-intent-recognition-dataset"
 }
