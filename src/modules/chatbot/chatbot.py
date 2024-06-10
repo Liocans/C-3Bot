@@ -124,7 +124,7 @@ class ChatBot:
         probabilities = torch.softmax(output, dim=1)
         prob = probabilities[0][predicted.item()]
 
-        return self.__extractor.tags[predicted.item()] if prob.item() > 0.7 else ""
+        return self.__extractor.tags[predicted.item()] if prob.item() > 0.6 else ""
 
     def get_response(self, user_input: str) -> list:
         """

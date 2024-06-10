@@ -95,7 +95,7 @@ class ChatInterface:
         Parameters:
             **kwargs (dict): Keyword arguments for Flask's run method, such as `debug` and `port`.
         """
-        self.__app.run(debug=False, **kwargs)
+        self.__app.run(debug=True, **kwargs)
 
     def __get_response(self) -> list:
         """
