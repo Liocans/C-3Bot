@@ -50,6 +50,9 @@ class BertIntentClassifier:
 
         Parameters:
             model_name (str): The name used to save or load the model.
+            num_epochs (int): The number of epochs to train the model.
+            batch_size (int): The batch size for training.
+            learning_rate (float): The optimizer's learning rate.
         """
 
         self.__model_name = model_name
