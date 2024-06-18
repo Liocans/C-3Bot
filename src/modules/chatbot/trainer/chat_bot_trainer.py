@@ -128,7 +128,7 @@ class ChatBotTrainer:
                     num_batches = 0  # Reset batch count after reporting
 
             end = time.time()
-            self.__save_chart(epochs_reported=epochs_reported, losses=losses)
+            # self.__save_chart(epochs_reported=epochs_reported, losses=losses)
             self.__save_model(final_loss=average_loss, total_time=end - start)
 
     def __save_chart(self, epochs_reported, losses):
