@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 ## Python Version
 
-This project requires Python 3.12 or later. You can download the latest version of Python from the [official website](https://www.python.org/downloads/).
+This project requires Python 3.12.1. You can download the latest version of Python from the [official website](https://www.python.org/downloads/).
 
 ## Usage For Classic User
 
