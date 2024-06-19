@@ -1,7 +1,6 @@
 import os
 import re
 
-
 class PathFinder:
     """
     A utility class for managing file and directory paths within a project.
@@ -26,7 +25,8 @@ class PathFinder:
 
         if PathFinder._path is None:
             app_dir_os = os.path.dirname(os.path.abspath(__file__))
-            PathFinder._path = re.sub(r"^(.*\\src).*", r"\1", app_dir_os)
+            # Use re.sub to correctly identify the 'src' directory in a cross-platform manner
+            PathFinder._path = re.sub(r"^(.*[\\/](src))([\\/].*)?$", r"\1", app_dir_os)
 
         return PathFinder._path
 
@@ -43,4 +43,4 @@ class PathFinder:
             str: The complete path combining the basic path with the specified file path.
         """
 
-        return PathFinder.get_basic_path() + "\\" + path_to_file
+        return os.path.join(PathFinder.get_basic_path(), path_to_file)

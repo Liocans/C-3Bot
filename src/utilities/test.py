@@ -9,6 +9,5 @@ from utilities.path_finder import PathFinder
 
 if __name__ == '__main__':
 
-    ChatBotTrainer(extractor_name="BagOfWords", preprocessor_name="Stemmer", remove_stopwords=False,
-                   modeling_name="NeuralNet", model_name="bow_stemmer_ws", num_epochs=50, batch_size=16,
-                   learning_rate=0.005, hidden_size=16).start_training()
+    print("Basic path:", PathFinder.get_basic_path())
+    print("Complete path:", PathFinder.get_complet_path("ressources"))
