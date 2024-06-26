@@ -69,9 +69,9 @@ $(document).ready(function() {
                 for (const item of data) {
                     if (!Array.isArray(item)) {
                         await typeMessage(item); // Wait for each message to be typed out before continuing
+                        $lastMsgContainer.append(" ");
                     } else {
                         for(const item_help of item){
-                            console.log(item_help);
                             $lastMsgContainer.append("<br>");
                             await typeMessage(item_help[0]);
                             let listHtml = "<ul>";
