@@ -573,7 +573,7 @@
         "Can you edit this code to correct errors and improve its readability?"
       ],
       "responses" : [
-        "Sure, I can help with both syntax and code cleancode."
+        "Sure, I can help with both syntax and Clean Code."
       ],
       "module" : "modules.code_analyser.code_analyser",
       "class" : "CodeAnalyser",
