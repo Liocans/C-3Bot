@@ -218,5 +218,7 @@ class BertIntentClassifier:
         inputs = self.__tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
         with torch.no_grad():
             outputs = self.__model(**inputs)
+        probs = torch.softmax(outputs.logits, dim=1)
         prediction = torch.argmax(outputs.logits, dim=1)
-        return self.__intents[prediction.item()]
+        predicted_prob = probs[0, prediction.item()].item()
+        return self.__intents[prediction.item()] if predicted_prob > 0.6 else ""
